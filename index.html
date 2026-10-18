@@ -2115,6 +2115,260 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* =========================================================
+     设置页
+     ========================================================= */
+  .settings-top { margin-bottom: 14px; }
+  .settings-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding-bottom: 24px;
+  }
+  .settings-card {
+    background: var(--surface);
+    border: 2px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 20px 22px;
+  }
+  .settings-title {
+    margin: 0 0 6px;
+    font-size: 17px;
+    letter-spacing: .01em;
+  }
+  .settings-desc {
+    margin: 0 0 14px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px dashed var(--line);
+  }
+  .settings-row:first-of-type { border-top: none; }
+  .settings-row.switch-row { cursor: pointer; }
+  .settings-label { min-width: 0; }
+  .settings-label strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .settings-label small {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* 分段选择 */
+  .seg {
+    display: inline-flex;
+    flex: 0 0 auto;
+    padding: 3px;
+    gap: 2px;
+    background: #F7F1E8;
+    border-radius: 999px;
+  }
+  .seg-btn {
+    border: none;
+    background: transparent;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+    white-space: nowrap;
+  }
+  .seg-btn:hover { color: var(--ink); }
+  .seg-btn.active {
+    background: var(--surface);
+    color: var(--orange-deep);
+    box-shadow: 0 2px 8px rgba(103, 76, 40, .14);
+  }
+
+  /* 开关 */
+  .switch {
+    position: relative;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 28px;
+    display: inline-block;
+  }
+  .switch input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+  .switch-ui {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: #E6DDCF;
+    transition: background .18s ease;
+    pointer-events: none;
+  }
+  .switch-ui::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(80, 60, 30, .22);
+    transition: transform .18s ease;
+  }
+  .switch input:checked + .switch-ui { background: var(--orange); }
+  .switch input:checked + .switch-ui::after { transform: translateX(20px); }
+  .switch input:focus-visible + .switch-ui { outline: 3px solid var(--purple); outline-offset: 2px; }
+
+  /* 按钮区 */
+  .settings-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .settings-actions .btn { width: auto; }
+  .settings-note {
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .settings-danger {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border: 2px dashed #F7C9C9;
+    border-radius: 18px;
+    background: #FFF8F8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .settings-danger .settings-label small { color: #B4736F; }
+  .btn-danger-ghost {
+    flex: 0 0 auto;
+    border: 2px solid #F0B9B9;
+    background: #fff;
+    color: #C94A4A;
+    border-radius: 999px;
+    padding: 9px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .btn-danger-ghost:hover { background: #FDEDED; }
+  .btn-danger-ghost:active { transform: translateY(1px); }
+
+  /* 账号块 */
+  .set-account-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 18px;
+    background: #FBF7F1;
+    border: 1px solid var(--line);
+  }
+  .set-account-avatar {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(135deg, var(--orange), #FFB259);
+  }
+  .set-account-main { min-width: 0; flex: 1 1 auto; }
+  .set-account-main strong { display: block; font-size: 14px; word-break: break-all; }
+  .set-account-main small { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+  .set-badge {
+    flex: 0 0 auto;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 800;
+    background: #E8F6EF;
+    color: #1F8A5B;
+  }
+  .set-badge.idle { background: #F1ECE4; color: var(--muted); }
+
+  /* 元信息表 */
+  .settings-meta {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 18px;
+  }
+  .settings-meta > div {
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: #FBF7F1;
+  }
+  .settings-meta dt { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+  .settings-meta dd { margin: 3px 0 0; font-size: 13.5px; font-weight: 800; word-break: break-all; }
+
+  .settings-details {
+    margin-top: 16px;
+    border-top: 1px dashed var(--line);
+    padding-top: 12px;
+  }
+  .settings-details summary {
+    cursor: pointer;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .settings-log {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+  .settings-log b { color: var(--ink); }
+  .settings-foot {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
+  @media (max-width: 560px) {
+    .settings-card { padding: 16px 15px; border-radius: 22px; }
+    .settings-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .settings-row.switch-row { flex-direction: row; align-items: center; }
+    .seg { width: 100%; }
+    .seg-btn { flex: 1 1 0; padding: 8px 4px; }
+    .settings-meta { grid-template-columns: 1fr; }
+    .settings-danger { flex-direction: column; align-items: stretch; }
+    .btn-danger-ghost { width: 100%; }
+  }
 </style>
 <style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style><!-- 云服务 SDK（CDN 形式，暴露全局 WorkBuddyCloud）；主脚本在其后执行，初始化时机由 boot 保证 -->
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js" crossorigin="anonymous"></script></head>
@@ -2160,6 +2414,7 @@
       </div>
       <button class="icon-btn" id="soundToggle" type="button" aria-label="关闭音效" title="关闭音效" data-page-node-id="bTFeKtVwB3mqtAfG3x67Dv">🔊</button>
       <button class="icon-btn" id="voiceToggle" type="button" aria-label="关闭语音朗读" title="关闭语音朗读" data-page-node-id="vLxzmHKFq62wTiYehBspGn">🔈</button>
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="打开设置" title="设置" aria-controls="view-settings">⚙️</button>
       <div class="grade-picker" id="accountSlot">
         <button class="icon-btn account-btn offline" id="accountBtn" type="button"
                 aria-haspopup="dialog" aria-expanded="false" aria-controls="accountPanel"
@@ -2703,6 +2958,155 @@
       </div>
     </div>
   </section>
+
+  <section class="view" id="view-settings">
+    <div class="mode-top settings-top">
+      <a class="back-btn" id="settingsBack" href="#/home" aria-label="返回首页">←</a>
+      <div class="mode-title">
+        <strong>设置</strong>
+        <small>偏好、数据、账号和版本都在这儿</small>
+      </div>
+    </div>
+
+    <div class="settings-body">
+      <!-- 学习偏好 -->
+      <section class="settings-card" aria-labelledby="setPrefTitle">
+        <h3 class="settings-title" id="setPrefTitle">🎛️ 学习偏好</h3>
+        <p class="settings-desc">这些偏好跟着「年级 + 教材」走，换教材不会串。</p>
+
+        <div class="settings-row">
+          <div class="settings-label">
+            <strong>每日单词目标</strong>
+            <small>学到这个数量就发奖励星星</small>
+          </div>
+          <div class="seg" role="group" aria-label="每日单词目标" data-seg="dailyGoal">
+            <button type="button" class="seg-btn" data-value="5">5 个</button>
+            <button type="button" class="seg-btn" data-value="10">10 个</button>
+            <button type="button" class="seg-btn" data-value="15">15 个</button>
+            <button type="button" class="seg-btn" data-value="20">20 个</button>
+          </div>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-label">
+            <strong>每轮题目数量</strong>
+            <small>选一选 / 拼一拼 / 连一连 / 抽题复习</small>
+          </div>
+          <div class="seg" role="group" aria-label="每轮题目数量" data-seg="roundSize">
+            <button type="button" class="seg-btn" data-value="5">5 题</button>
+            <button type="button" class="seg-btn" data-value="10">10 题</button>
+            <button type="button" class="seg-btn" data-value="15">15 题</button>
+          </div>
+        </div>
+
+        <label class="settings-row switch-row" for="setSound">
+          <div class="settings-label">
+            <strong>音效</strong>
+            <small>按键、翻卡、答对答错的提示音</small>
+          </div>
+          <span class="switch">
+            <input type="checkbox" id="setSound" />
+            <span class="switch-ui" aria-hidden="true"></span>
+          </span>
+        </label>
+
+        <label class="settings-row switch-row" for="setVoice">
+          <div class="settings-label">
+            <strong>语音朗读</strong>
+            <small>单词和例句的英文朗读</small>
+          </div>
+          <span class="switch">
+            <input type="checkbox" id="setVoice" />
+            <span class="switch-ui" aria-hidden="true"></span>
+          </span>
+        </label>
+
+        <label class="settings-row switch-row" for="setAutoSpeak">
+          <div class="settings-label">
+            <strong>自动朗读</strong>
+            <small>翻卡、出题时自动发声；关掉后点喇叭才读</small>
+          </div>
+          <span class="switch">
+            <input type="checkbox" id="setAutoSpeak" />
+            <span class="switch-ui" aria-hidden="true"></span>
+          </span>
+        </label>
+
+        <label class="settings-row switch-row" for="setStrictCase">
+          <div class="settings-label">
+            <strong>拼写区分大小写</strong>
+            <small>关掉后 apple 和 Apple 都算对（默认关）</small>
+          </div>
+          <span class="switch">
+            <input type="checkbox" id="setStrictCase" />
+            <span class="switch-ui" aria-hidden="true"></span>
+          </span>
+        </label>
+      </section>
+
+      <!-- 账号与同步 -->
+      <section class="settings-card" aria-labelledby="setAccountTitle">
+        <h3 class="settings-title" id="setAccountTitle">☁️ 账号与同步</h3>
+        <div id="setAccountBox">
+          <!-- 由 renderSettings() 按登录状态填充 -->
+        </div>
+      </section>
+
+      <!-- 数据与备份 -->
+      <section class="settings-card" aria-labelledby="setDataTitle">
+        <h3 class="settings-title" id="setDataTitle">💾 数据与备份</h3>
+        <p class="settings-desc" id="setDataSummary">正在统计本机数据…</p>
+
+        <div class="settings-actions">
+          <button class="btn btn-soft" id="setExport" type="button">⬇️ 导出备份文件</button>
+          <button class="btn btn-soft" id="setImport" type="button">⬆️ 从文件导入</button>
+          <input type="file" id="setImportFile" accept="application/json,.json" hidden />
+        </div>
+        <p class="settings-note" id="setDataNote"></p>
+
+        <div class="settings-danger">
+          <div class="settings-label">
+            <strong>清空本机学习数据</strong>
+            <small>英语进度和数学错题全部删除，且无法恢复。云端同步的进度不受影响，重新登录即可拉回。</small>
+          </div>
+          <button class="btn btn-danger-ghost" id="setWipe" type="button">清空本机数据</button>
+        </div>
+      </section>
+
+      <!-- 关于 -->
+      <section class="settings-card" aria-labelledby="setAboutTitle">
+        <h3 class="settings-title" id="setAboutTitle">ℹ️ 关于</h3>
+        <dl class="settings-meta">
+          <div><dt>版本</dt><dd id="setVersion">—</dd></div>
+          <div><dt>离线缓存</dt><dd id="setCacheVersion">—</dd></div>
+          <div><dt>当前档案</dt><dd id="setProfile">—</dd></div>
+          <div><dt>本次数据来源</dt><dd id="setCloudState">—</dd></div>
+        </dl>
+
+        <div class="settings-actions">
+          <button class="btn btn-soft" id="setCheckUpdate" type="button">🔄 检查更新</button>
+          <button class="btn btn-soft" id="setInstall" type="button" hidden>📲 安装到桌面</button>
+        </div>
+
+        <details class="settings-details">
+          <summary>更新日志</summary>
+          <ul class="settings-log">
+            <li><b>v1.3</b> 四种登录方式（手机验证码 / 邮箱 / 微信 / WorkBuddy）、设置页、数据导出导入</li>
+            <li><b>v1.2</b> 按年级 + 教材隔离、数学错题本、知识抽题复习</li>
+            <li><b>v1.1</b> 词库外置、PWA 离线、音效与语音分开开关</li>
+            <li><b>v1.0</b> 单词小勇士：学一学 / 选一选 / 拼一拼 / 连一连</li>
+          </ul>
+        </details>
+
+        <p class="settings-note">
+          学习通只在你自己的设备和你自己的云端账号里保存学习记录，不收集任何额外的个人信息。
+          未登录时数据只存在本机浏览器里，清空浏览器数据会一起清掉，重要进度建议先导出备份。
+        </p>
+      </section>
+
+      <p class="settings-foot">学习通 · 给小朋友的英语单词与数学错题本 🦉</p>
+    </div>
+  </section>
 </main>
 
 <div id="confetti" aria-hidden="true" data-page-node-id="7CHRMDDft2oAQu2HsERQlD"></div>
@@ -2800,6 +3204,8 @@
   let WORD_MAP = new Map();
   let TOTAL_WORDS = 0;
   let GOAL = 10;
+  // 应用版本：显示在设置页「关于」，改动较大时手动加一
+  const APP_VERSION = "1.3.0";
   let dataReady = false;
   let wordDataFailed = false;
 
@@ -2868,7 +3274,8 @@
         if (!data || !Array.isArray(data.units) || data.units.length === 0) continue;
         prepareBookMeta(data);
         prepareUnits(data.units);
-        if (data.goal > 0) GOAL = data.goal;
+        // 词库里的 goal 只是默认值；用户在设置页选的每日目标优先
+        if (data.goal > 0) GOAL = prefs().dailyGoal || data.goal;
         try {
           localStorage.setItem(FALLBACK_KEY, JSON.stringify({
             version: data.version, goal: data.goal, books: data.books, units: data.units
@@ -2883,7 +3290,7 @@
       if (cached && Array.isArray(cached.units) && cached.units.length) {
         prepareBookMeta(cached);
         prepareUnits(cached.units);
-        if (cached.goal > 0) GOAL = cached.goal;
+        if (cached.goal > 0) GOAL = prefs().dailyGoal || cached.goal;
         console.warn("[wordlearn] 使用本地缓存的词库");
         return true;
       }
@@ -3011,7 +3418,8 @@
       wrong: [],
       daily: { date: dateKey(), words: [], bonus: false },
       history: {},
-      settings: { sound: true, voice: true, autoSpeak: true }
+      // 偏好默认值与 PREF_DEFAULTS 保持一致（那边有合法值校验，这里只是写档案时的初值）
+      settings: { sound: true, voice: true, autoSpeak: true, dailyGoal: 10, roundSize: 10, strictCase: false }
     };
   }
 
@@ -3196,6 +3604,365 @@
 
   function normalize(value) {
     return String(value).toLowerCase().trim().replace(/\s+/g, " ");
+  }
+
+  /* =========================================================
+     设置
+     ---------------------------------------------------------
+     偏好分成两层：
+     - 学习类偏好（每日目标、每轮题数、拼写严格）存在英语档案的 settings 里，
+       跟着「年级 + 教材」走，也会跟着云同步一起走。
+     - 界面偏好（音效、语音、自动朗读）同样在 settings 里，一直如此，保持不动。
+     ========================================================= */
+  const PREF_DEFAULTS = {
+    sound: true,
+    voice: true,
+    autoSpeak: true,
+    dailyGoal: 10,
+    roundSize: 10,
+    strictCase: false
+  };
+  const GOAL_CHOICES = [5, 10, 15, 20];
+  const ROUND_CHOICES = [5, 10, 15];
+
+  function clampChoice(value, choices, fallback) {
+    const number = Number(value);
+    return choices.includes(number) ? number : fallback;
+  }
+
+  // 读偏好时永远给出合法值，存档被改坏也不会让页面出问题
+  function prefs() {
+    const saved = (state && state.settings) || {};
+    return {
+      sound: saved.sound !== false,
+      voice: saved.voice !== false,
+      autoSpeak: saved.autoSpeak !== false,
+      dailyGoal: clampChoice(saved.dailyGoal, GOAL_CHOICES, PREF_DEFAULTS.dailyGoal),
+      roundSize: clampChoice(saved.roundSize, ROUND_CHOICES, PREF_DEFAULTS.roundSize),
+      strictCase: saved.strictCase === true
+    };
+  }
+
+  function currentPref(key) {
+    return prefs()[key];
+  }
+
+  function setPref(key, value) {
+    state.settings = { ...PREF_DEFAULTS, ...(state.settings || {}) };
+    if (key === "dailyGoal") {
+      state.settings.dailyGoal = clampChoice(value, GOAL_CHOICES, PREF_DEFAULTS.dailyGoal);
+      GOAL = state.settings.dailyGoal;   // 顶部「今日目标」环形进度立刻跟着变
+    } else if (key === "roundSize") {
+      state.settings.roundSize = clampChoice(value, ROUND_CHOICES, PREF_DEFAULTS.roundSize);
+    } else {
+      state.settings[key] = Boolean(value);
+    }
+    saveState();
+    updateTopbar();
+    return state.settings[key];
+  }
+
+  // 供各处取「每轮题数」，永远不超过题库实际长度
+  function roundCount(poolLength) {
+    return Math.max(1, Math.min(currentPref("roundSize"), poolLength || 1));
+  }
+
+  /* ---------- 设置页 ---------- */
+  function renderSettings() {
+    const p = prefs();
+
+    // 分段按钮
+    $$("[data-seg]").forEach((group) => {
+      const key = group.getAttribute("data-seg");
+      const chosen = p[key];
+      $$("[data-value]", group).forEach((btn) => {
+        const active = Number(btn.getAttribute("data-value")) === chosen;
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", String(active));
+      });
+    });
+
+    // 开关
+    const sound = $("#setSound");
+    if (sound) sound.checked = p.sound;
+    const voice = $("#setVoice");
+    if (voice) voice.checked = p.voice;
+    const autoSpeak = $("#setAutoSpeak");
+    if (autoSpeak) {
+      autoSpeak.checked = p.autoSpeak;
+      // 语音总开关关掉时，自动朗读没有意义
+      autoSpeak.disabled = !p.voice;
+    }
+    const strict = $("#setStrictCase");
+    if (strict) strict.checked = p.strictCase;
+
+    renderSettingsAccount();
+    renderSettingsData();
+    renderSettingsAbout();
+  }
+
+  function renderSettingsAccount() {
+    const box = $("#setAccountBox");
+    if (!box) return;
+    if (!authAvailable()) {
+      box.innerHTML = `
+        <div class="set-account-head">
+          <div class="set-account-avatar" aria-hidden="true">🔒</div>
+          <div class="set-account-main">
+            <strong>云服务暂时连不上</strong>
+            <small>学习记录会一直保存在本机，不影响使用；网络恢复后登录即可同步。</small>
+          </div>
+        </div>`;
+      return;
+    }
+    const user = authState.user;
+    if (!user) {
+      box.innerHTML = `
+        <div class="set-account-head">
+          <div class="set-account-avatar" aria-hidden="true">👤</div>
+          <div class="set-account-main">
+            <strong>还没登录</strong>
+            <small>现在记录只存在这台设备上。登录后自动同步到云端，换设备也能接着学。</small>
+          </div>
+          <span class="set-badge idle">仅本机</span>
+        </div>
+        <div class="settings-row" style="border-top:none">
+          <div class="settings-label">
+            <strong>登录 / 注册</strong>
+            <small>支持手机验证码、邮箱、微信、WorkBuddy 四种方式</small>
+          </div>
+          <button class="btn btn-primary" id="setOpenLogin" type="button" style="width:auto">去登录</button>
+        </div>`;
+      return;
+    }
+    const via = { wechat: "微信登录", workbuddy: "WorkBuddy 登录", phone: "手机号登录", email: "邮箱登录" }[user.via] || "已登录";
+    const syncText = authState.sync === "busy" ? "正在同步…" : authState.syncText;
+    box.innerHTML = `
+      <div class="set-account-head">
+        <div class="set-account-avatar" aria-hidden="true">${esc(avatarText())}</div>
+        <div class="set-account-main">
+          <strong>${esc(identifierOf(user))}</strong>
+          <small>${esc(via)} · ${esc(syncText)}</small>
+        </div>
+        <span class="set-badge">已同步</span>
+      </div>
+      <div class="settings-actions" style="margin-top:12px">
+        <button class="btn btn-primary" id="setSyncNow" type="button">🔄 立即同步</button>
+        <button class="btn btn-soft" id="setSignOut" type="button">退出登录</button>
+      </div>
+      <p class="settings-note">退出登录会清空这台设备上的学习档案，避免下一个登录的人看到你的进度；云端备份不会丢，重新登录即可拉回。</p>`;
+  }
+
+  // 本机数据量统计（只看本项目的键，不扫别人的数据）
+  function localDataStats() {
+    const stats = { profiles: 0, words: 0, math: 0, bytes: 0 };
+    try {
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        const isEn = key.indexOf(STORAGE_KEY) === 0 && key.indexOf("Cache") !== 0;
+        const isMath = key.indexOf("studyHubMath.v1") === 0;
+        if (!isEn && !isMath) continue;
+        const raw = localStorage.getItem(key) || "";
+        stats.bytes += raw.length;
+        let payload = null;
+        try { payload = JSON.parse(raw); } catch (error) { continue; }
+        if (isEn) {
+          stats.profiles += 1;
+          stats.words += Object.keys((payload && payload.learned) || {}).length;
+        } else {
+          stats.math += ((payload && payload.items) || []).length;
+        }
+      }
+    } catch (error) { /* ignore */ }
+    return stats;
+  }
+
+  function sizeText(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / 1024 / 1024).toFixed(1) + " MB";
+  }
+
+  function renderSettingsData() {
+    const summary = $("#setDataSummary");
+    if (!summary) return;
+    const stats = localDataStats();
+    summary.textContent = stats.profiles === 0 && stats.math === 0
+      ? "本机还没有学习记录。学几个单词或记一道错题，这里就会有数据了。"
+      : `本机共 ${stats.profiles} 份档案，学过 ${stats.words} 个单词、${stats.math} 道错题，约占 ${sizeText(stats.bytes)}（不含图片）。`;
+  }
+
+  function renderSettingsAbout() {
+    const version = $("#setVersion");
+    if (version) version.textContent = "v" + APP_VERSION;
+    const cache = $("#setCacheVersion");
+    if (cache) {
+      cache.textContent = ("serviceWorker" in navigator && location.protocol.startsWith("http"))
+        ? "已启用（离线可学）"
+        : "未启用（本地文件打开）";
+    }
+    const profile = $("#setProfile");
+    if (profile) {
+      const en = enBookMeta(currentEnBook);
+      const math = mathBookMeta(currentMathBook);
+      profile.textContent = gradeLabel(currentGrade) + " · 英语 " + (en ? en.name : "全国通用版")
+        + " · 数学 " + (math ? math.name : "通用版");
+    }
+    const source = $("#setCloudState");
+    if (source) {
+      source.textContent = !authAvailable() ? "本机（云服务不可用）"
+        : authState.user ? "本机 + 云端" : "仅本机";
+    }
+  }
+
+  /* ---------- 备份：导出 / 导入 ---------- */
+  function backupPayload() {
+    const data = {};
+    try {
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        if (key.indexOf(STORAGE_KEY) !== 0 && key.indexOf("studyHubMath.v1") !== 0) continue;
+        if (key.indexOf("Cache") !== -1) continue;       // 词库缓存不用备份，徒增体积
+        const raw = localStorage.getItem(key);
+        try { data[key] = JSON.parse(raw); } catch (error) { /* 坏档跳过 */ }
+      }
+    } catch (error) { /* ignore */ }
+    return {
+      app: "studyhub",
+      version: APP_VERSION,
+      exportedAt: new Date().toISOString(),
+      grade: currentGrade,
+      enBook: currentEnBook,
+      mathBook: currentMathBook,
+      profiles: data
+    };
+  }
+
+  function exportBackup() {
+    const payload = backupPayload();
+    const count = Object.keys(payload.profiles).length;
+    if (count === 0) {
+      toast("本机还没有学习记录可以导出");
+      return;
+    }
+    const stamp = new Date();
+    const name = "学习通备份-" + stamp.getFullYear()
+      + String(stamp.getMonth() + 1).padStart(2, "0")
+      + String(stamp.getDate()).padStart(2, "0") + ".json";
+    try {
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      later(() => URL.revokeObjectURL(url), 4000);
+      toast("已导出 " + count + " 份档案，记得收好这个文件");
+      const note = $("#setDataNote");
+      if (note) note.textContent = "上次导出：" + new Date().toLocaleString("zh-CN") + "（" + name + "）";
+    } catch (error) {
+      toast("导出失败，这个浏览器可能不允许下载文件");
+    }
+  }
+
+  function pickBackupFile() {
+    const input = $("#setImportFile");
+    if (input) input.click();
+  }
+
+  async function importBackupFile(file) {
+    if (!file) return;
+    const note = $("#setDataNote");
+    let payload;
+    try {
+      const text = await file.text();
+      payload = JSON.parse(text);
+    } catch (error) {
+      if (note) note.textContent = "这个文件不是有效的备份（不是 JSON 或已损坏）。";
+      toast("文件读不出来，换一个备份文件试试");
+      return;
+    }
+    if (!payload || payload.app !== "studyhub" || !payload.profiles || typeof payload.profiles !== "object") {
+      if (note) note.textContent = "这个文件不是学习通导出的备份。";
+      toast("这不是学习通的备份文件");
+      return;
+    }
+    const keys = Object.keys(payload.profiles).filter((key) =>
+      key.indexOf(STORAGE_KEY) === 0 || key.indexOf("studyHubMath.v1") === 0);
+    if (keys.length === 0) {
+      if (note) note.textContent = "备份里没有学习档案。";
+      toast("备份文件是空的");
+      return;
+    }
+    const when = payload.exportedAt ? new Date(payload.exportedAt).toLocaleString("zh-CN") : "未知时间";
+    if (!window.confirm("要用这份备份覆盖本机数据吗？\n\n导出于：" + when + "\n档案数量：" + keys.length
+      + "\n\n本机现有记录会被覆盖（建议先导出一次当前数据）。")) return;
+
+    keys.forEach((key) => {
+      try { localStorage.setItem(key, JSON.stringify(payload.profiles[key])); } catch (error) { /* 配额满时跳过 */ }
+    });
+    // 备份里如果记了当时用的年级 / 教材，一并恢复，免得导入后看到的还是空白档案
+    try {
+      if (payload.grade) localStorage.setItem(GRADE_KEY, String(payload.grade));
+      if (payload.enBook) localStorage.setItem(EN_BOOK_KEY, String(payload.enBook));
+      if (payload.mathBook) localStorage.setItem(MATH_BOOK_KEY, String(payload.mathBook));
+      if (payload.grade) currentGrade = Number(payload.grade);
+      if (payload.enBook) currentEnBook = String(payload.enBook);
+      if (payload.mathBook) currentMathBook = String(payload.mathBook);
+    } catch (error) { /* ignore */ }
+
+    GOAL = prefs().dailyGoal;
+    reloadProfiles();
+    renderSettings();
+    if (note) note.textContent = "已导入 " + keys.length + " 份档案（备份时间：" + when + "）。";
+    toast("导入完成，进度已恢复 🎉");
+  }
+
+  function wipeLocalData() {
+    const stats = localDataStats();
+    const question = "确定清空本机学习数据吗？\n\n会删除：" + stats.profiles + " 份英语档案、" + stats.math
+      + " 道错题（含图片）。\n清空后无法恢复" + (authState.user ? "；云端备份还在，重新同步或重新登录可以拉回。" : "，请先导出备份。")
+      + "\n\n确定继续吗？";
+    if (!window.confirm(question)) return;
+    // 第二道确认，避免手滑
+    if (!window.confirm("真的确定吗？这一步不能撤销。")) return;
+    clearProfileStorage();
+    reloadProfiles();
+    renderSettings();
+    toast("本机学习数据已清空");
+    const note = $("#setDataNote");
+    if (note) note.textContent = "已清空于 " + new Date().toLocaleString("zh-CN") + "。";
+  }
+
+  function checkUpdate() {
+    const note = $("#setDataNote");
+    if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
+      if (note) note.textContent = "当前是直接打开的本地文件，刷新页面（或重新打开）就是最新版。";
+      toast("已是最新，可刷新页面确认");
+      return;
+    }
+    toast("正在检查更新…");
+    navigator.serviceWorker.getRegistration().then((registration) => {
+      if (!registration) {
+        if (note) note.textContent = "离线缓存还没准备好，刷新一次页面即可。";
+        return;
+      }
+      registration.update().then(() => {
+        if (registration.waiting) {
+          if (note) note.textContent = "发现新版本，正在为你刷新…";
+          registration.waiting.postMessage({ type: "SKIP_WAITING" });
+          setTimeout(() => location.reload(), 600);
+        } else if (note) {
+          note.textContent = "已经是最新版本（" + new Date().toLocaleTimeString("zh-CN") + " 检查）。";
+        }
+      }).catch(() => {
+        if (note) note.textContent = "检查更新没成功，检查一下网络再试。";
+      });
+    });
   }
 
   function getUnit(id) {
@@ -3706,7 +4473,8 @@
       title = unit.name;
       pool = unit.words.slice();
     }
-    const count = Math.min(10, pool.length);
+    // 题量跟随设置页的「每轮题目数量」，但不超过题库实际长度
+    const count = roundCount(pool.length);
     const words = shuffle(pool).slice(0, count);
     quizData = {
       unitId,
@@ -3933,7 +4701,7 @@
   function startSpell(unitId) {
     const unit = getUnit(unitId);
     if (!unit) { goEnglishHome(); return; }
-    const words = shuffle(unit.words).slice(0, Math.min(8, unit.words.length));
+    const words = shuffle(unit.words).slice(0, roundCount(unit.words.length));
     spellData = {
       unit,
       words,
@@ -4043,7 +4811,11 @@
       return;
     }
 
-    if (normalize(answer) === normalize(word.w)) {
+    // 平时不区分大小写（小学生还在练手写），设置里可以要求严格一致
+    const sameSpelling = currentPref("strictCase")
+      ? answer.trim().replace(/\s+/g, " ") === String(word.w).trim().replace(/\s+/g, " ")
+      : normalize(answer) === normalize(word.w);
+    if (sameSpelling) {
       data.locked = true;
       data.correct += 1;
       data.earned += 2;
@@ -4137,7 +4909,7 @@
   function startMatch(unitId) {
     const unit = getUnit(unitId);
     if (!unit) { goEnglishHome(); return; }
-    const words = shuffle(unit.words).slice(0, Math.min(6, unit.words.length));
+    const words = shuffle(unit.words).slice(0, Math.min(roundCount(unit.words.length), 8));
     const cards = [];
     words.forEach((word, index) => {
       cards.push({ pair: index, side: "en", text: word.w, emoji: "" });
@@ -4852,7 +5624,7 @@
       if (diff !== 0) return diff;
       return (a.updatedAt || 0) - (b.updatedAt || 0);
     });
-    const picked = ranked.slice(0, Math.min(10, ranked.length));
+    const picked = ranked.slice(0, Math.min(roundCount(10), ranked.length));
     reviewSession = {
       kpFilter: kpFilter || "",
       queue: picked,
@@ -5103,12 +5875,16 @@
       }
       return; // 词库还在加载中，加载完会重新 route
     }
-    if (!mathViews.includes(view) && view !== "home" && !englishViews.includes(view)) {
+    if (!mathViews.includes(view) && view !== "home" && !englishViews.includes(view) && view !== "settings") {
       goHome();
       return;
     }
 
-    if (view === "home") {
+    if (view === "settings") {
+      showView("settings");
+      renderSettings();
+      setTitle("设置");
+    } else if (view === "home") {
       const sub = argument;
       if (sub === "en") {
         showView("home-en");
@@ -5315,6 +6091,7 @@
     } else {
       toast("音效已关闭 🔇");
     }
+    if (currentView() === "settings") renderSettings();
   });
 
   $("#voiceToggle").addEventListener("click", () => {
@@ -5329,6 +6106,7 @@
     } else {
       toast("语音朗读已关闭 🔕");
     }
+    if (currentView() === "settings") renderSettings();
   });
 
   const autoSpeakBtn = $("#autoSpeakToggle");
@@ -5343,6 +6121,7 @@
       updateTopbar();
       playClick();
       toast(state.settings.autoSpeak ? "翻卡和出题时会自动朗读" : "自动朗读已关闭，需要时点小喇叭");
+      if (currentView() === "settings") renderSettings();
     });
   }
 
@@ -5645,6 +6424,121 @@
   setupAccountEvents();
 
   /* =========================================================
+     设置页事件
+     ========================================================= */
+  function setupSettingsEvents() {
+    const btn = $("#settingsBtn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        playClick();
+        location.hash = "#/settings";
+      });
+    }
+
+    // 分段选择：委托到容器，避免每个按钮单独绑
+    $$("[data-seg]").forEach((group) => {
+      group.addEventListener("click", (event) => {
+        const target = event.target.closest("[data-value]");
+        if (!target) return;
+        const key = group.getAttribute("data-seg");
+        playClick();
+        setPref(key, target.getAttribute("data-value"));
+        renderSettings();
+        // 每日目标变了，首页环形进度要跟着刷新
+        if (key === "dailyGoal" && currentView() === "home-en") renderHome();
+        toast(key === "dailyGoal"
+          ? "每日目标改成 " + currentPref("dailyGoal") + " 个单词"
+          : "每轮改成 " + currentPref("roundSize") + " 题");
+      });
+    });
+
+    const sound = $("#setSound");
+    if (sound) {
+      sound.addEventListener("change", () => {
+        setPref("sound", sound.checked);
+        if (sound.checked) playClick();
+        renderSettings();
+      });
+    }
+    const voice = $("#setVoice");
+    if (voice) {
+      voice.addEventListener("change", () => {
+        setPref("voice", voice.checked);
+        if (voice.checked) speak("Hello! Let's learn English.", { manual: true });
+        else stopSpeech();
+        renderSettings();
+      });
+    }
+    const autoSpeak = $("#setAutoSpeak");
+    if (autoSpeak) {
+      autoSpeak.addEventListener("change", () => {
+        setPref("autoSpeak", autoSpeak.checked);
+        renderSettings();
+      });
+    }
+    const strict = $("#setStrictCase");
+    if (strict) {
+      strict.addEventListener("change", () => {
+        setPref("strictCase", strict.checked);
+        toast(strict.checked ? "拼写要完全一致（含大小写）才算对" : "拼写不区分大小写啦");
+        renderSettings();
+      });
+    }
+
+    // 账号块是动态生成的，用委托
+    const accountBox = $("#setAccountBox");
+    if (accountBox) {
+      accountBox.addEventListener("click", async (event) => {
+        if (event.target.closest("#setOpenLogin")) {
+          authState.panelOpen = true;
+          authState.mode = "login";
+          renderAccountPanel();
+          const field = $("#" + (authState.channel === "phone" ? "authPhone" : "authEmail"));
+          if (field) field.focus();
+          return;
+        }
+        if (event.target.closest("#setSyncNow")) {
+          const target = event.target.closest("#setSyncNow");
+          target.disabled = true;
+          target.textContent = "同步中…";
+          const ok = await pullAndMerge();
+          renderSettings();
+          toast(ok ? "同步完成" : "同步没成功，检查网络后再试");
+          return;
+        }
+        if (event.target.closest("#setSignOut")) {
+          if (!window.confirm("退出登录会清空这台设备上的学习档案，云端备份不会丢。确定退出吗？")) return;
+          await signOut();
+          renderSettings();
+        }
+      });
+    }
+
+    const exportBtn = $("#setExport");
+    if (exportBtn) exportBtn.addEventListener("click", () => { playClick(); exportBackup(); });
+
+    const importBtn = $("#setImport");
+    if (importBtn) importBtn.addEventListener("click", () => { playClick(); pickBackupFile(); });
+
+    const importFile = $("#setImportFile");
+    if (importFile) {
+      importFile.addEventListener("change", () => {
+        const file = importFile.files && importFile.files[0];
+        importBackupFile(file);
+        importFile.value = "";   // 允许连续导入同一个文件
+      });
+    }
+
+    const wipe = $("#setWipe");
+    if (wipe) wipe.addEventListener("click", () => { playClick(); wipeLocalData(); });
+
+    const checkBtn = $("#setCheckUpdate");
+    if (checkBtn) checkBtn.addEventListener("click", () => { playClick(); checkUpdate(); });
+  }
+
+  setupSettingsEvents();
+
+  /* =========================================================
      登录态恢复
      必须在 boot 之前完成，避免先按「未登录」渲染一遍再跳变
      ========================================================= */
@@ -5799,6 +6693,8 @@
     state = loadState();
     mathState = loadMathState(currentGrade);
     ensureDaily();
+    // 换了档案（合并 / 导入 / 退出）后每日目标也要跟着新档案的偏好走
+    GOAL = prefs().dailyGoal;
     // 同步刚写完本地，不必因为「读回同一份数据」又触发一次上传
     suppressPush = true;
     updateTopbar();
@@ -6463,6 +7359,8 @@
   }
 
   async function boot() {
+    // 每日目标由设置页决定，启动时先按存档里的偏好把 GOAL 摆正
+    GOAL = prefs().dailyGoal;
     // 调试入口：?_panel=phone 直接打开账号面板并切到手机渠道（也方便自动化截图）
     try {
       const debugPanel = new URLSearchParams(location.search).get("_panel");
@@ -6558,7 +7456,19 @@
       validEmail,
       emailOf,
       validPhone,
-      phoneOf
+      phoneOf,
+      // ---- 设置 ----
+      renderSettings,
+      prefs,
+      setPref,
+      roundCount,
+      localDataStats,
+      backupPayload,
+      exportBackup,
+      importBackupFile,
+      wipeLocalData,
+      getGoal: () => GOAL,
+      getAppVersion: () => APP_VERSION
     };
   }
 })();

@@ -168,6 +168,7 @@ const windowObj = {
       destination: {}
     };
   },
+  URL,
   URLSearchParams,
   Image: function () { this.onload = null; this.onerror = null; },
   FileReader: function () { this.readAsDataURL = () => {}; },
@@ -197,6 +198,7 @@ const context = vm.createContext({
     warn: (...a) => console.log("  [page:warn]", ...a),
     error: (...a) => errors.push("console.error: " + a.join(" "))
   },
+  URL,
   URLSearchParams,
   Math,
   Date,

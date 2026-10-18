@@ -143,7 +143,7 @@ const context = vm.createContext({
   console: windowObj.console,
   Image: function () {},
   FileReader: function () {},
-  URLSearchParams, Math, Date, JSON, Object, Array, String, Number, Boolean, Set, Map, Promise, Error,
+  URL, URLSearchParams, Math, Date, JSON, Object, Array, String, Number, Boolean, Set, Map, Promise, Error,
   isNaN, parseInt, parseFloat, encodeURIComponent, decodeURIComponent
 });
 
