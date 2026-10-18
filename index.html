@@ -288,6 +288,59 @@
   .auth-msg.ok { color: var(--green); }
   .auth-msg:empty { display: none; }
   .auth-hint { margin-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+  .oauth-note { margin-top: 8px; font-size: 10.5px; }
+
+  .channel-switch { display: flex; gap: 6px; margin-top: 10px; }
+  .channel-btn {
+    flex: 1 1 0;
+    height: 38px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: #FFFDF9;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--muted);
+    transition: all .18s ease;
+  }
+  .channel-btn.active { border-color: #C7B8FF; background: #F6F2FF; color: #5946C9; }
+
+  .auth-divider {
+    position: relative;
+    margin: 16px 0 12px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .auth-divider::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: var(--line);
+  }
+  .auth-divider span { position: relative; padding: 0 10px; background: #fff; }
+
+  .oauth-row { display: flex; gap: 8px; }
+  .oauth-btn {
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 13px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    font-size: 12.5px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .oauth-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+  .oauth-btn:disabled { opacity: .55; transform: none; box-shadow: none; }
+  .oauth-wechat { color: #1AAD19; border-color: #D6EFD6; background: #F7FCF7; }
+  .oauth-workbuddy { color: #6A568B; border-color: #E4DBFF; background: #FAF8FF; }
 
   @media (max-width: 760px) {
     .account-name { display: none; }
@@ -2119,36 +2172,68 @@
           <h3 id="accountPanelTitle">登录学习通</h3>
           <p class="panel-sub" id="accountPanelSub">登录后，英语进度和数学错题会自动同步到云端，换设备也能接着学。</p>
           <div id="accountSignedOut">
-            <div class="auth-tabs" role="tablist" aria-label="登录方式">
+            <div class="auth-tabs" role="tablist" aria-label="登录或注册">
               <button class="auth-tab active" id="authTabLogin" type="button" role="tab" aria-selected="true">登录</button>
               <button class="auth-tab" id="authTabSignup" type="button" role="tab" aria-selected="false">注册</button>
             </div>
-            <label class="field">
-              <span>邮箱</span>
-              <input id="authEmail" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" />
-              <em class="field-error" id="authEmailError"></em>
-            </label>
-            <label class="field">
+
+            <div class="channel-switch" role="tablist" aria-label="账号类型">
+              <button class="channel-btn active" id="channelEmail" type="button" role="tab" aria-selected="true">📧 邮箱</button>
+              <button class="channel-btn" id="channelPhone" type="button" role="tab" aria-selected="false">📱 手机号</button>
+            </div>
+
+            <!-- 邮箱 -->
+            <div id="channelEmailPane">
+              <label class="field">
+                <span>邮箱</span>
+                <input id="authEmail" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" />
+                <em class="field-error" id="authEmailError"></em>
+              </label>
+            </div>
+
+            <!-- 手机号 -->
+            <div id="channelPhonePane" hidden>
+              <label class="field">
+                <span>手机号</span>
+                <input id="authPhone" type="tel" autocomplete="tel" inputmode="numeric" maxlength="11" placeholder="11 位手机号" />
+                <em class="field-error" id="authPhoneError"></em>
+              </label>
+            </div>
+
+            <label class="field" id="authPasswordWrap">
               <span>密码</span>
-              <input id="authPassword" type="password" autocomplete="current-password" placeholder="至少 8 位" />
+              <input id="authPassword" type="password" autocomplete="current-password" placeholder="至少 6 位" />
               <em class="field-error" id="authPasswordError"></em>
             </label>
+
             <div id="authCodeRow" hidden>
               <div class="auth-row">
                 <label class="field">
-                  <span>邮箱验证码</span>
+                  <span id="authCodeLabel">邮箱验证码</span>
                   <input id="authCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6 位数字" />
                 </label>
                 <button class="code-btn" id="authSendCode" type="button">获取验证码</button>
               </div>
               <em class="field-error" id="authCodeError"></em>
             </div>
+
             <p class="auth-msg" id="authMessage" role="status" aria-live="polite"></p>
             <button class="btn btn-primary auth-submit" id="authSubmit" type="button">登录</button>
-            <p class="auth-hint" id="authHint">第一次来？先点「获取验证码」验证邮箱，再设置密码完成注册。</p>
+            <p class="auth-hint" id="authHint">第一次来？先点「获取验证码」验证账号，再设置密码完成注册。</p>
             <p class="auth-hint" id="authForgotWrap" hidden>
               <button class="auth-tab" id="authForgot" type="button" style="height:auto;padding:0;flex:0 0 auto;text-decoration:underline;color:var(--purple)">忘记密码？</button>
             </p>
+
+            <div class="auth-divider"><span>或</span></div>
+            <div class="oauth-row">
+              <button class="oauth-btn oauth-wechat" id="authWechat" type="button">
+                <span aria-hidden="true">💬</span> 微信登录
+              </button>
+              <button class="oauth-btn oauth-workbuddy" id="authWorkbuddy" type="button">
+                <span aria-hidden="true">🦉</span> WorkBuddy 登录
+              </button>
+            </div>
+            <p class="auth-hint oauth-note">微信 / WorkBuddy 登录需要在正式域名下使用；本地预览打不开是正常的。</p>
           </div>
           <div id="accountSignedIn" hidden>
             <div class="panel-mail" id="accountMail"></div>
@@ -5488,8 +5573,29 @@
     $("#authSendCode").addEventListener("click", () => { sendLoginCode(); });
     $("#authSubmit").addEventListener("click", () => { submitAuth(); });
 
+    // 邮箱 / 手机号两段切换
+    const chEmail = $("#channelEmail");
+    if (chEmail) chEmail.addEventListener("click", () => switchChannel("email"));
+    const chPhone = $("#channelPhone");
+    if (chPhone) chPhone.addEventListener("click", () => switchChannel("phone"));
+
+    // 第三方一键登录
+    const wechatBtn = $("#authWechat");
+    if (wechatBtn) wechatBtn.addEventListener("click", () => { startOAuth("wechat"); });
+    const wbBtn = $("#authWorkbuddy");
+    if (wbBtn) wbBtn.addEventListener("click", () => { startOAuth("workbuddy"); });
+
+    // 手机号只允许数字，粘贴带空格/横线的也能自动清干净
+    const phoneField = $("#authPhone");
+    if (phoneField) {
+      phoneField.addEventListener("input", () => {
+        const clean = phoneOf(phoneField.value).slice(0, 11);
+        if (phoneField.value !== clean) phoneField.value = clean;
+      });
+    }
+
     // 回车提交：登录框里按回车等于点「登录」
-    ["#authEmail", "#authPassword", "#authCode"].forEach((sel) => {
+    ["#authEmail", "#authPhone", "#authPassword", "#authCode"].forEach((sel) => {
       const field = $(sel);
       if (!field) return;
       field.addEventListener("keydown", (event) => {
@@ -5592,14 +5698,15 @@
 
   const authState = {
     ready: false,          // SDK 是否可用
-    user: null,            // { id, email }
+    user: null,            // { id, email, phone, name, via }
     busy: false,
     mode: "login",         // login | signup
+    channel: "email",      // email | phone  —— 账号载体
     message: null,         // { type: "error" | "ok", text }
     sync: "idle",          // idle | busy | done | error | off
     syncText: "本机保存",
     panelOpen: false,
-    pendingOtp: null       // { email, verificationId, isExistingUser }
+    pendingOtp: null       // { email?, phone?, verificationId, isExistingUser }
   };
 
   let syncTimer = null;
@@ -5619,28 +5726,51 @@
 
   function writeAuthCache(user) {
     try {
-      if (user && user.email) localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify({ email: user.email }));
-      else localStorage.removeItem(AUTH_CACHE_KEY);
+      if (user && identifierOf(user)) {
+        localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify({ label: identifierOf(user) }));
+      } else {
+        localStorage.removeItem(AUTH_CACHE_KEY);
+      }
     } catch (error) { /* ignore */ }
   }
 
+  // 微信登录不返回邮箱/手机号，只能靠 uid + 昵称识别；优先用可读的那个
   function normalizeUser(session) {
     if (!session || !session.user) return null;
     const user = session.user;
-    return { id: user.id || null, email: user.email || null };
+    return {
+      id: user.id || null,
+      email: user.email || null,
+      phone: user.phone || user.phoneNumber || null,
+      name: user.name || null,
+      via: session.provider || (user.email ? "email" : (user.phone ? "phone" : ""))
+    };
+  }
+
+  function identifierOf(user) {
+    if (!user) return "";
+    if (user.email) return user.email;
+    if (user.phone) return user.phone;
+    return user.name || (user.id ? "账号 " + String(user.id).slice(-6) : "");
   }
 
   function accountLabel() {
     if (!authAvailable()) return "仅本机";
     if (!authState.user) return "登录";
-    const email = authState.user.email || "";
-    return email ? email.split("@")[0] : "已登录";
+    const id = identifierOf(authState.user);
+    if (!id) return "已登录";
+    // 手机号只露后四位，微信昵称原样显示
+    if (authState.user.phone && !authState.user.email) {
+      const digits = authState.user.phone.replace(/\D/g, "");
+      return digits.length >= 4 ? "…" + digits.slice(-4) : id;
+    }
+    return authState.user.email ? id.split("@")[0] : id;
   }
 
   function avatarText() {
     if (authState.user) {
-      const email = authState.user.email || "";
-      const seed = (email.split("@")[0] || "学").trim();
+      const id = identifierOf(authState.user);
+      const seed = (id.split("@")[0] || "学").trim();
       return seed.slice(0, 1).toUpperCase() || "学";
     }
     return authAvailable() ? "?" : "本";
@@ -5878,6 +6008,42 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
   }
 
+  // 面向国内用户的 11 位手机号；SDK 会自己补 +86，这里不要改写用户输入
+  function phoneOf(value) {
+    return String(value || "").replace(/[\s-]/g, "");
+  }
+
+  function validPhone(value) {
+    return /^1\d{10}$/.test(value);
+  }
+
+  // 当前账号载体（email / phone）对应的输入值与错误位
+  function currentIdentifier() {
+    if (authState.channel === "phone") {
+      return { kind: "phone", value: phoneOf($("#authPhone").value), label: "手机号" };
+    }
+    return { kind: "email", value: emailOf($("#authEmail").value), label: "邮箱" };
+  }
+
+  function validateIdentifier(id) {
+    if (id.kind === "phone") {
+      if (validPhone(id.value)) return true;
+      $("#authPhoneError").textContent = "请输入正确的 11 位手机号";
+      $("#authPhone").classList.add("invalid");
+      return false;
+    }
+    if (validEmail(id.value)) return true;
+    $("#authEmailError").textContent = "请输入正确的邮箱地址";
+    $("#authEmail").classList.add("invalid");
+    return false;
+  }
+
+  function pendingMatches(pending, id) {
+    if (!pending) return false;
+    if (id.kind === "phone") return pending.phone === id.value;
+    return pending.email === id.value;
+  }
+
   function errorText(error, fallback) {
     const message = error && (error.message || error.error_description);
     if (!message) return fallback || "操作失败，请稍后重试";
@@ -5891,16 +6057,14 @@
       setAuthMessage("error", "云服务暂时不可用，本机学习不受影响");
       return;
     }
-    const email = emailOf($("#authEmail").value);
-    if (!validEmail(email)) {
-      $("#authEmailError").textContent = "请输入正确的邮箱地址";
-      $("#authEmail").classList.add("invalid");
-      return;
-    }
+    const id = currentIdentifier();
+    if (!validateIdentifier(id)) return;
+
     const button = $("#authSendCode");
     button.disabled = true;
     button.textContent = "发送中…";
-    const sent = await cloud.auth.sendOtp({ email });
+    // sendOtp 的 email / phone 互斥，只能二选一传
+    const sent = await cloud.auth.sendOtp(id.kind === "phone" ? { phone: id.value } : { email: id.value });
     button.disabled = false;
     button.textContent = "重新发送";
     if (sent.error) {
@@ -5908,11 +6072,13 @@
       return;
     }
     authState.pendingOtp = {
-      email,
+      [id.kind]: id.value,
       verificationId: sent.data.verificationId,
       isExistingUser: sent.data.isExistingUser
     };
-    setAuthMessage("ok", "验证码已发送，请查收邮箱（含垃圾箱）");
+    setAuthMessage("ok", id.kind === "phone"
+      ? "验证码已发送，注意查收短信"
+      : "验证码已发送，请查收邮箱（含垃圾箱）");
     $("#authCode").focus();
   }
 
@@ -5922,13 +6088,11 @@
       setAuthMessage("error", "云服务暂时不可用，本机学习不受影响");
       return;
     }
-    const email = emailOf($("#authEmail").value);
+    const id = currentIdentifier();
+    if (!validateIdentifier(id)) return;
+
+    // 注册需要验证码 + 密码；登录用密码（手机号也支持）
     const password = $("#authPassword").value;
-    if (!validEmail(email)) {
-      $("#authEmailError").textContent = "请输入正确的邮箱地址";
-      $("#authEmail").classList.add("invalid");
-      return;
-    }
     if (password.length < 6) {
       $("#authPasswordError").textContent = "密码至少 6 位";
       $("#authPassword").classList.add("invalid");
@@ -5939,33 +6103,37 @@
     renderAccountPanel();
     try {
       if (authState.mode === "login") {
-        const result = await cloud.auth.signInWithPassword({ email, password });
+        const credentials = id.kind === "phone"
+          ? { phone: id.value, password }
+          : { email: id.value, password };
+        const result = await cloud.auth.signInWithPassword(credentials);
         if (result.error) {
-          setAuthMessage("error", "邮箱或密码不对，再试一次");
+          setAuthMessage("error", id.label + "或密码不对，再试一次");
           return;
         }
         await afterSignedIn(result.data);
         return;
       }
-      // 注册：必须先用验证码验证邮箱，密码不能凭空设置
+
+      // 注册：必须先用验证码验证账号，密码不能凭空设置
       const pending = authState.pendingOtp;
-      if (!pending || pending.email !== email) {
-        setAuthMessage("error", "请先点「获取验证码」，验证这个邮箱");
+      if (!pendingMatches(pending, id)) {
+        setAuthMessage("error", "请先点「获取验证码」，验证这个" + id.label);
         return;
       }
       const code = String($("#authCode").value || "").trim();
       if (!code) {
-        $("#authCodeError").textContent = "请输入邮箱收到的验证码";
+        $("#authCodeError").textContent = "请输入收到的验证码";
         return;
       }
       if (pending.isExistingUser) {
-        // 不暴露「该邮箱已注册」，统一引导去登录
-        setAuthMessage("error", "这个邮箱可以直接登录，请切到「登录」");
+        // 不暴露「该账号已注册」，统一引导去登录
+        setAuthMessage("error", "这个" + id.label + "可以直接登录，请切到「登录」");
         switchAuthMode("login");
         return;
       }
       const completed = await cloud.auth.verifyOtp({
-        email: pending.email,
+        [id.kind]: id.value,
         verificationId: pending.verificationId,
         isExistingUser: pending.isExistingUser,
         token: code,
@@ -5986,6 +6154,92 @@
     }
   }
 
+  /* ---------- 第三方登录（微信 / WorkBuddy） ---------- */
+  // 两者都走 OAuth 跳转：SDK 只返回要跳去的 URL，需要整页跳转，且必须同一标签页
+  async function startOAuth(provider) {
+    if (!authAvailable()) {
+      setAuthMessage("error", "云服务暂时不可用，本机学习不受影响");
+      return;
+    }
+    if (typeof cloud.auth.signInWithOAuth !== "function") {
+      setAuthMessage("error", "当前 SDK 版本不支持这种方式，请先用邮箱或手机号登录");
+      return;
+    }
+    // 回调地址只能是站点根路径（静态托管没有 history fallback，子路径会 404 丢掉 code）
+    const back = new URL(location.href);
+    back.pathname = location.pathname.replace(/[^/]*$/, "") || "/";
+    back.hash = "";
+    for (const key of ["code", "state", "provider"]) back.searchParams.delete(key);
+
+    authState.busy = true;
+    renderAccountPanel();
+    try {
+      const { data, error } = await cloud.auth.signInWithOAuth({
+        provider,
+        redirectTo: back.toString()
+      });
+      if (error) {
+        authState.busy = false;
+        renderAccountPanel();
+        setAuthMessage("error", oauthErrorText(provider, error));
+        return;
+      }
+      // 同一标签页跳转，window.open 会丢掉 PKCE 校验凭据
+      location.assign(data.url);
+    } catch (error) {
+      authState.busy = false;
+      renderAccountPanel();
+      setAuthMessage("error", oauthErrorText(provider, error));
+    }
+  }
+
+  function oauthErrorText(provider, error) {
+    const message = (error && (error.message || error.error_description)) || "";
+    const who = provider === "wechat" ? "微信" : "WorkBuddy";
+    if (/未打开|disabled|not enabled/i.test(message)) {
+      return who + "登录还没开启，请在云服务管理页打开「" + who + "登录」开关";
+    }
+    if (/localhost|invalid.*redirect|callback/i.test(message)) {
+      return who + "登录要在正式域名下使用，本地预览不支持";
+    }
+    if (/oauthRelayBaseUrl|PKCE|sessionStorage|WebCrypto/i.test(message)) {
+      return who + "登录的浏览器环境不支持，请换 Chrome / Edge 或更新版本";
+    }
+    return who + "登录没成功" + (message ? "：" + message : "，请稍后再试");
+  }
+
+  // 启动时处理 OAuth 回调；必须早于任何「未登录就跳走」的判断
+  async function handleOAuthCallback() {
+    const url = new URL(location.href);
+    const hasParams = url.searchParams.has("code") || url.searchParams.has("error");
+    if (!hasParams) return false;
+
+    const provider = url.searchParams.get("provider");
+    if (provider !== "wechat" && provider !== "workbuddy") {
+      // 不是本应用的 OAuth 回调，交回正常流程，别清掉别人的参数
+      return false;
+    }
+    const handler = provider === "wechat"
+      ? cloud.auth.handleWechatWebCallback
+      : cloud.auth.handleWorkBuddyCallback;
+    if (typeof handler !== "function") {
+      setAuthMessage("error", "当前 SDK 版本不支持这种方式登录，请刷新页面再试");
+      return true;
+    }
+
+    const { data, error } = await handler.call(cloud.auth);
+    if (error) {
+      setAuthMessage("error", oauthErrorText(provider, error));
+    } else if (data) {
+      // code 只能用一次，登录成功必须把它从地址栏抹掉，否则刷新会重复兑换失败
+      for (const key of ["code", "state", "provider"]) url.searchParams.delete(key);
+      history.replaceState(null, "", url.pathname + url.search + url.hash);
+      await afterSignedIn(data);
+      return true;
+    }
+    return true;
+  }
+
   async function afterSignedIn(session) {
     authState.user = normalizeUser(session);
     writeAuthCache(authState.user);
@@ -6001,13 +6255,14 @@
   }
 
   function markMigrated(user) {
-    if (!user || !user.email) return;
+    const key = identifierOf(user);
+    if (!key) return;
     try {
       const raw = readStored(MIGRATED_KEY);
       const list = raw ? JSON.parse(raw) : [];
       const next = Array.isArray(list) ? list : [];
-      const email = user.email.toLowerCase();
-      if (!next.includes(email)) next.push(email);
+      const normalized = key.toLowerCase();
+      if (!next.includes(normalized)) next.push(normalized);
       localStorage.setItem(MIGRATED_KEY, JSON.stringify(next.slice(-20)));
     } catch (error) { /* ignore */ }
   }
@@ -6022,13 +6277,15 @@
     } catch (error) {
       /* 即便网络失败也要允许本机退出，避免孩子被卡在登录态 */
     }
-    const lastEmail = authState.user && authState.user.email;
+    const hadUser = Boolean(authState.user);
     authState.user = null;
     authState.pendingOtp = null;
     authState.busy = false;
+    authState.channel = "email";
+    authState.mode = "login";
     authState.sync = "idle";
     authState.syncText = "本机保存";
-    authState.message = lastEmail ? { type: "ok", text: "已退出登录，进度已保存到云端" } : null;
+    authState.message = hadUser ? { type: "ok", text: "已退出登录，进度已保存到云端" } : null;
     writeAuthCache(null);
     // 关键：清掉本机的账号档案，否则下一个登录的人会看到上一个人的数据
     clearProfileStorage();
@@ -6040,7 +6297,19 @@
   function switchAuthMode(mode) {
     authState.mode = mode;
     authState.message = null;
+    authState.pendingOtp = null;
     $("#authCodeError").textContent = "";
+    renderAccountPanel();
+  }
+
+  function switchChannel(channel) {
+    if (channel === authState.channel) return;
+    authState.channel = channel;
+    authState.message = null;
+    authState.pendingOtp = null;
+    $("#authCodeError").textContent = "";
+    $("#authEmailError").textContent = "";
+    $("#authPhoneError").textContent = "";
     renderAccountPanel();
   }
 
@@ -6059,7 +6328,7 @@
     if (avatarEl) avatarEl.textContent = avatarText();
     button.title = !authAvailable()
       ? "云服务不可用，进度只保存在本机"
-      : (signedIn ? "已登录 " + (authState.user.email || "") + " · 点开管理" : "登录后可把学习进度同步到云端");
+      : (signedIn ? "已登录 " + identifierOf(authState.user) + " · 点开管理" : "登录后可把学习进度同步到云端");
 
     const dot = $("#syncDot");
     if (dot) {
@@ -6088,10 +6357,13 @@
 
     if (signedIn) {
       const mail = $("#accountMail");
-      if (mail) mail.textContent = authState.user.email || "已登录";
+      if (mail) {
+        const via = { wechat: "微信登录", workbuddy: "WorkBuddy 登录" }[authState.user.via] || "";
+        mail.textContent = identifierOf(authState.user) + (via ? "（" + via + "）" : "");
+      }
       const note = $("#accountSyncNote");
       if (note) note.textContent = authState.syncText === "已同步" || authState.syncText.indexOf("已合并") === 0
-        ? "进度已备份到云端。换一台设备登录同一个邮箱，就能接着上次的进度学。"
+        ? "进度已备份到云端。换一台设备用同样的方式登录，就能接着上次的进度学。"
         : authState.syncText;
       const syncBtn = $("#accountSyncNow");
       if (syncBtn) {
@@ -6101,25 +6373,48 @@
       return;
     }
 
-    // 未登录：切换登录 / 注册两个页签
+    // 未登录：登录 / 注册 + 邮箱 / 手机号 两级切换
     const isSignup = authState.mode === "signup";
+    const isPhone = authState.channel === "phone";
     $("#authTabLogin").classList.toggle("active", !isSignup);
     $("#authTabSignup").classList.toggle("active", isSignup);
     $("#authTabLogin").setAttribute("aria-selected", String(!isSignup));
     $("#authTabSignup").setAttribute("aria-selected", String(isSignup));
+
+    $("#channelEmail").classList.toggle("active", !isPhone);
+    $("#channelPhone").classList.toggle("active", isPhone);
+    $("#channelEmail").setAttribute("aria-selected", String(!isPhone));
+    $("#channelPhone").setAttribute("aria-selected", String(isPhone));
+    $("#channelEmailPane").hidden = isPhone;
+    $("#channelPhonePane").hidden = !isPhone;
+
     $("#authCodeRow").hidden = !isSignup;
-    $("#authForgotWrap").hidden = isSignup;
+    $("#authForgotWrap").hidden = isSignup || isPhone;   // 手机号暂不支持自助重置密码
+    $("#authCodeLabel").textContent = isPhone ? "短信验证码" : "邮箱验证码";
+    $("#authCode").placeholder = isPhone ? "短信中的 6 位数字" : "6 位数字";
     $("#authSubmit").textContent = authState.busy
       ? (isSignup ? "注册中…" : "登录中…")
       : (isSignup ? "注册并登录" : "登录");
     $("#authSubmit").disabled = authState.busy;
     $("#authPassword").setAttribute("autocomplete", isSignup ? "new-password" : "current-password");
+
     const hint = $("#authHint");
     if (hint) {
-      hint.textContent = isSignup
-        ? "注册需要先验证邮箱：填好邮箱和密码 → 获取验证码 → 输入验证码提交。"
-        : "还没有账号？点上面的「注册」，用邮箱验证码开通。";
+      if (isSignup) {
+        hint.textContent = "注册需要先验证" + (isPhone ? "手机号" : "邮箱") + "：填好"
+          + (isPhone ? "手机号" : "邮箱") + "和密码 → 获取验证码 → 输入验证码提交。";
+      } else {
+        hint.textContent = isPhone
+          ? "用手机号 + 密码登录。还没账号？点上面的「注册」。"
+          : "还没有账号？点上面的「注册」，用邮箱验证码开通。";
+      }
     }
+
+    const wechatBtn = $("#authWechat");
+    if (wechatBtn) wechatBtn.disabled = authState.busy;
+    const wbBtn = $("#authWorkbuddy");
+    if (wbBtn) wbBtn.disabled = authState.busy;
+
     const msg = $("#authMessage");
     if (msg) {
       msg.className = "auth-msg" + (authState.message ? " " + authState.message.type : "");
@@ -6134,7 +6429,7 @@
     }
     renderAccountPanel();
     if (authState.panelOpen && !authState.user) {
-      const field = $("#authEmail");
+      const field = $("#" + (authState.channel === "phone" ? "authPhone" : "authEmail"));
       if (field && !field.value) setTimeout(() => field.focus(), 30);
     }
   }
@@ -6168,6 +6463,15 @@
   }
 
   async function boot() {
+    // 调试入口：?_panel=phone 直接打开账号面板并切到手机渠道（也方便自动化截图）
+    try {
+      const debugPanel = new URLSearchParams(location.search).get("_panel");
+      if (debugPanel) {
+        authState.panelOpen = true;
+        if (debugPanel === "phone") authState.channel = "phone";
+        if (debugPanel === "signup") authState.mode = "signup";
+      }
+    } catch (_) {}
     ensureDaily();
     updateTopbar();
     renderAccountPanel();
@@ -6177,6 +6481,14 @@
       console.warn("[studyhub] 英语词库加载失败，数学错题本不受影响");
     }
     route();
+    // OAuth 回调要在恢复登录态之前处理：URL 里带着 code 时先换 session，
+    // 换完再走常规恢复流程，否则会被当成「未登录」把面板渲染成登录界面。
+    // 回调失败也不能卡住启动，所以整段包 try/catch。
+    try {
+      await handleOAuthCallback();
+    } catch (error) {
+      console.warn("[studyhub] 第三方登录回调处理失败", error);
+    }
     // 先让页面可用，再在后台恢复登录态，避免登录请求慢时白屏
     restoreSession();
   }
@@ -6222,20 +6534,31 @@
       getAuth: () => ({
         user: authState.user,
         mode: authState.mode,
+        channel: authState.channel,
         sync: authState.sync,
         syncText: authState.syncText,
         panelOpen: authState.panelOpen,
-        hasPendingOtp: Boolean(authState.pendingOtp)
+        busy: authState.busy,
+        pendingOtp: authState.pendingOtp,
+        hasPendingOtp: Boolean(authState.pendingOtp),
+        message: authState.message
       }),
       openAccountPanel,
       switchAuthMode,
+      switchChannel,
+      startOAuth,
+      oauthErrorText,
+      handleOAuthCallback,
+      identifierOf,
       profilePairs: () => profilePairs().map((pair) => ({ ...pair, key: profileKeyOf(pair) })),
       mergeEnState,
       mergeMathState,
       clearProfileStorage,
       renderAccountPanel,
       validEmail,
-      emailOf
+      emailOf,
+      validPhone,
+      phoneOf
     };
   }
 })();
