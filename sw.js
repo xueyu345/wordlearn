@@ -1,4 +1,4 @@
-/* 单词小勇士 Service Worker
+/* 学习通 Service Worker
  * 策略：
  *   - 页面导航：网络优先，失败时回退到缓存的 index.html
  *   - words.json：网络优先（保证词库更新能及时生效），失败用缓存
@@ -6,7 +6,7 @@
  */
 "use strict";
 
-const VERSION = "v1";
+const VERSION = "v2";
 const SHELL_CACHE = "wordhero-shell-" + VERSION;
 const WORD_CACHE = "wordhero-words-" + VERSION;
 

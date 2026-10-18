@@ -4,14 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#FFF7EC" />
-<meta name="description" content="单词小勇士 —— 面向小学生的英语单词学习小应用，10 个主题、104 个高频单词，听、读、拼、配四种玩法。" />
-<title>单词小勇士 · 小学生背单词</title>
+<meta name="description" content="学习通 —— 小学生的英语单词与数学错题学习空间。英语 10 个主题 104 个高频单词，数学错题本支持按知识点抽题复习。" />
+<title>学习通 · 小学生英语单词与数学错题本</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
 <link rel="apple-touch-icon" href="icons/icon-192.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="单词小勇士" />
+<meta name="apple-mobile-web-app-title" content="学习通" />
 <style>
   :root {
     --bg: #FFF7EC;
@@ -585,6 +585,74 @@
     font-size: 12px;
     line-height: 1.75;
   }
+  /* ---------- 学科双入口 ---------- */
+  .hero-hub { min-height: 300px; }
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+  }
+  .subject-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 26px 26px 22px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    color: inherit;
+    transition: transform .22s cubic-bezier(.2, .8, .2, 1), box-shadow .22s ease, border-color .22s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .subject-card::after {
+    content: "";
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    opacity: .10;
+    background: currentColor;
+    transition: transform .35s ease;
+  }
+  .subject-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(103, 76, 40, .16); }
+  .subject-card:hover::after { transform: scale(1.15); }
+  .subject-en { color: var(--orange-deep); }
+  .subject-math { color: #2E7BE8; }
+  .subject-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .subject-icon {
+    width: 54px; height: 54px;
+    display: grid; place-items: center;
+    font-size: 27px;
+    border-radius: 17px;
+    background: #FFF0E3;
+  }
+  .subject-math .subject-icon { background: #E8F1FF; }
+  .subject-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 5px 11px;
+    border-radius: 99px;
+    background: #FAF4EC;
+  }
+  .subject-card h2 { margin: 4px 0 0; font-size: 25px; color: var(--ink); letter-spacing: .4px; }
+  .subject-desc { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+  .subject-meta {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    margin-top: auto; padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-size: 12px; color: var(--muted); font-weight: 700;
+  }
+  .subject-meta b { font-size: 17px; color: var(--ink); }
+  .subject-go { color: currentColor; font-weight: 800; white-space: nowrap; }
+
   .tip-card .tip-icon { font-size: 20px; line-height: 1.3; }
 
   /* ---------- 设置卡片 / 开关 ---------- */
@@ -1268,6 +1336,277 @@
   .empty-emoji { font-size: 66px; line-height: 1; }
   .empty-state h2 { margin-top: 13px; font-size: 22px; }
   .empty-state p { margin-top: 7px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+  /* ---------- 数学错题本 ---------- */
+  .math-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+    padding: 30px 32px;
+    border-radius: 30px;
+    background: linear-gradient(125deg, #EEF5FF, #F6F1FF 55%, #FFF7EC);
+    border: 1px solid #DCE7FA;
+    box-shadow: var(--shadow-sm);
+  }
+  .math-hero .eyebrow-dark { color: #4D7FD1; font-size: 9px; font-weight: 900; letter-spacing: .18em; }
+  .math-hero h1 { margin-top: 6px; font-size: 32px; letter-spacing: -.02em; }
+  .math-hero p { margin-top: 7px; max-width: 520px; color: #7E8296; font-size: 12.5px; line-height: 1.75; }
+  .math-hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .math-hero-stats { display: flex; gap: 10px; flex: 0 0 auto; }
+  .math-stat {
+    min-width: 92px;
+    padding: 16px 14px;
+    border-radius: 19px;
+    background: rgba(255, 255, 255, .86);
+    border: 1px solid #E4ECFA;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(200, 214, 240, .45);
+  }
+  .math-stat strong { display: block; font-size: 27px; color: #2E7BE8; letter-spacing: -.02em; }
+  .math-stat span { display: block; margin-top: 3px; color: var(--muted); font-size: 10.5px; font-weight: 700; }
+
+  .kp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .kp-card {
+    display: block;
+    padding: 16px 17px;
+    border-radius: 19px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .kp-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(103, 76, 40, .12); }
+  .kp-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .kp-name { font-size: 14.5px; font-weight: 800; }
+  .kp-badge {
+    font-size: 10px; font-weight: 800;
+    padding: 3px 8px; border-radius: 99px;
+    background: #FFF0E3; color: #D9741F;
+  }
+  .kp-badge.all-done { background: #E6F7EE; color: #1E9260; }
+  .kp-bar { margin-top: 11px; height: 7px; border-radius: 99px; background: #F2EBE1; overflow: hidden; }
+  .kp-bar span { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #6FA8F5, #2E7BE8); transition: width .45s ease; }
+  .kp-meta { display: flex; justify-content: space-between; margin-top: 7px; color: var(--muted); font-size: 10.5px; font-weight: 700; }
+
+  .math-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .math-search {
+    flex: 1 1 220px;
+    height: 42px;
+    padding: 0 16px;
+    border-radius: 99px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .math-search:focus { border-color: #9BC2F2; box-shadow: 0 0 0 3px rgba(46, 123, 232, .12); }
+  .filter-chips { display: flex; gap: 7px; }
+  .chip-btn {
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 99px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .18s ease;
+  }
+  .chip-btn.active { background: #2E7BE8; border-color: #2E7BE8; color: #fff; box-shadow: 0 3px 0 #1E5FBB; }
+
+  .math-list { display: grid; gap: 11px; }
+  .math-item {
+    display: flex;
+    gap: 14px;
+    padding: 15px 17px;
+    border-radius: 19px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    animation: viewIn .3s ease both;
+  }
+  .math-item.is-done { background: #FBFDFB; border-color: #DFEDE4; }
+  .math-thumb {
+    flex: 0 0 auto;
+    width: 62px; height: 62px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #F5EFE6;
+    display: grid; place-items: center;
+    font-size: 26px;
+  }
+  .math-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .math-body { flex: 1; min-width: 0; }
+  .math-item-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .math-item-kp { font-size: 10.5px; font-weight: 900; color: #2E7BE8; background: #EAF2FE; padding: 3px 9px; border-radius: 99px; }
+  .math-item-type { font-size: 10.5px; font-weight: 700; color: var(--muted); background: #F7F1E8; padding: 3px 9px; border-radius: 99px; }
+  .math-item-done { font-size: 10.5px; font-weight: 800; color: #1E9260; background: #E6F7EE; padding: 3px 9px; border-radius: 99px; }
+  .math-item-q {
+    margin-top: 7px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .math-item-ans { margin-top: 6px; font-size: 12px; color: #6E617C; line-height: 1.6; word-break: break-word; }
+  .math-item-ans b { color: #2E7BE8; }
+  .math-item-reason { margin-top: 4px; font-size: 11.5px; color: #B08A6A; }
+  .math-item-actions { display: flex; align-items: flex-start; gap: 7px; flex: 0 0 auto; }
+  .icon-btn-sm {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform .16s ease, background .16s ease;
+  }
+  .icon-btn-sm:hover { transform: translateY(-2px); background: #FAF4EC; }
+
+  /* ---------- 表单 ---------- */
+  .form-card {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 30px 32px 26px;
+    border-radius: 28px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .form-head h1 { font-size: 27px; letter-spacing: -.02em; }
+  .form-head p { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .form-field { display: flex; flex-direction: column; gap: 7px; margin-top: 18px; }
+  .form-field > label { font-size: 12.5px; font-weight: 800; color: var(--ink); }
+  .form-field > label em { color: #E0566B; font-style: normal; font-size: 10.5px; margin-left: 4px; }
+  .form-field > label small { color: var(--muted); font-weight: 600; font-size: 10.5px; margin-left: 4px; }
+  .form-field input[type="text"],
+  .form-field textarea,
+  .form-field select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: #FDFBF8;
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--ink);
+    outline: none;
+    resize: vertical;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+    border-color: #9BC2F2;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(46, 123, 232, .12);
+  }
+  .form-field input.invalid, .form-field textarea.invalid, .form-field select.invalid {
+    border-color: #F08A96;
+    box-shadow: 0 0 0 3px rgba(240, 138, 150, .14);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .image-drop {
+    display: grid;
+    place-items: center;
+    padding: 22px 16px;
+    border-radius: 16px;
+    border: 1.5px dashed #D8CBB8;
+    background: #FDFAF5;
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .image-drop:hover, .image-drop.dragover { border-color: #2E7BE8; background: #F4F9FF; color: #2E7BE8; }
+  .image-preview { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 10px; }
+  .image-thumb {
+    position: relative;
+    width: 82px; height: 82px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #F5EFE6;
+  }
+  .image-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .image-thumb button {
+    position: absolute;
+    top: 3px; right: 3px;
+    width: 21px; height: 21px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    border: none;
+    background: rgba(40, 30, 20, .62);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+  .form-actions .btn { min-height: 46px; }
+
+  /* ---------- 复习 ---------- */
+  .review-card {
+    margin-top: 18px;
+    padding: 26px 26px 24px;
+    border-radius: 28px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .review-head { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .review-kp { font-size: 11px; font-weight: 900; color: #2E7BE8; background: #EAF2FE; padding: 4px 11px; border-radius: 99px; }
+  .review-type { font-size: 11px; font-weight: 700; color: var(--muted); background: #F7F1E8; padding: 4px 11px; border-radius: 99px; }
+  .review-question { font-size: 17px; line-height: 1.85; white-space: pre-wrap; word-break: break-word; }
+  .review-images { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 13px; }
+  .review-images img {
+    max-width: min(100%, 300px);
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    cursor: zoom-in;
+  }
+  .review-myanswer, .review-answer {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: #FDFAF5;
+    border: 1px solid var(--line);
+  }
+  .review-answer { background: #F1F8FF; border-color: #D9E9FC; }
+  .review-label { display: block; font-size: 10.5px; font-weight: 900; letter-spacing: .08em; color: var(--muted); margin-bottom: 5px; }
+  .review-myanswer p, .review-answer p { font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; color: var(--ink); }
+  .review-reason { margin-top: 12px; padding-top: 11px; border-top: 1px dashed #D9E9FC; }
+  .review-reason p { color: #B08A6A; font-size: 12.5px; }
+  .btn-wide { width: 100%; min-height: 50px; margin-top: 18px; font-size: 14.5px; }
+  .review-judge { margin-top: 16px; text-align: center; }
+  .review-judge-tip { color: var(--muted); font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+  .review-judge-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .review-judge-actions .btn { min-height: 48px; font-size: 13.5px; }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(30, 22, 40, .82);
+    cursor: zoom-out;
+  }
+  .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 14px; }
+
   .empty-state .btn { margin-top: 19px; }
 
   /* ---------- result ---------- */
@@ -1434,6 +1773,29 @@
     .hero h1 { font-size: clamp(30px, 9vw, 40px); }
     .hero p { font-size: 12.5px; }
     .hero-actions .btn { flex: 1; min-width: 0; padding: 0 14px; font-size: 13px; }
+    .subject-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+    .subject-card { padding: 19px 18px 17px; border-radius: 22px; gap: 8px; }
+    .subject-icon { width: 46px; height: 46px; font-size: 23px; border-radius: 14px; }
+    .subject-card h2 { font-size: 21px; }
+    .subject-desc { font-size: 12px; line-height: 1.7; }
+    .math-hero { flex-direction: column; align-items: flex-start; padding: 22px 20px; gap: 16px; }
+    .math-hero h1 { font-size: 26px; }
+    .math-hero-stats { width: 100%; }
+    .math-stat { flex: 1; min-width: 0; padding: 13px 10px; }
+    .math-stat strong { font-size: 23px; }
+    .kp-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+    .kp-card { padding: 13px 14px; border-radius: 16px; }
+    .kp-name { font-size: 13px; }
+    .form-card { padding: 22px 18px 20px; border-radius: 24px; }
+    .form-head h1 { font-size: 23px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .form-actions .btn { flex: 1; }
+    .math-item { flex-wrap: wrap; padding: 13px; }
+    .math-thumb { width: 52px; height: 52px; }
+    .math-item-actions { width: 100%; justify-content: flex-end; }
+    .review-card { padding: 20px 17px 18px; border-radius: 23px; }
+    .review-question { font-size: 15.5px; }
+    .review-judge-actions { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: 1fr; gap: 10px; }
     .stats-grid .panel:first-child { grid-column: auto; }
     .panel { padding: 15px 17px; }
@@ -1542,11 +1904,11 @@
 <body>
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="#/home" aria-label="单词小勇士首页">
+    <a class="brand" href="#/home" aria-label="学习通首页">
       <span class="brand-badge" aria-hidden="true">🦉</span>
       <span class="brand-text">
-        <strong>单词小勇士</strong>
-        <small>WORD HERO</small>
+        <strong>学习通</strong>
+        <small>STUDY HUB</small>
       </span>
     </a>
     <div class="top-stats">
@@ -1565,11 +1927,58 @@
 <main class="page">
   <!-- ================= HOME ================= -->
   <section class="view" id="view-home">
+    <div class="hero hero-hub">
+      <div class="hero-content">
+        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 每天 10 分钟 · 两门功课一起进步</div>
+        <h1>背单词、订正错题<br /><span>今天想学哪一门？</span></h1>
+        <p>右边两扇门，一扇通向英语单词，一扇通向数学错题。挑一扇推开，学习通陪你今天也前进一步。</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="float-emoji f1">🔤</div>
+        <div class="float-emoji f2">➗</div>
+        <div class="float-emoji f3">⭐</div>
+        <div class="bubble">背单词，<br />也订正错题！</div>
+        <div class="mascot-ball">
+          <div class="mascot">🦉</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <a class="subject-card subject-en" href="#/home/en">
+        <div class="subject-top">
+          <span class="subject-icon" aria-hidden="true">🔤</span>
+          <span class="subject-tag">英语 · 单词</span>
+        </div>
+        <h2>单词关卡</h2>
+        <p class="subject-desc">10 个主题、104 个高频单词，听、读、拼、配四种玩法，每天 10 个新朋友。</p>
+        <div class="subject-meta">
+          <span><b id="hubLearned">0</b> / <span id="hubTotal">104</span> 已认识</span>
+          <span class="subject-go">进去看看 →</span>
+        </div>
+      </a>
+      <a class="subject-card subject-math" href="#/home/math">
+        <div class="subject-top">
+          <span class="subject-icon" aria-hidden="true">➗</span>
+          <span class="subject-tag">数学 · 错题本</span>
+        </div>
+        <h2>数学错题本</h2>
+        <p class="subject-desc">把做错的题拍下来、记下来，按知识点整理。复习时抽题重做，把不会的变成会的。</p>
+        <div class="subject-meta">
+          <span><b id="hubMathTotal">0</b> 道错题 · <span id="hubMathTodo">0</span> 道待攻克</span>
+          <span class="subject-go">进去看看 →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= 英语主页 ================= -->
+  <section class="view" id="view-home-en">
     <div class="hero">
       <div class="hero-content">
         <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 每日英语 · 10 分钟</div>
         <h1>每天一点点<br /><span>单词记得牢！</span></h1>
-        <p>听一听、读一读、拼一拼，跟着小勇士把英语单词装进口袋。今天也来认识 10 个新朋友吧！</p>
+        <p>听一听、读一读、拼一拼，跟着学习通把英语单词装进口袋。今天也来认识 10 个新朋友吧！</p>
         <div class="hero-actions">
           <button class="btn btn-white" id="startDaily" type="button">🚀 开始今日学习</button>
           <a class="btn btn-ghost-light" href="#/quiz/all">🎲 随机挑战</a>
@@ -1585,6 +1994,8 @@
         </div>
       </div>
     </div>
+
+    <a class="back-btn" href="#/home" style="margin-bottom:14px;display:inline-flex;">← 回到学习通首页</a>
 
     <div class="stats-grid">
       <article class="panel">
@@ -1634,7 +2045,7 @@
       </a>
       <div class="tip-card">
         <span class="tip-icon" aria-hidden="true">💡</span>
-        <span><strong>小勇士秘诀：</strong>先听发音，再大声跟读；做错的单词会住进「错词本」，常回去看看它们，很快就会变成好朋友啦。</span>
+        <span><strong>学习秘诀：</strong>先听发音，再大声跟读；做错的单词会住进「错词本」，常回去看看它们，很快就会变成好朋友啦。</span>
       </div>
       <div class="setting-card">
         <div class="setting-copy">
@@ -1802,6 +2213,173 @@
   <section class="view" id="view-result">
     <div class="result-card" id="resultCard"></div>
   </section>
+
+  <!-- ================= 数学主页 ================= -->
+  <section class="view" id="view-home-math">
+    <a class="back-btn" href="#/home" style="margin-bottom:16px;display:inline-flex;">← 回到学习通首页</a>
+    <div class="math-hero">
+      <div class="math-hero-copy">
+        <span class="eyebrow-dark">MATH ERROR BOOK</span>
+        <h1>数学错题本</h1>
+        <p id="mathHeroSub">把做错的题记下来，按知识点整理。复习时抽题重做，一道一道把它们攻下来。</p>
+        <div class="math-hero-actions">
+          <a class="btn btn-primary" id="mathAddBtn" href="#/math/add">✏️ 记一道错题</a>
+          <button class="btn btn-soft" id="mathReviewBtn" type="button">🎯 抽题复习</button>
+        </div>
+      </div>
+      <div class="math-hero-stats">
+        <div class="math-stat">
+          <strong id="mathStatTotal">0</strong>
+          <span>错题总数</span>
+        </div>
+        <div class="math-stat">
+          <strong id="mathStatTodo">0</strong>
+          <span>待攻克</span>
+        </div>
+        <div class="math-stat">
+          <strong id="mathStatDone">0</strong>
+          <span>已掌握</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section-block" style="margin-top:26px;">
+      <div class="section-head">
+        <div>
+          <h2>按知识点看</h2>
+          <p>薄弱的知识点会排在前面，点进去只看这一类的错题</p>
+        </div>
+      </div>
+      <div class="kp-grid" id="kpGrid"></div>
+    </section>
+
+    <section class="section-block" style="margin-top:26px;">
+      <div class="section-head">
+        <div>
+          <h2>最近记的错题</h2>
+          <p>点开可以看题目、答案和当时错在哪</p>
+        </div>
+        <div class="section-count" id="mathRecentCount">共 0 道</div>
+      </div>
+      <div class="math-tools">
+        <input class="math-search" id="mathSearch" type="search" placeholder="搜题目、知识点、错因…" aria-label="搜索错题" />
+        <div class="filter-chips" id="mathFilterChips">
+          <button class="chip-btn active" type="button" data-filter="all">全部</button>
+          <button class="chip-btn" type="button" data-filter="todo">待攻克</button>
+          <button class="chip-btn" type="button" data-filter="done">已掌握</button>
+        </div>
+      </div>
+      <div class="math-list" id="mathList"></div>
+    </section>
+  </section>
+
+  <!-- ================= 数学错题录入 ================= -->
+  <section class="view" id="view-math-add">
+    <a class="back-btn" href="#/home/math" style="margin-bottom:16px;display:inline-flex;">← 回到错题本</a>
+    <div class="form-card">
+      <div class="form-head">
+        <h1 id="mathFormTitle">记一道错题</h1>
+        <p>题目可以直接打字，也可以拍照或截图贴上来。图片只存在你自己的设备上。</p>
+      </div>
+
+      <div class="form-field">
+        <label for="mathQuestion">题目 <em>必填</em></label>
+        <textarea id="mathQuestion" rows="4" placeholder="例如：小明有 24 颗糖，平均分给 6 个小朋友，每人分到几颗？"></textarea>
+      </div>
+
+      <div class="form-field">
+        <label>题目图片 <small>可选，最多 3 张</small></label>
+        <div class="image-drop" id="mathImageDrop" tabindex="0" role="button" aria-label="点击或拖拽添加图片">
+          <span class="image-drop-hint">📷 点击选图 / 拖到这里 / 直接粘贴截图</span>
+          <input type="file" id="mathImageInput" accept="image/*" multiple hidden />
+        </div>
+        <div class="image-preview" id="mathImagePreview"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="mathMyAnswer">我的答案 <small>可选</small></label>
+          <input id="mathMyAnswer" type="text" placeholder="当时写的答案" />
+        </div>
+        <div class="form-field">
+          <label for="mathAnswer">正确答案 <em>必填</em></label>
+          <input id="mathAnswer" type="text" placeholder="正确答案和关键步骤" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="mathKpSelect">知识点 <em>必填</em></label>
+          <select id="mathKpSelect"></select>
+        </div>
+        <div class="form-field">
+          <label for="mathTypeSelect">题型 <small>可选</small></label>
+          <select id="mathTypeSelect"></select>
+        </div>
+      </div>
+
+      <div class="form-field" id="mathNewKpWrap" hidden>
+        <label for="mathNewKp">新的知识点名称</label>
+        <input id="mathNewKp" type="text" placeholder="例如：两位数乘法、分数加减" maxlength="20" />
+      </div>
+
+      <div class="form-field">
+        <label for="mathReason">错在哪 <small>可选，写下来更容易记住</small></label>
+        <textarea id="mathReason" rows="2" placeholder="例如：忘记进位 / 看错单位 / 计算粗心"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-soft" type="button" id="mathFormCancel">取消</button>
+        <button class="btn btn-primary" type="button" id="mathFormSave">保存到错题本</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 数学抽题复习 ================= -->
+  <section class="view" id="view-math-review">
+    <div class="mode-top">
+      <a class="back-btn" id="reviewBack" href="#/home/math">←</a>
+      <div class="mode-title">
+        <strong id="reviewTitle">抽题复习</strong>
+        <small id="reviewSub">按知识点抽题</small>
+      </div>
+      <div class="mode-count" id="reviewCount">1 / 5</div>
+    </div>
+    <div class="progress-track slim"><span id="reviewBar"></span></div>
+
+    <div class="review-card" id="reviewCard">
+      <div class="review-head">
+        <span class="review-kp" id="reviewKp">知识点</span>
+        <span class="review-type" id="reviewType">题型</span>
+      </div>
+      <div class="review-question" id="reviewQuestion"></div>
+      <div class="review-images" id="reviewImages"></div>
+
+      <div class="review-myanswer" id="reviewMyAnswerWrap">
+        <span class="review-label">我当时写的</span>
+        <p id="reviewMyAnswer"></p>
+      </div>
+
+      <div class="review-answer" id="reviewAnswerBox" hidden>
+        <span class="review-label">正确答案</span>
+        <p id="reviewAnswer"></p>
+        <div class="review-reason" id="reviewReasonWrap">
+          <span class="review-label">错在哪</span>
+          <p id="reviewReason"></p>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-wide" id="reviewReveal" type="button">👀 先自己做一遍，再看答案</button>
+
+      <div class="review-judge" id="reviewJudge" hidden>
+        <p class="review-judge-tip">这次做对了吗？</p>
+        <div class="review-judge-actions">
+          <button class="btn btn-soft" id="reviewAgain" type="button">😅 还是没做对</button>
+          <button class="btn btn-primary" id="reviewGot" type="button">✅ 这次做对了</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <div id="confetti" aria-hidden="true"></div>
@@ -1823,6 +2401,7 @@
   let TOTAL_WORDS = 0;
   let GOAL = 10;
   let dataReady = false;
+  let wordDataFailed = false;
 
   const FALLBACK_KEY = "wordHeroWordsCache.v1";
 
@@ -2247,7 +2826,7 @@
   }
 
   function setTitle(text) {
-    document.title = text ? text + " · 单词小勇士" : "单词小勇士 · 小学生背单词";
+    document.title = text ? text + " · 学习通" : "学习通 · 小学生英语单词与数学错题本";
   }
 
   function goHome() {
@@ -2255,6 +2834,14 @@
       route();
     } else {
       location.hash = "#/home";
+    }
+  }
+
+  function goEnglishHome() {
+    if (location.hash === "#/home/en") {
+      route();
+    } else {
+      location.hash = "#/home/en";
     }
   }
 
@@ -2393,7 +2980,7 @@
 
   function startLearn(unitId) {
     const unit = getUnit(unitId);
-    if (!unit) { goHome(); return; }
+    if (!unit) { goEnglishHome(); return; }
     learnData = {
       unit,
       order: unit.words.slice(),
@@ -2518,7 +3105,7 @@
       }
     } else {
       const unit = getUnit(unitId);
-      if (!unit) { goHome(); return; }
+      if (!unit) { goEnglishHome(); return; }
       name = unit.name;
       title = unit.name;
       pool = unit.words.slice();
@@ -2682,7 +3269,7 @@
       addStars(1);
       markWord(word.id, true);
       playCorrect();
-      const praises = ["答对啦！+1 ⭐", "太棒了，记得真牢！", "小勇士出击成功！", "这个单词难不倒你！"];
+      const praises = ["答对啦！+1 ⭐", "太棒了，记得真牢！", "答得漂亮，继续保持！", "这个单词难不倒你！"];
       $("#quizFeedback").textContent = praises[Math.floor(Math.random() * praises.length)];
       $("#quizFeedback").className = "feedback-line ok";
     } else {
@@ -2749,7 +3336,7 @@
 
   function startSpell(unitId) {
     const unit = getUnit(unitId);
-    if (!unit) { goHome(); return; }
+    if (!unit) { goEnglishHome(); return; }
     const words = shuffle(unit.words).slice(0, Math.min(8, unit.words.length));
     spellData = {
       unit,
@@ -2953,7 +3540,7 @@
 
   function startMatch(unitId) {
     const unit = getUnit(unitId);
-    if (!unit) { goHome(); return; }
+    if (!unit) { goEnglishHome(); return; }
     const words = shuffle(unit.words).slice(0, Math.min(6, unit.words.length));
     const cards = [];
     words.forEach((word, index) => {
@@ -3134,12 +3721,571 @@
   }
 
   /* =========================================================
-     结果页
+     数学错题本
+     ========================================================= */
+  const MATH_KEY = "studyHubMath.v1";
+  const MATH_TYPES = ["计算题", "应用题", "概念判断", "图形几何", "单位换算", "其他"];
+  const MATH_KP_PRESET = [
+    "加减法", "乘除法", "四则混合运算", "分数", "小数",
+    "图形与几何", "单位换算", "应用题", "规律与逻辑"
+  ];
+  const MAX_IMAGES = 3;
+  const IMAGE_MAX_EDGE = 1100;
+  const IMAGE_QUALITY = 0.72;
+
+  function defaultMathState() {
+    return {
+      version: 1,
+      items: [],
+      customKps: [],
+      updatedAt: null
+    };
+  }
+
+  function loadMathState() {
+    const base = defaultMathState();
+    try {
+      const raw = localStorage.getItem(MATH_KEY);
+      if (!raw) return base;
+      const saved = JSON.parse(raw);
+      return {
+        ...base,
+        ...saved,
+        items: Array.isArray(saved.items) ? saved.items : [],
+        customKps: Array.isArray(saved.customKps) ? saved.customKps : []
+      };
+    } catch (error) {
+      return base;
+    }
+  }
+
+  let mathState = loadMathState();
+
+  function saveMathState() {
+    mathState.updatedAt = Date.now();
+    try {
+      localStorage.setItem(MATH_KEY, JSON.stringify(mathState));
+      return true;
+    } catch (error) {
+      toast("保存失败：设备存储空间可能不够了，删掉几道旧错题再试试");
+      return false;
+    }
+  }
+
+  function mathKpList() {
+    const used = mathState.items.map((item) => item.kp);
+    return Array.from(new Set([...MATH_KP_PRESET, ...mathState.customKps, ...used])).filter(Boolean);
+  }
+
+  function mathItemById(id) {
+    return mathState.items.find((item) => item.id === id) || null;
+  }
+
+  function mathStats() {
+    const total = mathState.items.length;
+    const done = mathState.items.filter((item) => item.done).length;
+    return { total, done, todo: total - done };
+  }
+
+  function imageThumbTag(images, fallbackEmoji) {
+    if (images && images.length) {
+      return `<img src="${images[0]}" alt="题目图片缩略图" loading="lazy" />`;
+    }
+    return `<span aria-hidden="true">${fallbackEmoji}</span>`;
+  }
+
+  /* ---------- 首页数字 ---------- */
+  function renderHub() {
+    const learned = $("#hubLearned");
+    const total = $("#hubTotal");
+    if (learned) learned.textContent = learnedCount();
+    if (total) total.textContent = TOTAL_WORDS;
+    const stats = mathStats();
+    const mathTotal = $("#hubMathTotal");
+    const mathTodo = $("#hubMathTodo");
+    if (mathTotal) mathTotal.textContent = stats.total;
+    if (mathTodo) mathTodo.textContent = stats.todo;
+  }
+
+  /* ---------- 数学主页 ---------- */
+  // 从知识点卡片点进来时带 ?kp=xxx，自动填进搜索框
+  function applyMathQuery() {
+    const query = location.hash.split("?")[1] || "";
+    const kp = new URLSearchParams(query).get("kp");
+    const search = $("#mathSearch");
+    if (!search) return;
+    if (kp) {
+      search.value = kp;
+      mathState.uiFilter = "all";
+      $$("#mathFilterChips .chip-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.filter === "all");
+      });
+    }
+  }
+
+  function mathFilteredItems() {
+    const keyword = normalize($("#mathSearch") ? $("#mathSearch").value : "");
+    const filter = mathState.uiFilter || "all";
+    return mathState.items
+      .filter((item) => {
+        if (filter === "todo" && item.done) return false;
+        if (filter === "done" && !item.done) return false;
+        if (!keyword) return true;
+        const haystack = normalize([item.question, item.kp, item.type, item.reason, item.answer, item.myAnswer].join(" "));
+        return haystack.includes(keyword);
+      })
+      .slice()
+      .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  }
+
+  function renderMathHome() {
+    ensureDaily();
+    updateTopbar();
+    const stats = mathStats();
+    $("#mathStatTotal").textContent = stats.total;
+    $("#mathStatTodo").textContent = stats.todo;
+    $("#mathStatDone").textContent = stats.done;
+    $("#mathHeroSub").textContent = stats.total
+      ? "已经记下 " + stats.total + " 道错题，还有 " + stats.todo + " 道等着你攻下来。可以按知识点抽题复习。"
+      : "把做错的题记下来，按知识点整理。复习时抽题重做，一道一道把它们攻下来。";
+    $("#mathReviewBtn").disabled = stats.total === 0;
+
+    // 知识点卡片
+    const groups = new Map();
+    mathState.items.forEach((item) => {
+      const key = item.kp || "未分类";
+      if (!groups.has(key)) groups.set(key, { total: 0, done: 0 });
+      const group = groups.get(key);
+      group.total += 1;
+      if (item.done) group.done += 1;
+    });
+    const kpEntries = Array.from(groups.entries())
+      .map(([name, group]) => ({ name, ...group, todo: group.total - group.done }))
+      .sort((a, b) => (b.todo - a.todo) || (b.total - a.total));
+
+    const kpGrid = $("#kpGrid");
+    if (!kpEntries.length) {
+      kpGrid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;padding:40px 22px;">
+          <div class="empty-emoji" aria-hidden="true">🧮</div>
+          <h2>还没有错题</h2>
+          <p>记下第一道错题，知识点会自动出现在这里。</p>
+          <a class="btn btn-primary" href="#/math/add">✏️ 记一道错题</a>
+        </div>`;
+    } else {
+      kpGrid.innerHTML = kpEntries.map((entry) => {
+        const percent = Math.round((entry.done / entry.total) * 100);
+        return `
+          <a class="kp-card" href="#/home/math?kp=${encodeURIComponent(entry.name)}">
+            <div class="kp-card-top">
+              <span class="kp-name">${esc(entry.name)}</span>
+              <span class="kp-badge${entry.todo === 0 ? " all-done" : ""}">${entry.todo === 0 ? "全掌握" : "待攻 " + entry.todo}</span>
+            </div>
+            <div class="kp-bar"><span style="width:${percent}%"></span></div>
+            <div class="kp-meta"><span>已掌握 ${entry.done}/${entry.total}</span><span>${percent}%</span></div>
+          </a>`;
+      }).join("");
+    }
+
+    // 列表
+    const items = mathFilteredItems();
+    $("#mathRecentCount").textContent = "共 " + mathState.items.length + " 道";
+    const list = $("#mathList");
+    if (!mathState.items.length) {
+      list.innerHTML = "";
+    } else if (!items.length) {
+      list.innerHTML = `
+        <div class="empty-state" style="padding:36px 22px;">
+          <div class="empty-emoji" aria-hidden="true">🔍</div>
+          <h2>没有符合条件的错题</h2>
+          <p>换个关键词，或者把筛选切回「全部」。</p>
+        </div>`;
+    } else {
+      list.innerHTML = items.map((item) => `
+        <article class="math-item${item.done ? " is-done" : ""}">
+          <div class="math-thumb">${imageThumbTag(item.images, item.done ? "✅" : "🧮")}</div>
+          <div class="math-body">
+            <div class="math-item-top">
+              <span class="math-item-kp">${esc(item.kp || "未分类")}</span>
+              ${item.type ? `<span class="math-item-type">${esc(item.type)}</span>` : ""}
+              ${item.done ? '<span class="math-item-done">已掌握</span>' : ""}
+            </div>
+            <p class="math-item-q">${esc(item.question)}</p>
+            <p class="math-item-ans"><b>答案：</b>${esc(item.answer)}${item.myAnswer ? `　<span style="color:#B99C86;">我当时写的是「${esc(item.myAnswer)}」</span>` : ""}</p>
+            ${item.reason ? `<p class="math-item-reason">错因：${esc(item.reason)}</p>` : ""}
+          </div>
+          <div class="math-item-actions">
+            <button class="icon-btn-sm" type="button" data-math-done="${item.id}" title="${item.done ? "标记为待攻克" : "标记为已掌握"}" aria-label="${item.done ? "标记为待攻克" : "标记为已掌握"}">${item.done ? "↩️" : "✅"}</button>
+            <button class="icon-btn-sm" type="button" data-math-edit="${item.id}" title="编辑" aria-label="编辑这道错题">✏️</button>
+            <button class="icon-btn-sm" type="button" data-math-del="${item.id}" title="删除" aria-label="删除这道错题">🗑️</button>
+          </div>
+        </article>`).join("");
+    }
+    setTitle("数学错题本");
+  }
+
+  function toggleMathDone(id) {
+    const item = mathItemById(id);
+    if (!item) return;
+    item.done = !item.done;
+    item.updatedAt = Date.now();
+    saveMathState();
+    playClick();
+    if (item.done) {
+      toast("标记为已掌握，真棒！");
+      confetti(24);
+    } else {
+      toast("已放回待攻克，再练练它");
+    }
+    renderMathHome();
+  }
+
+  function deleteMathItem(id) {
+    const item = mathItemById(id);
+    if (!item) return;
+    if (!window.confirm("确定删除这道错题吗？删除后无法恢复。\n\n" + item.question.slice(0, 60))) return;
+    mathState.items = mathState.items.filter((entry) => entry.id !== id);
+    saveMathState();
+    playClick();
+    toast("已删除");
+    renderMathHome();
+  }
+
+  /* ---------- 录入表单 ---------- */
+  let formImages = [];
+  let formDateStamp = null;
+
+  function fillSelect(select, options, placeholder) {
+    if (!select) return;
+    select.innerHTML = placeholder
+      ? `<option value="">${esc(placeholder)}</option>` + options.map((value) => `<option value="${esc(value)}">${esc(value)}</option>`).join("")
+      : options.map((value) => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  }
+
+  function renderFormImages() {
+    const preview = $("#mathImagePreview");
+    if (!preview) return;
+    preview.innerHTML = formImages.map((src, index) => `
+      <div class="image-thumb">
+        <img src="${src}" alt="第 ${index + 1} 张题目图片" />
+        <button type="button" data-remove-image="${index}" aria-label="移除第 ${index + 1} 张图片">✕</button>
+      </div>`).join("");
+  }
+
+  function pickPreferredKp(unfinished) {
+    // 优先选「还有待攻克错题」的知识点里出现最多的那个，其次是预设里的第一个
+    const todoGroups = new Map();
+    (unfinished || []).forEach((item) => {
+      const key = item.kp || "未分类";
+      todoGroups.set(key, (todoGroups.get(key) || 0) + 1);
+    });
+    const sorted = Array.from(todoGroups.entries()).sort((a, b) => b[1] - a[1]);
+    if (sorted.length) return sorted[0][0];
+    return MATH_KP_PRESET[0];
+  }
+
+  function setupMathForm(item) {
+    const kpSelect = $("#mathKpSelect");
+    const kps = mathKpList();
+    kpSelect.innerHTML = kps.map((kp) => `<option value="${esc(kp)}">${esc(kp)}</option>`).join("")
+      + '<option value="__new__">＋ 新建知识点</option>';
+    fillSelect($("#mathTypeSelect"), MATH_TYPES, "不填");
+
+    formImages = item && Array.isArray(item.images) ? item.images.slice() : [];
+    formDateStamp = item ? item.id : null;
+
+    $("#mathFormTitle").textContent = item ? "修改这道错题" : "记一道错题";
+    $("#mathQuestion").value = item ? item.question : "";
+    $("#mathMyAnswer").value = item ? item.myAnswer || "" : "";
+    $("#mathAnswer").value = item ? item.answer : "";
+    $("#mathReason").value = item ? item.reason || "" : "";
+    $("#mathNewKp").value = "";
+    $("#mathNewKpWrap").hidden = true;
+    $("#mathTypeSelect").value = item && item.type ? item.type : "";
+
+    if (item) {
+      const exists = kps.includes(item.kp);
+      if (!exists) kpSelect.insertAdjacentHTML("afterbegin", `<option value="${esc(item.kp)}">${esc(item.kp)}</option>`);
+      kpSelect.value = item.kp;
+      $("#mathFormSave").textContent = "保存修改";
+    } else {
+      kpSelect.value = pickPreferredKp(mathState.items.filter((entry) => !entry.done));
+      $("#mathFormSave").textContent = "保存到错题本";
+    }
+    ["#mathQuestion", "#mathAnswer", "#mathMyAnswer", "#mathNewKp"].forEach((sel) => $(sel) && $(sel).classList.remove("invalid"));
+    renderFormImages();
+    window.scrollTo(0, 0);
+  }
+
+  function readImageFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("读取图片失败"));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function compressImage(dataUrl, maxEdge, quality) {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = () => {
+        let { width, height } = image;
+        const scale = Math.min(1, maxEdge / Math.max(width, height));
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext("2d");
+        if (!context) { resolve(dataUrl); return; }
+        context.drawImage(image, 0, 0, width, height);
+        try {
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        } catch (error) {
+          resolve(dataUrl);
+        }
+      };
+      image.onerror = () => resolve(dataUrl);
+      image.src = dataUrl;
+    });
+  }
+
+  async function addMathImages(files) {
+    const list = Array.from(files || []).filter((file) => file && file.type.startsWith("image/"));
+    if (!list.length) return;
+    for (const file of list) {
+      if (formImages.length >= MAX_IMAGES) {
+        toast("最多只能放 " + MAX_IMAGES + " 张图片哦");
+        break;
+      }
+      try {
+        const raw = await readImageFile(file);
+        const compact = await compressImage(raw, IMAGE_MAX_EDGE, IMAGE_QUALITY);
+        formImages.push(compact);
+        renderFormImages();
+      } catch (error) {
+        toast("有一张图片没读出来，换一张试试");
+      }
+    }
+  }
+
+  function submitMathForm() {
+    const question = $("#mathQuestion").value.trim();
+    const answer = $("#mathAnswer").value.trim();
+    let kp = $("#mathKpSelect").value;
+    if (kp === "__new__") {
+      kp = $("#mathNewKp").value.trim();
+      if (!kp) {
+        $("#mathNewKp").classList.add("invalid");
+        $("#mathNewKp").focus();
+        toast("先填一下新知识点的名字");
+        return;
+      }
+    }
+    const type = $("#mathTypeSelect").value;
+    const myAnswer = $("#mathMyAnswer").value.trim();
+    const reason = $("#mathReason").value.trim();
+
+    if (!question) {
+      $("#mathQuestion").classList.add("invalid");
+      $("#mathQuestion").focus();
+      toast("题目不能空着，至少写上题目内容");
+      return;
+    }
+    if (!answer) {
+      $("#mathAnswer").classList.add("invalid");
+      $("#mathAnswer").focus();
+      toast("别忘了填正确答案");
+      return;
+    }
+    if (!kp) {
+      toast("请选择一个知识点");
+      return;
+    }
+
+    const now = Date.now();
+    const existing = formDateStamp ? mathItemById(formDateStamp) : null;
+    if (existing) {
+      Object.assign(existing, {
+        question, answer, kp, type, myAnswer, reason,
+        images: formImages.slice(),
+        updatedAt: now
+      });
+      toast("修改已保存");
+    } else {
+      mathState.items.unshift({
+        id: "m" + now + Math.random().toString(36).slice(2, 6),
+        question, answer, kp, type, myAnswer, reason,
+        images: formImages.slice(),
+        done: false,
+        wrongCount: 1,
+        createdAt: now,
+        updatedAt: now
+      });
+      toast("已记进错题本，之后在复习里再练它 💪");
+      confetti(28);
+    }
+    if (!MATH_KP_PRESET.includes(kp) && !mathState.customKps.includes(kp)) {
+      mathState.customKps.push(kp);
+    }
+    if (!saveMathState()) return;
+    playFinish();
+    location.hash = "#/home/math";
+  }
+
+  /* ---------- 抽题复习 ---------- */
+  let reviewSession = null;
+
+  function startMathReview(kpFilter) {
+    const pool = mathState.items.filter((item) => !kpFilter || item.kp === kpFilter);
+    if (!pool.length) {
+      toast("这个知识点下还没有错题");
+      location.hash = "#/home/math";
+      return;
+    }
+    // 未掌握的优先，同一优先级里错得多的靠前
+    const ranked = pool.slice().sort((a, b) => {
+      if (Boolean(a.done) !== Boolean(b.done)) return a.done ? 1 : -1;
+      const diff = (b.wrongCount || 1) - (a.wrongCount || 1);
+      if (diff !== 0) return diff;
+      return (a.updatedAt || 0) - (b.updatedAt || 0);
+    });
+    const picked = ranked.slice(0, Math.min(10, ranked.length));
+    reviewSession = {
+      kpFilter: kpFilter || "",
+      queue: picked,
+      index: 0,
+      got: 0,
+      missed: 0,
+      revealed: false,
+      finished: false
+    };
+    $("#reviewTitle").textContent = kpFilter || "全部知识点";
+    $("#reviewSub").textContent = "抽题复习 · 共 " + reviewSession.queue.length + " 道";
+    $("#reviewBack").href = "#/home/math";
+    renderReview();
+  }
+
+  function ensureReviewSession() {
+    return reviewSession && !reviewSession.finished;
+  }
+
+  function renderReview() {
+    const session = reviewSession;
+    if (!session || session.finished) return;
+    if (session.index >= session.queue.length) { finishReview(); return; }
+    const item = session.queue[session.index];
+    session.revealed = false;
+
+    $("#reviewCount").textContent = (session.index + 1) + " / " + session.queue.length;
+    $("#reviewBar").style.width = Math.round((session.index / session.queue.length) * 100) + "%";
+    $("#reviewKp").textContent = item.kp || "未分类";
+    $("#reviewType").textContent = item.type || "未分题型";
+    $("#reviewQuestion").textContent = item.question;
+
+    const imagesBox = $("#reviewImages");
+    imagesBox.innerHTML = (item.images || []).map((src, index) =>
+      `<img src="${src}" alt="题目图片 ${index + 1}" data-zoom="${src}" />`).join("");
+
+    const myWrap = $("#reviewMyAnswerWrap");
+    if (item.myAnswer) {
+      myWrap.hidden = false;
+      $("#reviewMyAnswer").textContent = item.myAnswer;
+    } else {
+      myWrap.hidden = true;
+    }
+
+    $("#reviewAnswerBox").hidden = true;
+    $("#reviewJudge").hidden = true;
+    $("#reviewAnswer").textContent = item.answer;
+    const reasonWrap = $("#reviewReasonWrap");
+    if (item.reason) {
+      reasonWrap.hidden = false;
+      $("#reviewReason").textContent = item.reason;
+    } else {
+      reasonWrap.hidden = true;
+    }
+    $("#reviewAnswerBox").hidden = true;
+    $("#reviewReveal").hidden = false;
+    window.scrollTo(0, 0);
+  }
+
+  function revealReviewAnswer() {
+    if (!ensureReviewSession()) return;
+    reviewSession.revealed = true;
+    $("#reviewAnswerBox").hidden = false;
+    $("#reviewReveal").hidden = true;
+    $("#reviewJudge").hidden = false;
+    playFlip();
+  }
+
+  function judgeReview(gotIt) {
+    const session = reviewSession;
+    if (!session || session.finished || !session.revealed) return;
+    const item = session.queue[session.index];
+    const target = mathItemById(item.id);
+    if (gotIt) {
+      session.got += 1;
+      if (target) {
+        target.done = true;
+        target.updatedAt = Date.now();
+      }
+      playCorrect();
+      addStars(1);
+    } else {
+      session.missed += 1;
+      if (target) {
+        target.wrongCount = (target.wrongCount || 1) + 1;
+        target.done = false;
+        target.updatedAt = Date.now();
+      }
+      playWrong();
+    }
+    saveMathState();
+    const feedback = gotIt ? ["攻克一道！+1 ⭐", "又拿下一道，厉害！", "这道题被你收服了！"] : ["没关系，重点标记了，下次再来", "记住错因，比做对更值钱", "这道留在待攻克里，多练几次"];
+    toast(feedback[Math.floor(Math.random() * feedback.length)]);
+    session.index += 1;
+    setTimeout(() => {
+      if (!ensureReviewSession()) return;
+      if (session.index >= session.queue.length) finishReview();
+      else renderReview();
+    }, gotIt ? 520 : 900);
+  }
+
+  function finishReview() {
+    const session = reviewSession;
+    if (!session || session.finished) return;
+    session.finished = true;
+    const total = session.queue.length;
+    const accuracy = total ? Math.round((session.got / total) * 100) : 0;
+    const rating = accuracy >= 100 ? 3 : accuracy >= 70 ? 2 : accuracy >= 40 ? 1 : 0;
+
+    $("#reviewBar").style.width = "100%";
+    $("#reviewQuestion").textContent = "";
+    $("#reviewImages").innerHTML = "";
+    $("#reviewMyAnswerWrap").hidden = true;
+    $("#reviewAnswerBox").hidden = true;
+    $("#reviewJudge").hidden = true;
+    $("#reviewReveal").hidden = true;
+    $("#reviewKp").textContent = session.kpFilter || "全部知识点";
+    $("#reviewType").textContent = "本轮完成";
+    $("#reviewQuestion").innerHTML = `
+      <div style="text-align:center;padding:16px 0 8px;">
+        <div style="font-size:56px;line-height:1;">${rating === 3 ? "🏆" : rating === 2 ? "🎉" : rating >= 1 ? "👍" : "💪"}</div>
+        <h2 style="margin-top:12px;font-size:26px;">${rating === 3 ? "全部攻克，太强了！" : rating === 2 ? "干得漂亮！" : rating >= 1 ? "有进步，继续加油" : "先看看错因，再练一轮"}</h2>
+        <p style="margin-top:8px;color:#8B7B78;font-size:13px;">这一轮复习了 ${total} 道，做对 ${session.got} 道，正确率 ${accuracy}%。</p>
+      </div>`;
+    setTitle("复习结算");
+    if (rating >= 2) setTimeout(() => confetti(60), 200);
+  }
+
+  /* ---------- 结果页
      ========================================================= */
   let lastResult = null;
 
   function renderResult() {
-    if (!lastResult) { goHome(); return; }
+    if (!lastResult) { goEnglishHome(); return; }
     const result = lastResult;
     let title = "";
     let desc = "";
@@ -3238,23 +4384,51 @@
     stopSpeech();
     clearTimers();
     stopMatchTimer();
-    if (!dataReady) return;
     const raw = location.hash.replace(/^#\/?/, "");
-    const parts = raw.split("/").filter(Boolean);
+    // 先剥掉查询串再切分路径，否则 "?kp=xxx" 会粘在最后一段上
+    const pathOnly = raw.split("?")[0];
+    const parts = pathOnly.split("/").filter(Boolean);
     const view = parts[0] || "home";
     const argument = parts[1] || "";
 
+    // 英语相关页面依赖 words.json；数学模块不依赖，词库挂了也能用
+    const englishViews = ["unit", "learn", "quiz", "spell", "match", "wrong", "result"];
+    const mathViews = ["math"];
+    const needsWords = englishViews.includes(view) || (view === "home" && argument === "en");
+    if (needsWords && !dataReady) {
+      if (wordDataFailed) {
+        renderFatal("英语词库没能加载出来。如果数学错题本可以正常使用，说明只是 words.json 读取失败——检查网络或本地服务器后再刷新试试。");
+        return;
+      }
+      return; // 词库还在加载中，加载完会重新 route
+    }
+    if (!mathViews.includes(view) && view !== "home" && !englishViews.includes(view)) {
+      goHome();
+      return;
+    }
+
     if (view === "home") {
-      showView("home");
-      renderHome();
+      const sub = argument;
+      if (sub === "en") {
+        showView("home-en");
+        renderHome();
+      } else if (sub === "math") {
+        showView("home-math");
+        applyMathQuery();
+        renderMathHome();
+      } else {
+        showView("home");
+        renderHub();
+        setTitle("");
+      }
     } else if (view === "unit") {
       const unit = getUnit(argument);
-      if (!unit) { goHome(); return; }
+      if (!unit) { goEnglishHome(); return; }
       showView("unit");
       renderUnitPage(unit);
     } else if (view === "learn") {
       const unit = getUnit(argument);
-      if (!unit) { goHome(); return; }
+      if (!unit) { goEnglishHome(); return; }
       showView("learn");
       startLearn(unit.id);
       setTitle("学一学 · " + unit.name);
@@ -3265,13 +4439,13 @@
       setTitle("选一选 · " + (quizData ? quizData.name : "闯关"));
     } else if (view === "spell") {
       const unit = getUnit(argument);
-      if (!unit) { goHome(); return; }
+      if (!unit) { goEnglishHome(); return; }
       showView("spell");
       startSpell(unit.id);
       setTitle("拼一拼 · " + unit.name);
     } else if (view === "match") {
       const unit = getUnit(argument);
-      if (!unit) { goHome(); return; }
+      if (!unit) { goEnglishHome(); return; }
       showView("match");
       startMatch(unit.id);
       setTitle("连一连 · " + unit.name);
@@ -3279,9 +4453,29 @@
       showView("wrong");
       renderWrongBook();
     } else if (view === "result") {
-      if (!lastResult) { goHome(); return; }
+      if (!lastResult) { goEnglishHome(); return; }
       showView("result");
       renderResult();
+    } else if (view === "math") {
+      if (argument === "add") {
+        showView("math-add");
+        setupMathForm(null);
+        setTitle("记一道错题");
+      } else if (argument === "edit") {
+        const id = new URLSearchParams(raw.split("?")[1] || "").get("id") || "";
+        const item = mathItemById(id);
+        if (!item) { location.hash = "#/home/math"; return; }
+        showView("math-add");
+        setupMathForm(item);
+        setTitle("修改错题");
+      } else if (argument === "review") {
+        const kp = new URLSearchParams(raw.split("?")[1] || "").get("kp") || "";
+        showView("math-review");
+        startMathReview(kp);
+      } else {
+        location.hash = "#/home/math";
+        return;
+      }
     } else {
       goHome();
       return;
@@ -3308,6 +4502,45 @@
     if (navTarget) {
       event.preventDefault();
       location.hash = navTarget.getAttribute("data-nav");
+    }
+
+    /* ---------- 数学错题本 ---------- */
+    const doneTarget = event.target.closest("[data-math-done]");
+    if (doneTarget) {
+      toggleMathDone(doneTarget.getAttribute("data-math-done"));
+      return;
+    }
+    const delTarget = event.target.closest("[data-math-del]");
+    if (delTarget) {
+      deleteMathItem(delTarget.getAttribute("data-math-del"));
+      return;
+    }
+    const editTarget = event.target.closest("[data-math-edit]");
+    if (editTarget) {
+      location.hash = "#/math/edit?id=" + encodeURIComponent(editTarget.getAttribute("data-math-edit"));
+      return;
+    }
+    const filterTarget = event.target.closest("#mathFilterChips .chip-btn");
+    if (filterTarget) {
+      mathState.uiFilter = filterTarget.dataset.filter || "all";
+      $$("#mathFilterChips .chip-btn").forEach((button) => button.classList.toggle("active", button === filterTarget));
+      playClick();
+      renderMathHome();
+      return;
+    }
+    const removeImage = event.target.closest("[data-remove-image]");
+    if (removeImage) {
+      formImages.splice(Number(removeImage.getAttribute("data-remove-image")), 1);
+      renderFormImages();
+      return;
+    }
+    const zoomTarget = event.target.closest("[data-zoom]");
+    if (zoomTarget) {
+      openLightbox(zoomTarget.getAttribute("data-zoom"));
+      return;
+    }
+    if (event.target.classList.contains("lightbox")) {
+      event.target.remove();
     }
   });
 
@@ -3390,6 +4623,122 @@
 
   $("#matchBoard").addEventListener("click", onMatchCardClick);
 
+  /* =========================================================
+     数学错题本 · 事件
+     ========================================================= */
+  function openLightbox(src) {
+    const box = document.createElement("div");
+    box.className = "lightbox";
+    box.innerHTML = `<img src="${src}" alt="查看大图" />`;
+    document.body.appendChild(box);
+  }
+
+  function setupMathEvents() {
+    const drop = $("#mathImageDrop");
+    const input = $("#mathImageInput");
+    if (drop && input) {
+      drop.addEventListener("click", () => input.click());
+      drop.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          input.click();
+        }
+      });
+      input.addEventListener("change", async () => {
+        await addMathImages(input.files);
+        input.value = "";
+      });
+      ["dragenter", "dragover"].forEach((type) => {
+        drop.addEventListener(type, (event) => {
+          event.preventDefault();
+          drop.classList.add("dragover");
+        });
+      });
+      ["dragleave", "drop"].forEach((type) => {
+        drop.addEventListener(type, (event) => {
+          event.preventDefault();
+          drop.classList.remove("dragover");
+        });
+      });
+      drop.addEventListener("drop", (event) => {
+        if (event.dataTransfer && event.dataTransfer.files) addMathImages(event.dataTransfer.files);
+      });
+    }
+
+    // 直接粘贴截图
+    document.addEventListener("paste", (event) => {
+      if (currentView() !== "math-add") return;
+      const items = event.clipboardData && event.clipboardData.items;
+      if (!items) return;
+      const files = [];
+      for (const item of items) {
+        if (item.type && item.type.startsWith("image/")) {
+          const file = item.getAsFile();
+          if (file) files.push(file);
+        }
+      }
+      if (files.length) {
+        event.preventDefault();
+        addMathImages(files);
+        toast("截图已加入题目图片");
+      }
+    });
+
+    const kpSelect = $("#mathKpSelect");
+    if (kpSelect) {
+      kpSelect.addEventListener("change", () => {
+        const wrap = $("#mathNewKpWrap");
+        wrap.hidden = kpSelect.value !== "__new__";
+        if (!wrap.hidden) $("#mathNewKp").focus();
+      });
+    }
+
+    const save = $("#mathFormSave");
+    if (save) save.addEventListener("click", submitMathForm);
+
+    const cancel = $("#mathFormCancel");
+    if (cancel) {
+      cancel.addEventListener("click", () => {
+        if ($("#mathQuestion").value.trim() && !window.confirm("放弃这次填写的内容？")) return;
+        location.hash = "#/home/math";
+      });
+    }
+
+    ["#mathQuestion", "#mathAnswer", "#mathNewKp"].forEach((sel) => {
+      const field = $(sel);
+      if (field) field.addEventListener("input", () => field.classList.remove("invalid"));
+    });
+
+    const search = $("#mathSearch");
+    if (search) {
+      let searchTimer = null;
+      search.addEventListener("input", () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(renderMathHome, 180);
+      });
+    }
+
+    const reviewBtn = $("#mathReviewBtn");
+    if (reviewBtn) {
+      reviewBtn.addEventListener("click", () => {
+        if (!mathState.items.length) {
+          toast("先记一道错题再来复习吧");
+          return;
+        }
+        location.hash = "#/math/review";
+      });
+    }
+
+    const reveal = $("#reviewReveal");
+    if (reveal) reveal.addEventListener("click", revealReviewAnswer);
+    const gotBtn = $("#reviewGot");
+    if (gotBtn) gotBtn.addEventListener("click", () => judgeReview(true));
+    const againBtn = $("#reviewAgain");
+    if (againBtn) againBtn.addEventListener("click", () => judgeReview(false));
+  }
+
+  setupMathEvents();
+
   $("#wrongChallenge").addEventListener("click", () => {
     if (state.wrong.length === 0) {
       toast("错词本是空的，先去学几个新单词吧～");
@@ -3411,7 +4760,11 @@
       const view = currentView();
       if (view === "learn" || view === "quiz" || view === "spell" || view === "match") {
         const unitId = (learnData && learnData.unit.id) || (quizData && quizData.unitId) || (spellData && spellData.unit.id) || (matchData && matchData.unit.id);
-        location.hash = unitId && getUnit(unitId) ? "#/unit/" + unitId : "#/home";
+        location.hash = unitId && getUnit(unitId) ? "#/unit/" + unitId : "#/home/en";
+      } else if (view === "math-add" || view === "math-review") {
+        location.hash = "#/home/math";
+      } else if (view === "home-en" || view === "home-math") {
+        location.hash = "#/home";
       }
       return;
     }
@@ -3460,14 +4813,33 @@
     ensureDaily();
     updateTopbar();
     const ok = await loadWordData();
+    wordDataFailed = !ok;
     if (!ok) {
-      renderFatal("页面需要读取 words.json 里的单词数据，但这次没有成功。检查一下网络（或本地服务器），再刷新试试。");
-      return;
+      console.warn("[studyhub] 英语词库加载失败，数学错题本不受影响");
     }
     route();
   }
 
   boot();
+
+  // 仅用于自动化测试：把内部函数挂到 window.__studyhub 上
+  if (window.__STUDYHUB_TEST__) {
+    window.__studyhub = {
+      route,
+      renderHub,
+      renderMathHome,
+      setupMathForm,
+      submitMathForm,
+      startMathReview,
+      revealReviewAnswer,
+      judgeReview,
+      toggleMathDone,
+      deleteMathItem,
+      getMathState: () => mathState,
+      setMathState: (next) => { mathState = next; },
+      getWordState: () => ({ units: UNITS, total: TOTAL_WORDS, dataReady })
+    };
+  }
 })();
 </script>
 </body>
