@@ -3,7 +3,7 @@
 <meta charset="UTF-8" data-page-node-id="KbLwznVdxCeK8U1xUvXwpa">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="yqfGlyoHn17GzT8OiVSj7v">
 <meta name="theme-color" content="#FFF7EC" data-page-node-id="n6dupYV33EkHCf3lphvfuw">
-<meta name="description" content="学习通 —— 小学生的英语单词与数学错题学习空间。英语 10 个主题 104 个高频单词，数学错题本支持按知识点抽题复习。" data-page-node-id="B1HA0FBc1eZy9M5F8XthNW">
+<meta name="description" content="学习通 —— 小学生的英语单词与数学错题学习空间。英语可选全国通用版 / 人教 PEP / 外研版，数学可选通用版 / 北师大版 / 人教版，一到六年级 650 个单词，记录按年级 + 教材独立保存。" data-page-node-id="B1HA0FBc1eZy9M5F8XthNW">
 <title data-page-node-id="NVXi0sYPHaOIc8cMf9BUXO">学习通 · 小学生英语单词与数学错题本</title>
 <link rel="manifest" href="manifest.json" data-page-node-id="JzVkSKVz6ZFTHzshvzb1hx">
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg" data-page-node-id="T7t0KZSDy0HtsL3YdRONhr">
@@ -157,6 +157,7 @@
     font-size: 11px;
     color: #B0805C;
   }
+  .grade-select.book-select { max-width: 168px; text-overflow: ellipsis; }
   .icon-btn {
     width: 40px; height: 40px;
     display: grid; place-items: center;
@@ -1800,7 +1801,9 @@
     .stat-pill b { font-size: 14px; }
     .stat-pill .pill-unit { display: none; }
     .grade-select { height: 36px; padding: 0 26px 0 10px; font-size: 13px; }
+    .grade-select.book-select { max-width: 118px; }
     .grade-picker::after { right: 11px; }
+    .top-stats { flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
     .icon-btn { width: 36px; height: 36px; font-size: 16px; }
     .page { padding: 8px 16px 60px; }
     .hero { padding: 28px 22px 30px; border-radius: 27px; }
@@ -1960,6 +1963,18 @@
           <option value="6">六年级</option>
         </select>
       </div>
+      <div class="grade-picker">
+        <label class="sr-only" for="enBookSelect">英语教材</label>
+        <select id="enBookSelect" class="grade-select book-select" title="切换英语教材版本">
+          <option value="general">全国通用版</option>
+        </select>
+      </div>
+      <div class="grade-picker">
+        <label class="sr-only" for="mathBookSelect">数学教材</label>
+        <select id="mathBookSelect" class="grade-select book-select" title="切换数学教材版本">
+          <option value="general">数学 · 通用版</option>
+        </select>
+      </div>
       <div class="stat-pill" id="starPill" title="我的星星" data-page-node-id="kmIu1BZOGEz1GvvAdtNiFF">
         <span aria-hidden="true" data-page-node-id="4gR2DWVQ8A4mkx8OaAaz4O">⭐</span><b id="starCount" data-page-node-id="cHuwawME53NIaMEKmS8T0w">0</b>
       </div>
@@ -2008,10 +2023,10 @@
       <a class="subject-card subject-math" href="#/home/math" data-page-node-id="vDna1MCwJXbYdMom531q1u">
         <div class="subject-top" data-page-node-id="XVjRgBOnsoy7EYhWmwrZwg">
           <span class="subject-icon" aria-hidden="true" data-page-node-id="7vmdFgcBtogQNmLAYWZeA2">➗</span>
-          <span class="subject-tag" data-page-node-id="GCrQbHtFyK7XdW5hEBWBsp">数学 · 错题本</span>
+          <span class="subject-tag" id="hubMathTag" data-page-node-id="GCrQbHtFyK7XdW5hEBWBsp">数学 · 错题本</span>
         </div>
         <h2 data-page-node-id="rxCuZxRXH3PJrMdV8neWER">数学错题本</h2>
-        <p class="subject-desc" data-page-node-id="7gcbhk1SvPFRA53OQgtqci">把做错的题拍下来、记下来，按知识点整理。复习时抽题重做，把不会的变成会的。</p>
+        <p class="subject-desc" id="hubMathDesc" data-page-node-id="7gcbhk1SvPFRA53OQgtqci">把做错的题拍下来、记下来，按知识点整理。复习时抽题重做，把不会的变成会的。</p>
         <div class="subject-meta" data-page-node-id="RXLlEJO7RPb9IWWL5ogzJA">
           <span data-page-node-id="JqoiB24nsbVq9A0OfPxTvd"><b id="hubMathTotal" data-page-node-id="IvF7TMdGLDwbtFPCFfkgtm">0</b> 道错题 · <span id="hubMathTodo" data-page-node-id="R8f5lsrf6TEbAUvgX8xpbX">0</span> 道待攻克</span>
           <span class="subject-go" data-page-node-id="FFg4pMAkJUGct2LFAcZPHz">进去看看 →</span>
@@ -2024,7 +2039,7 @@
   <section class="view" id="view-home-en" data-page-node-id="9NymEtkH08CDmVJohDzQ9O">
     <div class="hero" data-page-node-id="yxNnDxJ6ZSOKBwshXsOAwu">
       <div class="hero-content" data-page-node-id="22IA8AAbhuT2h1D3J6G1DT">
-        <div class="eyebrow" data-page-node-id="L5SRageYQBsgHJGG27GP0y"><span class="dot" aria-hidden="true" data-page-node-id="RKddAYRyFfpbY9ICRqDua7"></span> <span id="homeEnGrade">三年级</span> · 每日 10 分钟</div>
+        <div class="eyebrow" data-page-node-id="L5SRageYQBsgHJGG27GP0y"><span class="dot" aria-hidden="true" data-page-node-id="RKddAYRyFfpbY9ICRqDua7"></span> <span id="homeEnGrade">三年级</span> · <span id="homeEnBook">全国通用版</span> · 每日 10 分钟</div>
         <h1 data-page-node-id="bYNuGJOP02uASuwNPfMMGH">每天一点点<br data-page-node-id="qwACFl7QV85JwEJz8DB2wC"><span data-page-node-id="bGVU4UER5rEBdwd6K6no8B">单词记得牢！</span></h1>
         <p data-page-node-id="fzgXoCHqkxtn8l1BgDQetC">听一听、读一读、拼一拼，跟着学习通把英语单词装进口袋。今天也来认识 10 个新朋友吧！</p>
         <div class="hero-actions" data-page-node-id="TLohfQa3UILkv3Hm5AVESW">
@@ -2436,26 +2451,49 @@
   "use strict";
 
   /* =========================================================
-     年级：内容与学习档案都按年级隔离
-     （必须放在词库与状态之前，prepareUnits 要用到 currentGrade）
+     年级与教材版本：内容与学习档案都按「年级 + 教材」隔离
+     （必须放在词库与状态之前，prepareUnits 要用到 currentGrade / currentEnBook）
      ========================================================= */
   const STORAGE_KEY = "wordHeroState.v1";
   const GRADES = [1, 2, 3, 4, 5, 6];
   const DEFAULT_GRADE = 3;          // 旧版本只有一套基础词库，等价于三年级
+  const DEFAULT_EN_BOOK = "general";
+  const DEFAULT_MATH_BOOK = "general";
   const GRADE_KEY = "studyHubGrade.v1";
+  const EN_BOOK_KEY = "studyHubEnBook.v1";
+  const MATH_BOOK_KEY = "studyHubMathBook.v1";
 
-  function stateKey(grade) { return STORAGE_KEY + ".g" + grade; }
-  function mathKey(grade) { return "studyHubMath.v1.g" + grade; }
+  // 存储键格式：
+  //   通用版沿用 wordHeroState.v1.g3（保证升级不丢数据）
+  //   其他教材加后缀 wordHeroState.v1.pep.g4
+  function withBook(base, book, grade) {
+    return book === DEFAULT_EN_BOOK ? base + ".g" + grade : base + "." + book + ".g" + grade;
+  }
+  function stateKey(grade, book) {
+    return withBook(STORAGE_KEY, book || currentEnBook, grade);
+  }
+  function mathKey(grade, book) {
+    return withBook("studyHubMath.v1", book || currentMathBook, grade);
+  }
+
+  function readStored(key) {
+    try { return localStorage.getItem(key); } catch (error) { return null; }
+  }
 
   function loadCurrentGrade() {
-    try {
-      const saved = Number(localStorage.getItem(GRADE_KEY));
-      if (GRADES.includes(saved)) return saved;
-    } catch (error) { /* ignore */ }
-    return DEFAULT_GRADE;
+    const saved = Number(readStored(GRADE_KEY));
+    return GRADES.includes(saved) ? saved : DEFAULT_GRADE;
   }
 
   let currentGrade = loadCurrentGrade();
+
+  function loadStoredBook(key, fallback) {
+    const saved = readStored(key);
+    return saved || fallback;
+  }
+
+  let currentEnBook = loadStoredBook(EN_BOOK_KEY, DEFAULT_EN_BOOK);
+  let currentMathBook = loadStoredBook(MATH_BOOK_KEY, DEFAULT_MATH_BOOK);
 
   /* =========================================================
      单词数据
@@ -2463,8 +2501,9 @@
   /* =========================================================
      单词数据（运行时从 words.json 加载）
      ========================================================= */
-  let UNITS = [];          // 当前年级的单元（各页面只用这个）
-  let ALL_UNITS = [];      // 全部年级的单元（切换年级时从这里重切）
+  let EN_BOOKS = [];       // 英语教材版本元数据
+  let UNITS = [];          // 当前年级 + 教材的单元（各页面只用这个）
+  let ALL_UNITS = [];      // 全部年级 + 教材的单元（切换时从这里重切）
   let ALL_WORDS = [];
   let WORD_MAP = new Map();
   let TOTAL_WORDS = 0;
@@ -2478,6 +2517,7 @@
     ALL_UNITS = rawUnits.map((unit) => ({
       ...unit,
       grade: Number(unit.grade) || DEFAULT_GRADE,
+      book: unit.book || DEFAULT_EN_BOOK,
       words: (unit.words || []).map((word, index) => ({
         ...word,
         id: unit.id + "-" + index,
@@ -2488,18 +2528,42 @@
     dataReady = true;
   }
 
-  // 按当前年级切出可用单元。没有 grade 字段的老词库视为默认年级
+  // 按当前年级 + 教材切出可用单元
   function applyGradeUnits() {
-    const matched = ALL_UNITS.filter((unit) => unit.grade === currentGrade);
-    // 词库文件还没补全年级数据时，宁可全给也不让孩子看到空白页
-    UNITS = matched.length ? matched : ALL_UNITS;
+    const matched = ALL_UNITS.filter(
+      (unit) => unit.grade === currentGrade && unit.book === currentEnBook
+    );
+    // 教材版本在这一档没有内容时，退回通用版同年级内容，不让孩子看到空白页
+    const fallback = ALL_UNITS.filter(
+      (unit) => unit.grade === currentGrade && unit.book === DEFAULT_EN_BOOK
+    );
+    UNITS = matched.length ? matched : fallback;
     ALL_WORDS = UNITS.flatMap((unit) => unit.words);
     WORD_MAP = new Map(ALL_WORDS.map((word) => [word.id, word]));
     TOTAL_WORDS = ALL_WORDS.length;
   }
 
-  function hasGradeData() {
-    return ALL_UNITS.some((unit) => unit.grade === currentGrade);
+  function unitCountOfBook(book, grade) {
+    return ALL_UNITS.filter((unit) => unit.book === book && unit.grade === grade).length;
+  }
+
+  // 这个版本在哪些年级有内容（词库里实际有单元才算）
+  function bookEditions(bookId) {
+    const meta = EN_BOOKS.find((book) => book.id === bookId);
+    return meta ? meta.editions : [];
+  }
+
+  function booksForGrade(grade) {
+    return EN_BOOKS.filter((book) => book.editions.includes(grade));
+  }
+
+  function enBookMeta(bookId) {
+    return EN_BOOKS.find((book) => book.id === bookId) || EN_BOOKS[0] || null;
+  }
+
+  // 换了年级后，当前教材可能不再覆盖这个年级，自动落到通用版
+  function ensureBookForGrade(grade) {
+    if (!bookEditions(currentEnBook).includes(grade)) currentEnBook = DEFAULT_EN_BOOK;
   }
 
   async function loadWordData() {
@@ -2510,10 +2574,13 @@
         if (!response.ok) continue;
         const data = await response.json();
         if (!data || !Array.isArray(data.units) || data.units.length === 0) continue;
+        prepareBookMeta(data);
         prepareUnits(data.units);
         if (data.goal > 0) GOAL = data.goal;
         try {
-          localStorage.setItem(FALLBACK_KEY, JSON.stringify({ version: data.version, goal: data.goal, units: data.units }));
+          localStorage.setItem(FALLBACK_KEY, JSON.stringify({
+            version: data.version, goal: data.goal, books: data.books, units: data.units
+          }));
         } catch (error) { /* 缓存失败不影响使用 */ }
         return true;
       } catch (error) { /* 换下一个地址再试 */ }
@@ -2522,6 +2589,7 @@
     try {
       const cached = JSON.parse(localStorage.getItem(FALLBACK_KEY) || "null");
       if (cached && Array.isArray(cached.units) && cached.units.length) {
+        prepareBookMeta(cached);
         prepareUnits(cached.units);
         if (cached.goal > 0) GOAL = cached.goal;
         console.warn("[wordlearn] 使用本地缓存的词库");
@@ -2529,6 +2597,21 @@
       }
     } catch (error) { /* ignore */ }
     return false;
+  }
+
+  // 老版本 words.json 没有 books 字段，补一个最小可用的通用版
+  function prepareBookMeta(data) {
+    if (Array.isArray(data.books) && data.books.length) {
+      EN_BOOKS = data.books;
+    } else {
+      EN_BOOKS = [{
+        id: DEFAULT_EN_BOOK, name: "全国通用版", short: "通用",
+        note: "不绑定具体教材，按主题分类的常用词",
+        editions: GRADES.slice(), color: "#FF8A3D", outline: {}
+      }];
+    }
+    if (!enBookMeta(currentEnBook)) currentEnBook = EN_BOOKS[0].id;
+    ensureBookForGrade(currentGrade);
   }
 
   const SPEECH_OK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
@@ -2559,23 +2642,66 @@
     } catch (error) { /* ignore */ }
   }
 
+  function saveEnBook() {
+    try {
+      localStorage.setItem(EN_BOOK_KEY, currentEnBook);
+    } catch (error) { /* ignore */ }
+  }
+
+  function saveMathBook() {
+    try {
+      localStorage.setItem(MATH_BOOK_KEY, currentMathBook);
+    } catch (error) { /* ignore */ }
+  }
+
   const GRADE_CN = { 1: "一", 2: "二", 3: "三", 4: "四", 5: "五", 6: "六" };
 
   function gradeLabel(grade) { return (GRADE_CN[grade] || grade) + "年级"; }
 
   function unitCountOfGrade(grade) {
-    return ALL_UNITS.filter((unit) => unit.grade === grade).length;
+    return ALL_UNITS.filter((unit) => unit.grade === grade && unit.book === currentEnBook).length;
   }
 
   // 切换年级 = 切换学习档案：进度、错词、数学错题都各归各的
+  // 教材不覆盖新年级时自动落回通用版
   function switchGrade(grade) {
     const next = Number(grade);
     if (!GRADES.includes(next) || next === currentGrade) return false;
     currentGrade = next;
+    const before = currentEnBook;
+    ensureBookForGrade(currentGrade);
+    if (before !== currentEnBook) saveEnBook();
     saveCurrentGrade();
     state = loadState();
     mathState = loadMathState(currentGrade);
     applyGradeUnits();
+    ensureDaily();
+    updateTopbar();
+    return true;
+  }
+
+  // 切换英语教材版本 = 切换一套内容 + 一套档案
+  function switchEnBook(bookId) {
+    if (!EN_BOOKS.some((book) => book.id === bookId)) return false;
+    if (bookId === currentEnBook) return false;
+    if (!bookEditions(bookId).includes(currentGrade)) return false;
+    currentEnBook = bookId;
+    saveEnBook();
+    state = loadState();
+    // 错题档案跟着「数学教材」走，与英语版本无关，所以数学状态保持不动
+    applyGradeUnits();
+    ensureDaily();
+    updateTopbar();
+    return true;
+  }
+
+  // 切换数学教材版本（影响可用知识点 + 错题档案）
+  function switchMathBook(bookId) {
+    if (!MATH_BOOKS.some((book) => book.id === bookId)) return false;
+    if (bookId === currentMathBook) return false;
+    currentMathBook = bookId;
+    saveMathBook();
+    mathState = loadMathState(currentGrade);
     ensureDaily();
     updateTopbar();
     return true;
@@ -2621,15 +2747,14 @@
     }
   }
 
-  // 老版本只有一份数据，迁移到默认年级（三年级）的档案里
+  // 老版本只有一份数据，迁移到默认年级（三年级）+ 通用版的档案里。
+  // 通用版的键格式历来是 wordHeroState.v1.gN，所以中间版本的数据无需搬动。
   function migrateLegacyState() {
     try {
       const legacy = localStorage.getItem(STORAGE_KEY);
       if (!legacy) return;
-      const target = stateKey(DEFAULT_GRADE);
-      if (!localStorage.getItem(target)) {
-        localStorage.setItem(target, legacy);
-      }
+      const target = stateKey(DEFAULT_GRADE, DEFAULT_EN_BOOK);
+      if (!localStorage.getItem(target)) localStorage.setItem(target, legacy);
       localStorage.removeItem(STORAGE_KEY);
     } catch (error) { /* ignore */ }
   }
@@ -2933,6 +3058,35 @@
     }
   }
 
+  // 英语教材下拉框：只列出当前年级有内容的版本
+  function renderEnBookOptions() {
+    const select = $("#enBookSelect");
+    if (!select) return;
+    const available = booksForGrade(currentGrade);
+    const list = available.length ? available : EN_BOOKS;
+    select.innerHTML = list.map((book) => {
+      const count = unitCountOfBook(book.id, currentGrade);
+      const suffix = count ? "（" + count + " 单元）" : "（暂无内容）";
+      return '<option value="' + esc(book.id) + '">' + esc(book.short || book.name) + suffix + "</option>";
+    }).join("");
+    select.value = currentEnBook;
+    const meta = enBookMeta(currentEnBook);
+    select.title = "英语教材：" + (meta ? meta.name : "") + "（切换后内容与记录一并切换）";
+  }
+
+  // 数学教材下拉框：各版本通用，只标出当前年级的知识点数
+  function renderMathBookOptions() {
+    const select = $("#mathBookSelect");
+    if (!select) return;
+    select.innerHTML = MATH_BOOKS.map((book) => {
+      const count = mathBookKps(book.id, currentGrade).length;
+      return '<option value="' + esc(book.id) + '">数学 · ' + esc(book.short || book.name) + "（" + count + " 点）</option>";
+    }).join("");
+    select.value = currentMathBook;
+    const meta = mathBookMeta(currentMathBook);
+    select.title = "数学教材：" + (meta ? meta.name : "") + "（影响可用知识点与错题档案）";
+  }
+
   function updateTopbar() {
     const stars = $("#starCount");
     const streak = $("#streakCount");
@@ -2944,6 +3098,8 @@
     if (gradeSelect && gradeSelect.value !== String(currentGrade)) {
       gradeSelect.value = String(currentGrade);
     }
+    renderEnBookOptions();
+    renderMathBookOptions();
     if (sound) {
       sound.textContent = state.settings.sound ? "🔊" : "🔇";
       sound.classList.toggle("muted", !state.settings.sound);
@@ -2992,7 +3148,12 @@
     ensureDaily();
     updateTopbar();
     const gradeTag = $("#homeEnGrade");
-    if (gradeTag) gradeTag.textContent = gradeLabel(currentGrade).replace(" ", "");
+    if (gradeTag) gradeTag.textContent = gradeLabel(currentGrade);
+    const bookTag = $("#homeEnBook");
+    if (bookTag) {
+      const meta = enBookMeta(currentEnBook);
+      bookTag.textContent = meta ? meta.name : "全国通用版";
+    }
     const count = Math.min(state.daily.words.length, GOAL);
     const percent = Math.round((count / GOAL) * 100);
     const ring = $("#goalRing");
@@ -3867,10 +4028,76 @@
      ========================================================= */
   const MATH_LEGACY_KEY = "studyHubMath.v1";
   const MATH_TYPES = ["计算题", "应用题", "概念判断", "图形几何", "单位换算", "其他"];
-  const MATH_KP_PRESET = [
-    "加减法", "乘除法", "四则混合运算", "分数", "小数",
-    "图形与几何", "单位换算", "应用题", "规律与逻辑"
+  /* 数学教材版本：不同版本的知识点就是教材单元，
+   * 按年级分；同一个年级换了版本，可用知识点也随之变化。
+   */
+  const MATH_BOOKS = [
+    {
+      id: "general",
+      name: "全国通用版",
+      short: "通用",
+      note: "不绑定具体教材，按知识板块分类，各版本都能用",
+      color: "#FF8A3D",
+      kps: {
+        1: ["10 以内加减法", "20 以内加减法", "100 以内数的认识", "认识图形", "认识钟表", "分类与比较"],
+        2: ["100 以内加减法", "乘法口诀", "表内除法", "长度单位", "角的初步认识", "观察物体", "统计"],
+        3: ["万以内加减法", "多位数乘一位数", "除法", "分数初步认识", "小数初步认识", "周长与面积", "年月日"],
+        4: ["大数认识", "三位数乘两位数", "除数是两位数的除法", "运算定律", "小数的意义与加减法", "三角形与四边形"],
+        5: ["小数乘除法", "简易方程", "因数与倍数", "分数加减法", "多边形面积", "长方体与正方体"],
+        6: ["分数乘除法", "比与比例", "圆", "百分数", "圆柱与圆锥", "统计与概率", "解决问题"]
+      }
+    },
+    {
+      id: "bsd",
+      name: "北师大版",
+      short: "北师大",
+      note: "北京师范大学出版社《义务教育教科书·数学》，单元名与课本目录一致",
+      color: "#3B82F6",
+      kps: {
+        1: ["生活中的数", "比较", "加与减（一）", "分类", "位置与顺序", "认识图形", "加与减（二）", "认识钟表"],
+        2: ["加与减", "购物", "数一数与乘法", "图形的变化", "2~5 的乘法口诀", "测量", "分一分与除法", "6~9 的乘法口诀"],
+        3: ["混合运算", "观察物体", "加与减", "乘与除", "周长", "乘法", "年、月、日", "认识小数"],
+        4: ["认识更大的数", "线与角", "乘法", "运算律", "方向与位置", "除法", "生活中的负数", "可能性"],
+        5: ["小数除法", "轴对称和平移", "倍数与因数", "多边形的面积", "分数的意义", "组合图形的面积", "可能性"],
+        6: ["圆", "分数混合运算", "观察物体", "百分数", "数据处理", "比的认识", "百分数的应用"]
+      }
+    },
+    {
+      id: "rjb",
+      name: "人教版",
+      short: "人教",
+      note: "人民教育出版社《义务教育教科书·数学》，单元名与课本目录一致",
+      color: "#14B8A6",
+      kps: {
+        1: ["20 以内的加减法", "100 以内数的认识", "认识图形（一）", "认识钟表", "认识人民币", "分类与整理"],
+        2: ["长度单位", "100 以内的加减法", "角的初步认识", "表内乘法", "观察物体", "认识时间", "数学广角"],
+        3: ["时分秒", "万以内的加减法", "测量", "多位数乘一位数", "分数的初步认识", "长方形和正方形", "面积"],
+        4: ["大数的认识", "公顷和平方千米", "角的度量", "三位数乘两位数", "平行四边形和梯形", "除数是两位数的除法", "条形统计图"],
+        5: ["小数乘法", "小数除法", "简易方程", "多边形的面积", "分数的意义和性质", "分数的加减法", "长方体和正方体"],
+        6: ["分数乘法", "分数除法", "比", "圆", "百分数（一）", "扇形统计图", "数学广角"]
+      }
+    }
   ];
+
+  function mathBookMeta(bookId) {
+    return MATH_BOOKS.find((book) => book.id === bookId) || MATH_BOOKS[0];
+  }
+
+  // 当前教材 + 当前年级下可用的知识点（预设部分）
+  function mathBookKps(bookId, grade) {
+    const book = mathBookMeta(bookId);
+    return (book.kps && book.kps[grade]) ? book.kps[grade].slice() : [];
+  }
+
+  function mathPresetKps() {
+    return mathBookKps(currentMathBook, currentGrade);
+  }
+
+  // 判断某个知识点是不是当前教材的预设项（自定义知识点另外算）
+  function isPresetKp(kp) {
+    return mathPresetKps().includes(kp);
+  }
+
   const MAX_IMAGES = 3;
   const IMAGE_MAX_EDGE = 1100;
   const IMAGE_QUALITY = 0.72;
@@ -3894,12 +4121,12 @@
     };
   }
 
-  // 老版本只有一份错题数据，迁移到默认年级（三年级）的档案里
+  // 老版本只有一份错题数据，迁移到默认年级（三年级）+ 通用版的档案里
   function migrateLegacyMathState() {
     try {
       const legacy = localStorage.getItem(MATH_LEGACY_KEY);
       if (!legacy) return;
-      const target = mathKey(DEFAULT_GRADE);
+      const target = mathKey(DEFAULT_GRADE, DEFAULT_MATH_BOOK);
       if (!localStorage.getItem(target)) localStorage.setItem(target, legacy);
       localStorage.removeItem(MATH_LEGACY_KEY);
     } catch (error) { /* ignore */ }
@@ -3931,7 +4158,8 @@
 
   function mathKpList() {
     const used = mathState.items.map((item) => item.kp);
-    return Array.from(new Set([...MATH_KP_PRESET, ...mathState.customKps, ...used])).filter(Boolean);
+    // 教材预设 + 自己新建的 + 已在用的（旧教材留下的知识点也要能选到）
+    return Array.from(new Set([...mathPresetKps(), ...mathState.customKps, ...used])).filter(Boolean);
   }
 
   function mathItemById(id) {
@@ -3959,8 +4187,21 @@
     if (total) total.textContent = TOTAL_WORDS;
     const desc = $("#hubEnDesc");
     if (desc) {
-      desc.textContent = gradeLabel(currentGrade) + " · " + UNITS.length + " 个主题、"
-        + TOTAL_WORDS + " 个高频单词，听、读、拼、配四种玩法，每天 10 个新朋友。";
+      const meta = enBookMeta(currentEnBook);
+      desc.textContent = gradeLabel(currentGrade) + " · " + (meta ? meta.name : "全国通用版") + " · "
+        + UNITS.length + " 个主题、" + TOTAL_WORDS + " 个高频单词，听、读、拼、配四种玩法。";
+    }
+    const mathDesc = $("#hubMathDesc");
+    if (mathDesc) {
+      const meta = mathBookMeta(currentMathBook);
+      const kpCount = mathBookKps(currentMathBook, currentGrade).length;
+      mathDesc.textContent = gradeLabel(currentGrade) + " · " + (meta ? meta.name : "全国通用版")
+        + " · " + kpCount + " 个知识点。把做错的题拍下来，按知识点整理、抽题重做。";
+    }
+    const mathTag = $("#hubMathTag");
+    if (mathTag) {
+      const meta = mathBookMeta(currentMathBook);
+      mathTag.textContent = "数学 · 错题本 · " + (meta ? meta.short : "通用");
     }
     const stats = mathStats();
     const mathTotal = $("#hubMathTotal");
@@ -4004,12 +4245,15 @@
     ensureDaily();
     updateTopbar();
     const stats = mathStats();
+    const bookMeta = mathBookMeta(currentMathBook);
+    const kpCount = mathBookKps(currentMathBook, currentGrade).length;
     $("#mathStatTotal").textContent = stats.total;
     $("#mathStatTodo").textContent = stats.todo;
     $("#mathStatDone").textContent = stats.done;
-    $("#mathHeroSub").textContent = stats.total
-      ? "已经记下 " + stats.total + " 道错题，还有 " + stats.todo + " 道等着你攻下来。可以按知识点抽题复习。"
-      : "把做错的题记下来，按知识点整理。复习时抽题重做，一道一道把它们攻下来。";
+    $("#mathHeroSub").textContent = (stats.total
+      ? "已经记下 " + stats.total + " 道错题，还有 " + stats.todo + " 道等着你攻下来。"
+      : "把做错的题记下来，按知识点整理，复习时抽题重做。")
+      + "（" + gradeLabel(currentGrade) + " · " + bookMeta.name + " · " + kpCount + " 个知识点）";
     $("#mathReviewBtn").disabled = stats.total === 0;
 
     // 知识点卡片
@@ -4143,7 +4387,8 @@
     });
     const sorted = Array.from(todoGroups.entries()).sort((a, b) => b[1] - a[1]);
     if (sorted.length) return sorted[0][0];
-    return MATH_KP_PRESET[0];
+    const preset = mathPresetKps();
+    return preset[0] || "";
   }
 
   function setupMathForm(item) {
@@ -4288,7 +4533,7 @@
       toast("已记进错题本，之后在复习里再练它 💪");
       confetti(28);
     }
-    if (!MATH_KP_PRESET.includes(kp) && !mathState.customKps.includes(kp)) {
+    if (!isPresetKp(kp) && !mathState.customKps.includes(kp)) {
       mathState.customKps.push(kp);
     }
     if (!saveMathState()) return;
@@ -4706,6 +4951,16 @@
     }
   });
 
+  // 切换档案后当前页面数据已不同，回到该学科的首页最稳妥
+  function goSubjectHome(inMath) {
+    const hash = location.hash || "#/home";
+    const inMathPage = inMath !== undefined
+      ? inMath
+      : (hash.indexOf("#/math") === 0 || hash.indexOf("#/home/math") === 0);
+    location.hash = inMathPage ? "#/home/math" : "#/home/en";
+    route();
+  }
+
   const gradeSelectEl = $("#gradeSelect");
   if (gradeSelectEl) {
     gradeSelectEl.value = String(currentGrade);
@@ -4720,11 +4975,39 @@
       toast(units
         ? "已切换到" + gradeLabel(currentGrade) + "，进度和错题都换成这一档啦"
         : gradeLabel(currentGrade) + "的词库还在准备中，先看看现有内容吧");
-      // 切换档案后当前页面数据已不同，回到该学科的首页最稳妥
-      const hash = location.hash || "#/home";
-      const inMath = hash.indexOf("#/math") === 0 || hash.indexOf("#/home/math") === 0;
-      location.hash = inMath ? "#/home/math" : "#/home/en";
-      route();
+      goSubjectHome();
+    });
+  }
+
+  const enBookSelectEl = $("#enBookSelect");
+  if (enBookSelectEl) {
+    enBookSelectEl.addEventListener("change", () => {
+      const target = enBookSelectEl.value;
+      if (!switchEnBook(target)) {
+        enBookSelectEl.value = currentEnBook;
+        return;
+      }
+      playClick();
+      const meta = enBookMeta(currentEnBook);
+      toast("英语已换成" + (meta ? meta.name : "") + "，" + gradeLabel(currentGrade)
+        + "共 " + unitCountOfGrade(currentGrade) + " 个单元");
+      goSubjectHome(false);
+    });
+  }
+
+  const mathBookSelectEl = $("#mathBookSelect");
+  if (mathBookSelectEl) {
+    mathBookSelectEl.addEventListener("change", () => {
+      const target = mathBookSelectEl.value;
+      if (!switchMathBook(target)) {
+        mathBookSelectEl.value = currentMathBook;
+        return;
+      }
+      playClick();
+      const meta = mathBookMeta(currentMathBook);
+      toast("数学已换成" + (meta ? meta.name : "") + "，" + gradeLabel(currentGrade)
+        + "有 " + mathBookKps(currentMathBook, currentGrade).length + " 个知识点");
+      goSubjectHome(true);
     });
   }
 
@@ -5025,6 +5308,15 @@
       getGrade: () => currentGrade,
       switchGrade,
       unitCountOfGrade,
+      getEnBook: () => currentEnBook,
+      getMathBook: () => currentMathBook,
+      switchEnBook,
+      switchMathBook,
+      getEnBooks: () => EN_BOOKS.map((book) => ({ id: book.id, name: book.name, editions: book.editions.slice() })),
+      getMathBooks: () => MATH_BOOKS.map((book) => ({ id: book.id, name: book.name })),
+      mathPresetKps: () => mathPresetKps(),
+      stateKeyFor: (grade, book) => stateKey(grade, book),
+      mathKeyFor: (grade, book) => mathKey(grade, book),
       getStats: () => ({
         learned: learnedCount(),
         stars: state.stars,

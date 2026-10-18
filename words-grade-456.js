@@ -4,7 +4,7 @@
 window.GRADE_456_UNITS = [
   /* ---------- 四年级 ---------- */
   {
-    grade: 4, id: "g4-school", name: "我的学校", en: "My School", emoji: "🏫",
+    book: "general", grade: 4, id: "g4-school", name: "我的学校", en: "My School", emoji: "🏫",
     color: "#3B82F6", soft: "#E8F1FF", desc: "校园里的教室和设施",
     words: [
       { w: "classroom", ipa: "/ˈklɑːsruːm/", zh: "教室", emoji: "🏫", en: "Our classroom is clean.", cn: "我们的教室很干净。" },
@@ -20,7 +20,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 4, id: "g4-time", name: "时间与作息", en: "Time", emoji: "⏰",
+    book: "general", grade: 4, id: "g4-time", name: "时间与作息", en: "Time", emoji: "⏰",
     color: "#7057F5", soft: "#F0ECFF", desc: "问问现在几点了",
     words: [
       { w: "time", ipa: "/taɪm/", zh: "时间", emoji: "⏰", en: "What time is it now?", cn: "现在几点了？" },
@@ -36,7 +36,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 4, id: "g4-weather", name: "天气怎么样", en: "Weather", emoji: "🌦️",
+    book: "general", grade: 4, id: "g4-weather", name: "天气怎么样", en: "Weather", emoji: "🌦️",
     color: "#0891B2", soft: "#E2F7FC", desc: "看懂窗外的好天气和坏天气",
     words: [
       { w: "weather", ipa: "/ˈweðə(r)/", zh: "天气", emoji: "🌦️", en: "The weather is nice today.", cn: "今天天气很好。" },
@@ -52,7 +52,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 4, id: "g4-clothes", name: "穿什么衣服", en: "Clothes", emoji: "👕",
+    book: "general", grade: 4, id: "g4-clothes", name: "穿什么衣服", en: "Clothes", emoji: "👕",
     color: "#D97706", soft: "#FFF4DE", desc: "说说今天穿了什么",
     words: [
       { w: "shirt", ipa: "/ʃɜːt/", zh: "衬衫", emoji: "👔", en: "My shirt is white.", cn: "我的衬衫是白色的。" },
@@ -70,7 +70,7 @@ window.GRADE_456_UNITS = [
 
   /* ---------- 五年级 ---------- */
   {
-    grade: 5, id: "g5-food", name: "食物与口味", en: "Food", emoji: "🍽️",
+    book: "general", grade: 5, id: "g5-food", name: "食物与口味", en: "Food", emoji: "🍽️",
     color: "#65A30D", soft: "#F2FBE3", desc: "说说你爱吃什么、不爱吃什么",
     words: [
       { w: "breakfast", ipa: "/ˈbrekfəst/", zh: "早餐", emoji: "🍳", en: "I have eggs for breakfast.", cn: "我早餐吃鸡蛋。" },
@@ -86,7 +86,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 5, id: "g5-hobbies", name: "我的爱好", en: "Hobbies", emoji: "🎯",
+    book: "general", grade: 5, id: "g5-hobbies", name: "我的爱好", en: "Hobbies", emoji: "🎯",
     color: "#0891B2", soft: "#E2F7FC", desc: "聊聊你空闲时喜欢做什么",
     words: [
       { w: "hobby", ipa: "/ˈhɒbi/", zh: "爱好", emoji: "🎯", en: "My hobby is drawing.", cn: "我的爱好是画画。" },
@@ -102,7 +102,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 5, id: "g5-jobs", name: "职业梦想", en: "Jobs", emoji: "👷",
+    book: "general", grade: 5, id: "g5-jobs", name: "职业梦想", en: "Jobs", emoji: "👷",
     color: "#D97706", soft: "#FFF4DE", desc: "长大以后我想做什么",
     words: [
       { w: "doctor", ipa: "/ˈdɒktə(r)/", zh: "医生", emoji: "🧑‍⚕️", en: "The doctor helps sick people.", cn: "医生帮助生病的人。" },
@@ -118,7 +118,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 5, id: "g5-places", name: "城市里的地方", en: "Places", emoji: "🏙️",
+    book: "general", grade: 5, id: "g5-places", name: "城市里的地方", en: "Places", emoji: "🏙️",
     color: "#7C5CFF", soft: "#F0ECFF", desc: "从家到医院，认认路",
     words: [
       { w: "hospital", ipa: "/ˈhɒspɪtl/", zh: "医院", emoji: "🏥", en: "The hospital is near here.", cn: "医院就在附近。" },
@@ -136,7 +136,7 @@ window.GRADE_456_UNITS = [
 
   /* ---------- 六年级 ---------- */
   {
-    grade: 6, id: "g6-travel", name: "出行与交通", en: "Travel", emoji: "✈️",
+    book: "general", grade: 6, id: "g6-travel", name: "出行与交通", en: "Travel", emoji: "✈️",
     color: "#0891B2", soft: "#E2F7FC", desc: "去哪儿，怎么去",
     words: [
       { w: "bus", ipa: "/bʌs/", zh: "公交车", emoji: "🚌", en: "I take the bus to school.", cn: "我坐公交去学校。" },
@@ -152,7 +152,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 6, id: "g6-feelings", name: "心情与感受", en: "Feelings", emoji: "😊",
+    book: "general", grade: 6, id: "g6-feelings", name: "心情与感受", en: "Feelings", emoji: "😊",
     color: "#F45D9E", soft: "#FFEAF5", desc: "说出你的开心和难过",
     words: [
       { w: "happy", ipa: "/ˈhæpi/", zh: "快乐的", emoji: "😊", en: "I am happy today.", cn: "我今天很开心。" },
@@ -168,7 +168,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 6, id: "g6-nature", name: "自然与环保", en: "Nature", emoji: "🌍",
+    book: "general", grade: 6, id: "g6-nature", name: "自然与环保", en: "Nature", emoji: "🌍",
     color: "#2F9E44", soft: "#E9F8EC", desc: "保护我们住的地球",
     words: [
       { w: "earth", ipa: "/ɜːθ/", zh: "地球", emoji: "🌍", en: "We must protect the earth.", cn: "我们必须保护地球。" },
@@ -184,7 +184,7 @@ window.GRADE_456_UNITS = [
     ]
   },
   {
-    grade: 6, id: "g6-future", name: "未来与计划", en: "Future", emoji: "🚀",
+    book: "general", grade: 6, id: "g6-future", name: "未来与计划", en: "Future", emoji: "🚀",
     color: "#7057F5", soft: "#F0ECFF", desc: "说说你将来想做什么",
     words: [
       { w: "future", ipa: "/ˈfjuːtʃə(r)/", zh: "未来", emoji: "🚀", en: "I have a dream for the future.", cn: "我对未来有梦想。" },

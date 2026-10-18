@@ -4,7 +4,7 @@
 window.GRADE_12_UNITS = [
   /* ---------- 一年级 ---------- */
   {
-    grade: 1, id: "g1-hello", name: "打招呼", en: "Hello", emoji: "👋",
+    book: "general", grade: 1, id: "g1-hello", name: "打招呼", en: "Hello", emoji: "👋",
     color: "#FF8A3D", soft: "#FFF0E3", desc: "学会用英语说你好和再见",
     words: [
       { w: "hello", ipa: "/həˈləʊ/", zh: "你好", emoji: "👋", en: "Hello! I am Sam.", cn: "你好！我是萨姆。" },
@@ -18,7 +18,7 @@ window.GRADE_12_UNITS = [
     ]
   },
   {
-    grade: 1, id: "g1-numbers", name: "数字 1–10", en: "Numbers", emoji: "🔢",
+    book: "general", grade: 1, id: "g1-numbers", name: "数字 1–10", en: "Numbers", emoji: "🔢",
     color: "#7C5CFF", soft: "#F0ECFF", desc: "从 one 数到 ten",
     words: [
       { w: "one", ipa: "/wʌn/", zh: "一", emoji: "1️⃣", en: "I have one apple.", cn: "我有一个苹果。" },
@@ -34,7 +34,7 @@ window.GRADE_12_UNITS = [
     ]
   },
   {
-    grade: 1, id: "g1-toys", name: "我的玩具", en: "My Toys", emoji: "🧸",
+    book: "general", grade: 1, id: "g1-toys", name: "我的玩具", en: "My Toys", emoji: "🧸",
     color: "#F45D9E", soft: "#FFEAF5", desc: "说说你最喜欢的玩具",
     words: [
       { w: "ball", ipa: "/bɔːl/", zh: "球", emoji: "⚽", en: "Let's play with the ball.", cn: "我们一起玩球吧。" },
@@ -48,7 +48,7 @@ window.GRADE_12_UNITS = [
     ]
   },
   {
-    grade: 1, id: "g1-family", name: "我的家人", en: "My Family", emoji: "👨‍👩‍👧",
+    book: "general", grade: 1, id: "g1-family", name: "我的家人", en: "My Family", emoji: "👨‍👩‍👧",
     color: "#D97706", soft: "#FFF4DE", desc: "叫出家里每个人的名字",
     words: [
       { w: "mum", ipa: "/mʌm/", zh: "妈妈", emoji: "👩", en: "Mum is cooking.", cn: "妈妈在做饭。" },
@@ -64,7 +64,7 @@ window.GRADE_12_UNITS = [
 
   /* ---------- 二年级 ---------- */
   {
-    grade: 2, id: "g2-animals", name: "农场动物", en: "Farm Animals", emoji: "🐄",
+    book: "general", grade: 2, id: "g2-animals", name: "农场动物", en: "Farm Animals", emoji: "🐄",
     color: "#FF8A3D", soft: "#FFF0E3", desc: "农场里的小动物都会叫",
     words: [
       { w: "cow", ipa: "/kaʊ/", zh: "奶牛", emoji: "🐄", en: "The cow gives us milk.", cn: "奶牛给我们牛奶。" },
@@ -78,7 +78,7 @@ window.GRADE_12_UNITS = [
     ]
   },
   {
-    grade: 2, id: "g2-colors", name: "颜色真好看", en: "Colors", emoji: "🎨",
+    book: "general", grade: 2, id: "g2-colors", name: "颜色真好看", en: "Colors", emoji: "🎨",
     color: "#E85D9E", soft: "#FFEAF5", desc: "给世界涂上好看的颜色",
     words: [
       { w: "red", ipa: "/red/", zh: "红色", emoji: "🔴", en: "The kites are red.", cn: "风筝是红色的。" },
@@ -92,7 +92,7 @@ window.GRADE_12_UNITS = [
     ]
   },
   {
-    grade: 2, id: "g2-fruits", name: "好吃的水果", en: "Yummy Fruits", emoji: "🍇",
+    book: "general", grade: 2, id: "g2-fruits", name: "好吃的水果", en: "Yummy Fruits", emoji: "🍇",
     color: "#F85C70", soft: "#FFEBEE", desc: "说出你喜欢吃的水果",
     words: [
       { w: "apple", ipa: "/ˈæpl/", zh: "苹果", emoji: "🍎", en: "An apple a day keeps you well.", cn: "一天一苹果，身体好。" },
@@ -106,7 +106,7 @@ window.GRADE_12_UNITS = [
     ]
   },
   {
-    grade: 2, id: "g2-body", name: "我的身体", en: "My Body", emoji: "🧒",
+    book: "general", grade: 2, id: "g2-body", name: "我的身体", en: "My Body", emoji: "🧒",
     color: "#14B8A6", soft: "#E3FAF6", desc: "从头到脚认识自己",
     words: [
       { w: "head", ipa: "/hed/", zh: "头", emoji: "🧑", en: "Touch your head.", cn: "摸摸你的头。" },

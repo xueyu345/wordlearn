@@ -5,17 +5,18 @@
  * 单元按 grade 字段归属年级；分年级内容在同目录的 words-grade-*.js 里。
  */
 window.WORD_DATA = {
-  version: 2,
+  version: 3,
   goal: 10,
   grades: [1, 2, 3, 4, 5, 6],
   defaultGrade: 3,
+  defaultBook: "general",
   units: [
-    // 一二年级（words-grade-12.js）
+    // 全国通用版：一二年级（words-grade-12.js）
     ...window.GRADE_12_UNITS,
     // 三年级：下面的基础单元
 
     {
-      grade: 3, id: "animals", name: "动物朋友", en: "Animals", emoji: "🐾",
+      book: "general", grade: 3, id: "animals", name: "动物朋友", en: "Animals", emoji: "🐾",
       color: "#FF8A3D", soft: "#FFF0E3", desc: "和 12 位动物朋友打个招呼",
       words: [
         { w: "cat", ipa: "/kæt/", zh: "猫", emoji: "🐱", en: "A cat likes fish.", cn: "猫喜欢鱼。" },
@@ -33,7 +34,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "fruits", name: "水果蔬菜", en: "Fruits & Veggies", emoji: "🍎",
+      book: "general", grade: 3, id: "fruits", name: "水果蔬菜", en: "Fruits & Veggies", emoji: "🍎",
       color: "#F85C70", soft: "#FFEBEE", desc: "甜甜的水果，绿绿的蔬菜",
       words: [
         { w: "apple", ipa: "/ˈæpl/", zh: "苹果", emoji: "🍎", en: "I eat an apple every day.", cn: "我每天吃一个苹果。" },
@@ -51,7 +52,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "colors", name: "缤纷颜色", en: "Colors", emoji: "🌈",
+      book: "general", grade: 3, id: "colors", name: "缤纷颜色", en: "Colors", emoji: "🌈",
       color: "#E85D9E", soft: "#FFEAF5", desc: "把彩虹装进口袋里",
       words: [
         { w: "red", ipa: "/red/", zh: "红色", emoji: "🔴", en: "The apple is red.", cn: "苹果是红色的。" },
@@ -67,7 +68,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "numbers", name: "数字 1–12", en: "Numbers", emoji: "🔢",
+      book: "general", grade: 3, id: "numbers", name: "数字 1–12", en: "Numbers", emoji: "🔢",
       color: "#7C5CFF", soft: "#F0ECFF", desc: "从 one 数到 twelve",
       words: [
         { w: "one", ipa: "/wʌn/", zh: "一", emoji: "1️⃣", en: "I have one nose.", cn: "我有一个鼻子。" },
@@ -85,7 +86,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "school", name: "学校文具", en: "School", emoji: "🎒",
+      book: "general", grade: 3, id: "school", name: "学校文具", en: "School", emoji: "🎒",
       color: "#3B82F6", soft: "#E8F1FF", desc: "每天陪你上学的小物件",
       words: [
         { w: "book", ipa: "/bʊk/", zh: "书", emoji: "📖", en: "I read a book after school.", cn: "放学后我读了一本书。" },
@@ -101,7 +102,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "family", name: "温暖家人", en: "Family", emoji: "👨‍👩‍👧‍👦",
+      book: "general", grade: 3, id: "family", name: "温暖家人", en: "Family", emoji: "👨‍👩‍👧‍👦",
       color: "#D97706", soft: "#FFF4DE", desc: "介绍你最爱的人",
       words: [
         { w: "mother", ipa: "/ˈmʌðə(r)/", zh: "妈妈", emoji: "👩", en: "My mother makes breakfast for me.", cn: "妈妈为我做早餐。" },
@@ -115,7 +116,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "body", name: "身体部位", en: "My Body", emoji: "🧒",
+      book: "general", grade: 3, id: "body", name: "身体部位", en: "My Body", emoji: "🧒",
       color: "#14B8A6", soft: "#E3FAF6", desc: "从头到脚认识自己",
       words: [
         { w: "head", ipa: "/hed/", zh: "头", emoji: "🧑", en: "Nod your head.", cn: "点点头。" },
@@ -131,7 +132,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "food", name: "食物饮料", en: "Food & Drinks", emoji: "🍞",
+      book: "general", grade: 3, id: "food", name: "食物饮料", en: "Food & Drinks", emoji: "🍞",
       color: "#65A30D", soft: "#F2FBE3", desc: "早餐、午餐和下午茶",
       words: [
         { w: "milk", ipa: "/mɪlk/", zh: "牛奶", emoji: "🥛", en: "I drink milk for breakfast.", cn: "我早餐喝牛奶。" },
@@ -147,7 +148,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "actions", name: "动作词", en: "Actions", emoji: "🏃",
+      book: "general", grade: 3, id: "actions", name: "动作词", en: "Actions", emoji: "🏃",
       color: "#0891B2", soft: "#E2F7FC", desc: "跑跑跳跳，边做边学",
       words: [
         { w: "run", ipa: "/rʌn/", zh: "跑", emoji: "🏃", en: "I can run very fast.", cn: "我能跑得很快。" },
@@ -163,7 +164,7 @@ window.WORD_DATA = {
       ]
     },
     {
-      grade: 3, id: "nature", name: "自然天气", en: "Nature", emoji: "🌤️",
+      book: "general", grade: 3, id: "nature", name: "自然天气", en: "Nature", emoji: "🌤️",
       color: "#2F9E44", soft: "#E9F8EC", desc: "看看天空和四季",
       words: [
         { w: "sun", ipa: "/sʌn/", zh: "太阳", emoji: "☀️", en: "The sun is bright.", cn: "太阳亮亮的。" },
@@ -178,7 +179,12 @@ window.WORD_DATA = {
         { w: "cloud", ipa: "/klaʊd/", zh: "云", emoji: "☁️", en: "A white cloud is in the sky.", cn: "天上有一朵白云。" }
       ]
     },
-    // 四五六年级（words-grade-456.js）
-    ...window.GRADE_456_UNITS
+    // 全国通用版：四五六年级（words-grade-456.js）
+    ...window.GRADE_456_UNITS,
+
+    // 人教 PEP · 三年级起点（words-pep.js）
+    ...window.PEP_UNITS,
+    // 外研版 · 三年级起点（words-fltrp.js）
+    ...window.FLTRP_UNITS
   ]
 };
