@@ -172,6 +172,129 @@
   .icon-btn:active { transform: translateY(1px); box-shadow: 0 2px 0 rgba(240, 230, 216, .8); }
   .icon-btn.muted { background: #F5EEE5; opacity: .8; }
 
+  /* ---------- 账号 / 云同步 ---------- */
+  .account-btn {
+    position: relative;
+    width: auto;
+    min-width: 40px;
+    padding: 0 14px 0 10px;
+    gap: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13.5px;
+    white-space: nowrap;
+  }
+  .account-avatar {
+    width: 26px; height: 26px;
+    flex: 0 0 auto;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), #9C8BFF);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+  .account-btn.offline .account-avatar { background: #E7DFD4; color: #9B8B7A; }
+  .account-name { max-width: 96px; overflow: hidden; text-overflow: ellipsis; }
+  .sync-dot {
+    width: 7px; height: 7px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .sync-dot.busy { background: var(--yellow); animation: syncPulse 1s ease-in-out infinite; }
+  .sync-dot.error { background: var(--red); }
+  .sync-dot.idle { background: #D8CEC2; }
+  @keyframes syncPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+
+  .account-panel {
+    position: absolute;
+    top: 58px;
+    right: 0;
+    z-index: 60;
+    width: min(340px, calc(100vw - 32px));
+    padding: 18px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    text-align: left;
+  }
+  .account-panel[hidden] { display: none; }
+  .account-panel h3 { font-size: 15px; }
+  .account-panel .panel-sub { margin-top: 5px; color: var(--muted); font-size: 11.5px; line-height: 1.6; }
+  .account-panel .panel-mail {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #FBF6EF;
+    font-size: 12.5px;
+    font-weight: 700;
+    word-break: break-all;
+  }
+  .account-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .account-actions .btn { min-height: 40px; padding: 0 15px; font-size: 13.5px; border-radius: 13px; }
+  .account-note { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 11px; line-height: 1.65; }
+  .account-note b { color: var(--ink); }
+
+  .field { display: block; margin-top: 12px; text-align: left; }
+  .field > span { display: block; margin-bottom: 6px; font-size: 11.5px; font-weight: 800; color: var(--muted); letter-spacing: .02em; }
+  .field input {
+    width: 100%;
+    height: 44px;
+    padding: 0 13px;
+    border-radius: 13px;
+    border: 1.5px solid var(--line);
+    background: #FFFDF9;
+    font-size: 14.5px;
+    font-weight: 700;
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .field input:focus { outline: none; border-color: #C7B8FF; box-shadow: 0 0 0 3px rgba(112, 87, 245, .13); }
+  .field input.invalid { border-color: var(--red); }
+  .field-error { display: block; margin-top: 5px; color: var(--red); font-size: 11.5px; font-weight: 700; min-height: 0; }
+  .field-error:empty { display: none; }
+  .auth-row { display: flex; gap: 8px; align-items: flex-end; }
+  .auth-row .field { flex: 1 1 auto; }
+  .code-btn {
+    flex: 0 0 auto;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 13px;
+    background: #F2EDFF;
+    color: #6A568B;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .code-btn:disabled { opacity: .5; }
+  .auth-submit { width: 100%; margin-top: 16px; }
+  .auth-tabs { display: flex; gap: 6px; margin-top: 14px; padding: 4px; border-radius: 13px; background: #F7F2EA; }
+  .auth-tab {
+    flex: 1 1 0;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--muted);
+    transition: background .18s ease, color .18s ease;
+  }
+  .auth-tab.active { background: #fff; color: var(--ink); box-shadow: 0 2px 8px rgba(103, 76, 40, .10); }
+  .auth-msg { margin-top: 12px; font-size: 11.5px; line-height: 1.6; font-weight: 700; }
+  .auth-msg.error { color: var(--red); }
+  .auth-msg.ok { color: var(--green); }
+  .auth-msg:empty { display: none; }
+  .auth-hint { margin-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+  @media (max-width: 760px) {
+    .account-name { display: none; }
+    .account-btn { padding: 0; width: 40px; }
+    .account-panel { position: fixed; top: 74px; right: 16px; left: 16px; width: auto; }
+  }
+
   /* ---------- page / views ---------- */
   .page {
     position: relative;
@@ -1940,7 +2063,8 @@
     }
   }
 </style>
-<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style><!-- 云服务 SDK（CDN 形式，暴露全局 WorkBuddyCloud）；主脚本在其后执行，初始化时机由 boot 保证 -->
+<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js" crossorigin="anonymous"></script></head>
 <body data-page-node-id="Xj856siIFq6D4JdIUrU7Hv" style="">
 <header class="topbar" data-page-node-id="gjGbBoqB9uj3zG72AInk3R">
   <div class="topbar-inner" data-page-node-id="4XZR24trzwmiozeNk61aJo">
@@ -1983,6 +2107,59 @@
       </div>
       <button class="icon-btn" id="soundToggle" type="button" aria-label="关闭音效" title="关闭音效" data-page-node-id="bTFeKtVwB3mqtAfG3x67Dv">🔊</button>
       <button class="icon-btn" id="voiceToggle" type="button" aria-label="关闭语音朗读" title="关闭语音朗读" data-page-node-id="vLxzmHKFq62wTiYehBspGn">🔈</button>
+      <div class="grade-picker" id="accountSlot">
+        <button class="icon-btn account-btn offline" id="accountBtn" type="button"
+                aria-haspopup="dialog" aria-expanded="false" aria-controls="accountPanel"
+                title="登录后可把学习进度同步到云端">
+          <span class="account-avatar" id="accountAvatar" aria-hidden="true">?</span>
+          <span class="account-name" id="accountName">登录</span>
+          <span class="sync-dot idle" id="syncDot" aria-hidden="true"></span>
+        </button>
+        <div class="account-panel" id="accountPanel" role="dialog" aria-modal="false" aria-labelledby="accountPanelTitle" hidden>
+          <h3 id="accountPanelTitle">登录学习通</h3>
+          <p class="panel-sub" id="accountPanelSub">登录后，英语进度和数学错题会自动同步到云端，换设备也能接着学。</p>
+          <div id="accountSignedOut">
+            <div class="auth-tabs" role="tablist" aria-label="登录方式">
+              <button class="auth-tab active" id="authTabLogin" type="button" role="tab" aria-selected="true">登录</button>
+              <button class="auth-tab" id="authTabSignup" type="button" role="tab" aria-selected="false">注册</button>
+            </div>
+            <label class="field">
+              <span>邮箱</span>
+              <input id="authEmail" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" />
+              <em class="field-error" id="authEmailError"></em>
+            </label>
+            <label class="field">
+              <span>密码</span>
+              <input id="authPassword" type="password" autocomplete="current-password" placeholder="至少 8 位" />
+              <em class="field-error" id="authPasswordError"></em>
+            </label>
+            <div id="authCodeRow" hidden>
+              <div class="auth-row">
+                <label class="field">
+                  <span>邮箱验证码</span>
+                  <input id="authCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6 位数字" />
+                </label>
+                <button class="code-btn" id="authSendCode" type="button">获取验证码</button>
+              </div>
+              <em class="field-error" id="authCodeError"></em>
+            </div>
+            <p class="auth-msg" id="authMessage" role="status" aria-live="polite"></p>
+            <button class="btn btn-primary auth-submit" id="authSubmit" type="button">登录</button>
+            <p class="auth-hint" id="authHint">第一次来？先点「获取验证码」验证邮箱，再设置密码完成注册。</p>
+            <p class="auth-hint" id="authForgotWrap" hidden>
+              <button class="auth-tab" id="authForgot" type="button" style="height:auto;padding:0;flex:0 0 auto;text-decoration:underline;color:var(--purple)">忘记密码？</button>
+            </p>
+          </div>
+          <div id="accountSignedIn" hidden>
+            <div class="panel-mail" id="accountMail"></div>
+            <div class="account-actions">
+              <button class="btn btn-soft" id="accountSyncNow" type="button">立即同步</button>
+              <button class="btn btn-mini" id="accountSignOut" type="button">退出登录</button>
+            </div>
+            <p class="account-note" id="accountSyncNote">进度会自动同步。换一台设备登录同一个邮箱，就能接着上次的进度学。</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -2451,6 +2628,36 @@
   "use strict";
 
   /* =========================================================
+     云服务（登录 + 进度同步）
+     公开配置由云服务下发，可以安全出现在前端；真正的密钥都在服务端。
+     ========================================================= */
+  const CLOUD_CONFIG = {
+    endpoint: "https://study-hub-71859.app.workbuddy.host",
+    oauthRelayBaseUrl: "https://www.workbuddy.cn/v2/as/genie-baas/oauth",
+    publishableKey: "wbpk_LRHS6VCNoEo8LZxKfXK4h0_fg5C70L2qbExOH2ZwnxH1iI42lAHzYVb"
+  };
+  const CLOUD_TABLE = "study_progress";
+  const SYNC_DEBOUNCE = 2500;
+
+  // 只保留「能被 JSON 化、安全回写」的内容，避免把 undefined / 函数塞进云端
+  function createCloudClient() {
+    const factory = window.WorkBuddyCloud && window.WorkBuddyCloud.createWorkBuddyCloud;
+    if (typeof factory !== "function") return null;
+    try {
+      return factory({
+        endpoint: CLOUD_CONFIG.endpoint,
+        oauthRelayBaseUrl: CLOUD_CONFIG.oauthRelayBaseUrl,
+        publishableKey: CLOUD_CONFIG.publishableKey
+      });
+    } catch (error) {
+      console.warn("[studyhub] 云服务初始化失败，本机仍可正常使用", error && error.message);
+      return null;
+    }
+  }
+
+  const cloud = createCloudClient();
+
+  /* =========================================================
      年级与教材版本：内容与学习档案都按「年级 + 教材」隔离
      （必须放在词库与状态之前，prepareUnits 要用到 currentGrade / currentEnBook）
      ========================================================= */
@@ -2772,6 +2979,7 @@
     } catch (error) {
       /* 本地存储不可用时，页面仍然可以正常玩 */
     }
+    schedulePush();
   }
 
   function ensureDaily() {
@@ -4149,6 +4357,7 @@
     mathState.updatedAt = Date.now();
     try {
       localStorage.setItem(mathKey(currentGrade), JSON.stringify(mathState));
+      schedulePush();
       return true;
     } catch (error) {
       toast("保存失败：设备存储空间可能不够了，删掉几道旧错题再试试");
@@ -5249,6 +5458,688 @@
   window.addEventListener("hashchange", route);
 
   /* =========================================================
+     账号面板 · 事件
+     ========================================================= */
+  function setupAccountEvents() {
+    const button = $("#accountBtn");
+    if (!button) return;
+
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openAccountPanel();
+    });
+
+    const panel = $("#accountPanel");
+    if (panel) {
+      // 面板内部点击不要冒泡到 document，否则会被当成「点外面」立刻关掉
+      panel.addEventListener("click", (event) => event.stopPropagation());
+    }
+
+    document.addEventListener("click", () => {
+      if (authState.panelOpen) openAccountPanel(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && authState.panelOpen) openAccountPanel(false);
+    });
+
+    $("#authTabLogin").addEventListener("click", () => switchAuthMode("login"));
+    $("#authTabSignup").addEventListener("click", () => switchAuthMode("signup"));
+    $("#authSendCode").addEventListener("click", () => { sendLoginCode(); });
+    $("#authSubmit").addEventListener("click", () => { submitAuth(); });
+
+    // 回车提交：登录框里按回车等于点「登录」
+    ["#authEmail", "#authPassword", "#authCode"].forEach((sel) => {
+      const field = $(sel);
+      if (!field) return;
+      field.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        submitAuth();
+      });
+      field.addEventListener("input", () => {
+        field.classList.remove("invalid");
+        const err = field.parentElement && field.parentElement.querySelector(".field-error");
+        if (err) err.textContent = "";
+      });
+    });
+
+    const syncNow = $("#accountSyncNow");
+    if (syncNow) {
+      syncNow.addEventListener("click", async () => {
+        syncNow.disabled = true;
+        const ok = await pullAndMerge();
+        if (!ok) toast("同步没成功，检查网络后再试一次");
+        renderAccountPanel();
+      });
+    }
+
+    const out = $("#accountSignOut");
+    if (out) out.addEventListener("click", () => { signOut(); });
+
+    const forgot = $("#authForgot");
+    if (forgot) {
+      forgot.addEventListener("click", async () => {
+        const email = emailOf($("#authEmail").value);
+        if (!validEmail(email)) {
+          setAuthMessage("error", "先在邮箱栏填好你的邮箱，再点忘记密码");
+          return;
+        }
+        const started = await cloud.auth.resetPasswordForEmail(email);
+        if (started.error) {
+          setAuthMessage("error", errorText(started.error, "重置邮件没发出去，稍后再试"));
+          return;
+        }
+        authState.resetFlow = started.data;
+        setAuthMessage("ok", "重置邮件已发送，请按邮件提示设置新密码，然后回来登录");
+      });
+    }
+  }
+
+  setupAccountEvents();
+
+  /* =========================================================
+     登录态恢复
+     必须在 boot 之前完成，避免先按「未登录」渲染一遍再跳变
+     ========================================================= */
+  function paintSignedOut() {
+    authState.user = null;
+    // 有本机缓存但云端会话过期了：提醒一下，但不要拦住学习
+    const cached = readAuthCache();
+    if (cached && cached.email && authAvailable()) {
+      authState.message = { type: "error", text: "登录状态已过期，重新登录就能继续同步" };
+    }
+    authState.sync = "idle";
+    authState.syncText = authAvailable() ? "本机保存" : "云服务不可用";
+    renderAccountPanel();
+  }
+
+  async function restoreSession() {
+    if (!authAvailable()) {
+      paintSignedOut();
+      return;
+    }
+    try {
+      const { data, error } = await cloud.auth.getSession();
+      if (error || !data) {
+        paintSignedOut();
+        return;
+      }
+      authState.user = normalizeUser(data);
+      if (!authState.user) {
+        paintSignedOut();
+        return;
+      }
+      writeAuthCache(authState.user);
+      authState.ready = true;
+      renderAccountPanel();
+      // 恢复登录态后立刻做一次合并，把其他设备上的进度拉回来
+      pullAndMerge();
+    } catch (error) {
+      paintSignedOut();
+    }
+  }
+
+  /* =========================================================
+     账号与云同步
+     设计原则：
+       1) 本地档案永远可用（离线、未登录都能学），云端只是备份与合并；
+       2) 同一台设备上 A 退出、B 登录时，A 的数据必须搬走，不能在 B 名下留下痕迹；
+       3) 不同邮箱之间的数据严格隔离，全靠数据库 RLS 兜底。
+     ========================================================= */
+  const AUTH_CACHE_KEY = "studyHubAuth.v1";      // 只缓存展示用的邮箱，绝不存 token
+  const MIGRATED_KEY = "studyHubMigrated.v1";    // 哪些账号已经做过首次合并
+
+  const authState = {
+    ready: false,          // SDK 是否可用
+    user: null,            // { id, email }
+    busy: false,
+    mode: "login",         // login | signup
+    message: null,         // { type: "error" | "ok", text }
+    sync: "idle",          // idle | busy | done | error | off
+    syncText: "本机保存",
+    panelOpen: false,
+    pendingOtp: null       // { email, verificationId, isExistingUser }
+  };
+
+  let syncTimer = null;
+  let syncInFlight = false;
+  let suppressPush = false;   // 同步回写本地时，避免自触发再次上传
+
+  function authAvailable() {
+    return Boolean(cloud && cloud.auth && cloud.database);
+  }
+
+  function readAuthCache() {
+    try {
+      const raw = localStorage.getItem(AUTH_CACHE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) { return null; }
+  }
+
+  function writeAuthCache(user) {
+    try {
+      if (user && user.email) localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify({ email: user.email }));
+      else localStorage.removeItem(AUTH_CACHE_KEY);
+    } catch (error) { /* ignore */ }
+  }
+
+  function normalizeUser(session) {
+    if (!session || !session.user) return null;
+    const user = session.user;
+    return { id: user.id || null, email: user.email || null };
+  }
+
+  function accountLabel() {
+    if (!authAvailable()) return "仅本机";
+    if (!authState.user) return "登录";
+    const email = authState.user.email || "";
+    return email ? email.split("@")[0] : "已登录";
+  }
+
+  function avatarText() {
+    if (authState.user) {
+      const email = authState.user.email || "";
+      const seed = (email.split("@")[0] || "学").trim();
+      return seed.slice(0, 1).toUpperCase() || "学";
+    }
+    return authAvailable() ? "?" : "本";
+  }
+
+  function setAuthMessage(type, text) {
+    authState.message = text ? { type, text } : null;
+    renderAccountPanel();
+  }
+
+  /* ---------- 档案搬运：换账号时本地数据不能串 ---------- */
+  function clearProfileStorage() {
+    // 只清学习档案，保留界面偏好（sound / voice 记在 settings 里，属于账号数据，一并清掉也无妨）
+    try {
+      const doomed = [];
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        if (key.indexOf(STORAGE_KEY) === 0 || key.indexOf("studyHubMath.v1") === 0) doomed.push(key);
+      }
+      doomed.forEach((key) => localStorage.removeItem(key));
+    } catch (error) { /* ignore */ }
+  }
+
+  function reloadProfiles() {
+    state = loadState();
+    mathState = loadMathState(currentGrade);
+    ensureDaily();
+    // 同步刚写完本地，不必因为「读回同一份数据」又触发一次上传
+    suppressPush = true;
+    updateTopbar();
+    // 合并/退出/登录后当前页面上的统计、列表都变了，统一重渲染一次
+    if (currentView()) route();
+    suppressPush = false;
+  }
+
+  /* ---------- 云端读写 ---------- */
+  // 本地所有年级 × 教材的组合 —— 全量同步，换设备后才不会缺档案
+  function profilePairs() {
+    const pairs = [];
+    GRADES.forEach((grade) => {
+      pairs.push({ grade, scope: "en", book: DEFAULT_EN_BOOK });
+      mathBookIds().forEach((book) => pairs.push({ grade, scope: "math", book }));
+      EN_BOOKS.forEach((book) => {
+        if (book.id === DEFAULT_EN_BOOK) return;
+        if (!bookEditions(book.id).includes(grade)) return;
+        pairs.push({ grade, scope: "en", book: book.id });
+      });
+    });
+    return pairs;
+  }
+
+  function mathBookIds() {
+    return MATH_BOOKS.map((book) => book.id);
+  }
+
+  function profileKeyOf(pair) {
+    // 必须带学科前缀：英语和数学在同一「年级+版本」下是不同的档案
+    // 分隔符用 "."，不用 "|"——云端做字符串切分/调试时不会被误当成多段
+    return pair.scope + "." + pair.grade + "." + pair.book;
+  }
+
+  function localPayload(pair) {
+    const key = pair.scope === "en" ? stateKey(pair.grade, pair.book) : mathKey(pair.grade, pair.book);
+    const raw = readStored(key);
+    if (!raw) return null;
+    try { return JSON.parse(raw); } catch (error) { return null; }
+  }
+
+  function writeLocalPayload(pair, payload) {
+    const key = pair.scope === "en" ? stateKey(pair.grade, pair.book) : mathKey(pair.grade, pair.book);
+    try { localStorage.setItem(key, JSON.stringify(payload)); } catch (error) { /* ignore */ }
+  }
+
+  // 用「进度更靠前」的那份做基准，再把两边独有的词 / 错题并进来，避免任何一边白学
+  function mergeEnState(local, remote) {
+    if (!local) return remote ? normalizeState(remote) : null;
+    if (!remote) return normalizeState(local);
+    const a = normalizeState(local);
+    const b = normalizeState(remote);
+    // 星星、连续天数取大值：两边都算过的不重复计数，宁可偏向不打击孩子
+    return {
+      ...a,
+      stars: Math.max(a.stars || 0, b.stars || 0),
+      streak: Math.max(a.streak || 0, b.streak || 0),
+      lastActive: a.lastActive && b.lastActive
+        ? (a.lastActive > b.lastActive ? a.lastActive : b.lastActive)
+        : (a.lastActive || b.lastActive || null),
+      learned: { ...b.learned, ...a.learned },
+      wrong: Array.from(new Set([...(a.wrong || []), ...(b.wrong || [])])),
+      history: { ...b.history, ...a.history },
+      daily: (a.daily && a.daily.date && b.daily && a.daily.date === b.daily.date)
+        ? { date: a.daily.date, words: Array.from(new Set([...(a.daily.words || []), ...(b.daily.words || [])])), bonus: Boolean(a.daily.bonus || b.daily.bonus) }
+        : (a.daily || b.daily),
+      settings: { ...a.settings }
+    };
+  }
+
+  function mergeMathState(local, remote) {
+    if (!local) return remote ? normalizeMathState(remote) : null;
+    if (!remote) return normalizeMathState(local);
+    const a = normalizeMathState(local);
+    const b = normalizeMathState(remote);
+    const byId = new Map();
+    b.items.forEach((item) => { if (item && item.id) byId.set(item.id, item); });
+    a.items.forEach((item) => {
+      if (!item || !item.id) return;
+      const other = byId.get(item.id);
+      if (!other) { byId.set(item.id, item); return; }
+      // 同一道题两边都有：已攻克的保留「已攻克」，笔记取更新时间更晚的
+      const newer = (item.updatedAt || 0) >= (other.updatedAt || 0) ? item : other;
+      byId.set(item.id, { ...other, ...newer, done: Boolean(item.done || other.done) });
+    });
+    return normalizeMathState({
+      version: 1,
+      items: Array.from(byId.values()),
+      customKps: Array.from(new Set([...(a.customKps || []), ...(b.customKps || [])])),
+      updatedAt: Math.max(a.updatedAt || 0, b.updatedAt || 0)
+    });
+  }
+
+  function mergePayload(scope, local, remote) {
+    return scope === "en" ? mergeEnState(local, remote) : mergeMathState(local, remote);
+  }
+
+  // 读取云端全部档案 → { "math|3|general": payload, ... }
+  async function fetchRemote() {
+    const map = new Map();
+    if (!authAvailable() || !authState.user) return map;
+    const { data, error } = await cloud.database
+      .from(CLOUD_TABLE)
+      .select("profile_key, scope, payload");
+    if (error) throw error;
+    (Array.isArray(data) ? data : []).forEach((row) => {
+      if (!row || !row.profile_key || !row.payload) return;
+      map.set(row.profile_key, { scope: row.scope, payload: row.payload });
+    });
+    return map;
+  }
+
+  async function upsertRemote(pair, payload) {
+    const { error } = await cloud.database
+      .from(CLOUD_TABLE)
+      .upsert({
+        profile_key: profileKeyOf(pair),
+        scope: pair.scope,
+        payload
+      }, { onConflict: "owner_id,profile_key,scope" });
+    if (error) throw error;
+  }
+
+  function markSynced(text) {
+    authState.sync = "done";
+    authState.syncText = text || "已同步";
+    renderAccountPanel();
+  }
+
+  function markSyncError(text) {
+    authState.sync = "error";
+    authState.syncText = text || "同步失败";
+    renderAccountPanel();
+  }
+
+  // 登录后第一次：把云端与本地合并，再把合并结果推回去
+  async function pullAndMerge() {
+    if (!authAvailable() || !authState.user) return false;
+    authState.sync = "busy";
+    authState.syncText = "正在同步…";
+    renderAccountPanel();
+    try {
+      const remote = await fetchRemote();
+      const pairs = profilePairs();
+      let changed = 0;
+      for (const pair of pairs) {
+        const key = profileKeyOf(pair);
+        const local = localPayload(pair);
+        const hit = remote.get(key);
+        const merged = mergePayload(pair.scope, local, hit ? hit.payload : null);
+        if (!merged) continue;
+        const localJson = local ? JSON.stringify(local) : "";
+        const mergedJson = JSON.stringify(merged);
+        if (mergedJson !== localJson) {
+          writeLocalPayload(pair, merged);
+          changed += 1;
+        }
+        if (!hit || JSON.stringify(hit.payload) !== mergedJson) {
+          await upsertRemote(pair, merged);
+        }
+      }
+      reloadProfiles();
+      markSynced(changed ? "已合并 " + changed + " 份档案" : "云端与本机一致");
+      toast(changed ? "云端进度已合并到本机 ✅" : "已从云端同步，进度一致 ✅");
+      return true;
+    } catch (error) {
+      markSyncError("同步失败，点开可重试");
+      setAuthMessage("error", errorText(error, "同步失败，请检查网络后重试"));
+      return false;
+    }
+  }
+
+  // 后续：本地有变化就整体推上去（防抖，不打断孩子学习）
+  async function pushLocal() {
+    if (!authAvailable() || !authState.user) return;
+    if (syncInFlight) return;
+    syncInFlight = true;
+    authState.sync = "busy";
+    authState.syncText = "正在上传…";
+    renderAccountPanel();
+    try {
+      for (const pair of profilePairs()) {
+        const payload = localPayload(pair);
+        if (!payload) continue;
+        await upsertRemote(pair, payload);
+      }
+      markSynced("已同步");
+    } catch (error) {
+      markSyncError("同步失败，点开可重试");
+    } finally {
+      syncInFlight = false;
+    }
+  }
+
+  function schedulePush() {
+    if (!authState.user || suppressPush) return;
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(() => { pushLocal(); }, SYNC_DEBOUNCE);
+  }
+
+  /* ---------- 登录流程 ---------- */
+  function emailOf(value) {
+    return String(value || "").trim().toLowerCase();
+  }
+
+  function validEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+  }
+
+  function errorText(error, fallback) {
+    const message = error && (error.message || error.error_description);
+    if (!message) return fallback || "操作失败，请稍后重试";
+    if (/network|fetch|Failed to fetch/i.test(message)) return "网络好像不太顺畅，检查一下连接再试";
+    if (/rate|too many|429/i.test(message)) return "操作太频繁啦，等一会儿再试";
+    return message;
+  }
+
+  async function sendLoginCode() {
+    if (!authAvailable()) {
+      setAuthMessage("error", "云服务暂时不可用，本机学习不受影响");
+      return;
+    }
+    const email = emailOf($("#authEmail").value);
+    if (!validEmail(email)) {
+      $("#authEmailError").textContent = "请输入正确的邮箱地址";
+      $("#authEmail").classList.add("invalid");
+      return;
+    }
+    const button = $("#authSendCode");
+    button.disabled = true;
+    button.textContent = "发送中…";
+    const sent = await cloud.auth.sendOtp({ email });
+    button.disabled = false;
+    button.textContent = "重新发送";
+    if (sent.error) {
+      setAuthMessage("error", errorText(sent.error, "验证码没发出去，稍后再试"));
+      return;
+    }
+    authState.pendingOtp = {
+      email,
+      verificationId: sent.data.verificationId,
+      isExistingUser: sent.data.isExistingUser
+    };
+    setAuthMessage("ok", "验证码已发送，请查收邮箱（含垃圾箱）");
+    $("#authCode").focus();
+  }
+
+  async function submitAuth() {
+    if (authState.busy) return;
+    if (!authAvailable()) {
+      setAuthMessage("error", "云服务暂时不可用，本机学习不受影响");
+      return;
+    }
+    const email = emailOf($("#authEmail").value);
+    const password = $("#authPassword").value;
+    if (!validEmail(email)) {
+      $("#authEmailError").textContent = "请输入正确的邮箱地址";
+      $("#authEmail").classList.add("invalid");
+      return;
+    }
+    if (password.length < 6) {
+      $("#authPasswordError").textContent = "密码至少 6 位";
+      $("#authPassword").classList.add("invalid");
+      return;
+    }
+
+    authState.busy = true;
+    renderAccountPanel();
+    try {
+      if (authState.mode === "login") {
+        const result = await cloud.auth.signInWithPassword({ email, password });
+        if (result.error) {
+          setAuthMessage("error", "邮箱或密码不对，再试一次");
+          return;
+        }
+        await afterSignedIn(result.data);
+        return;
+      }
+      // 注册：必须先用验证码验证邮箱，密码不能凭空设置
+      const pending = authState.pendingOtp;
+      if (!pending || pending.email !== email) {
+        setAuthMessage("error", "请先点「获取验证码」，验证这个邮箱");
+        return;
+      }
+      const code = String($("#authCode").value || "").trim();
+      if (!code) {
+        $("#authCodeError").textContent = "请输入邮箱收到的验证码";
+        return;
+      }
+      if (pending.isExistingUser) {
+        // 不暴露「该邮箱已注册」，统一引导去登录
+        setAuthMessage("error", "这个邮箱可以直接登录，请切到「登录」");
+        switchAuthMode("login");
+        return;
+      }
+      const completed = await cloud.auth.verifyOtp({
+        email: pending.email,
+        verificationId: pending.verificationId,
+        isExistingUser: pending.isExistingUser,
+        token: code,
+        password
+      });
+      if (completed.error) {
+        setAuthMessage("error", errorText(completed.error, "验证码不对或已过期"));
+        return;
+      }
+      authState.pendingOtp = null;
+      await afterSignedIn(completed.data);
+      toast("注册成功，开始记录你的进度 🎉");
+    } catch (error) {
+      setAuthMessage("error", errorText(error, "登录失败，请稍后重试"));
+    } finally {
+      authState.busy = false;
+      renderAccountPanel();
+    }
+  }
+
+  async function afterSignedIn(session) {
+    authState.user = normalizeUser(session);
+    writeAuthCache(authState.user);
+    authState.message = null;
+    authState.sync = "busy";
+    authState.syncText = "正在同步…";
+    renderAccountPanel();
+    if (!authState.user) return;
+    markMigrated(authState.user);
+    await pullAndMerge();
+    authState.panelOpen = false;
+    renderAccountPanel();
+  }
+
+  function markMigrated(user) {
+    if (!user || !user.email) return;
+    try {
+      const raw = readStored(MIGRATED_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      const next = Array.isArray(list) ? list : [];
+      const email = user.email.toLowerCase();
+      if (!next.includes(email)) next.push(email);
+      localStorage.setItem(MIGRATED_KEY, JSON.stringify(next.slice(-20)));
+    } catch (error) { /* ignore */ }
+  }
+
+  async function signOut() {
+    if (!authAvailable()) return;
+    authState.busy = true;
+    renderAccountPanel();
+    try {
+      await pushLocal();            // 退出前把最新进度送上去
+      await cloud.auth.signOut();
+    } catch (error) {
+      /* 即便网络失败也要允许本机退出，避免孩子被卡在登录态 */
+    }
+    const lastEmail = authState.user && authState.user.email;
+    authState.user = null;
+    authState.pendingOtp = null;
+    authState.busy = false;
+    authState.sync = "idle";
+    authState.syncText = "本机保存";
+    authState.message = lastEmail ? { type: "ok", text: "已退出登录，进度已保存到云端" } : null;
+    writeAuthCache(null);
+    // 关键：清掉本机的账号档案，否则下一个登录的人会看到上一个人的数据
+    clearProfileStorage();
+    reloadProfiles();
+    renderAccountPanel();
+    toast("已退出登录");
+  }
+
+  function switchAuthMode(mode) {
+    authState.mode = mode;
+    authState.message = null;
+    $("#authCodeError").textContent = "";
+    renderAccountPanel();
+  }
+
+  /* ---------- 账号面板渲染 ---------- */
+  function renderAccountPanel() {
+    const button = $("#accountBtn");
+    const panel = $("#accountPanel");
+    if (!button || !panel) return;
+
+    const signedIn = Boolean(authState.user);
+    button.classList.toggle("offline", !signedIn);
+    button.setAttribute("aria-expanded", String(authState.panelOpen));
+    const nameEl = $("#accountName");
+    if (nameEl) nameEl.textContent = accountLabel();
+    const avatarEl = $("#accountAvatar");
+    if (avatarEl) avatarEl.textContent = avatarText();
+    button.title = !authAvailable()
+      ? "云服务不可用，进度只保存在本机"
+      : (signedIn ? "已登录 " + (authState.user.email || "") + " · 点开管理" : "登录后可把学习进度同步到云端");
+
+    const dot = $("#syncDot");
+    if (dot) {
+      const stateClass = !authAvailable() ? "idle"
+        : authState.sync === "busy" ? "busy"
+        : authState.sync === "error" ? "error"
+        : authState.sync === "done" ? "" : "idle";
+      dot.className = "sync-dot " + stateClass;
+      dot.title = authState.syncText;
+    }
+
+    panel.hidden = !authState.panelOpen;
+    $("#accountSignedOut").hidden = signedIn;
+    $("#accountSignedIn").hidden = !signedIn;
+
+    const title = $("#accountPanelTitle");
+    if (title) title.textContent = signedIn ? "学习进度已同步" : "登录学习通";
+    const sub = $("#accountPanelSub");
+    if (sub) {
+      sub.textContent = signedIn
+        ? "这台设备上会自动保存，也会同步到云端。"
+        : (authAvailable()
+            ? "登录后，英语进度和数学错题会自动同步到云端，换设备也能接着学。"
+            : "云服务暂时不可用，进度只保存在本机，不影响正常学习。");
+    }
+
+    if (signedIn) {
+      const mail = $("#accountMail");
+      if (mail) mail.textContent = authState.user.email || "已登录";
+      const note = $("#accountSyncNote");
+      if (note) note.textContent = authState.syncText === "已同步" || authState.syncText.indexOf("已合并") === 0
+        ? "进度已备份到云端。换一台设备登录同一个邮箱，就能接着上次的进度学。"
+        : authState.syncText;
+      const syncBtn = $("#accountSyncNow");
+      if (syncBtn) {
+        syncBtn.disabled = authState.busy || authState.sync === "busy";
+        syncBtn.textContent = authState.sync === "busy" ? "同步中…" : "立即同步";
+      }
+      return;
+    }
+
+    // 未登录：切换登录 / 注册两个页签
+    const isSignup = authState.mode === "signup";
+    $("#authTabLogin").classList.toggle("active", !isSignup);
+    $("#authTabSignup").classList.toggle("active", isSignup);
+    $("#authTabLogin").setAttribute("aria-selected", String(!isSignup));
+    $("#authTabSignup").setAttribute("aria-selected", String(isSignup));
+    $("#authCodeRow").hidden = !isSignup;
+    $("#authForgotWrap").hidden = isSignup;
+    $("#authSubmit").textContent = authState.busy
+      ? (isSignup ? "注册中…" : "登录中…")
+      : (isSignup ? "注册并登录" : "登录");
+    $("#authSubmit").disabled = authState.busy;
+    $("#authPassword").setAttribute("autocomplete", isSignup ? "new-password" : "current-password");
+    const hint = $("#authHint");
+    if (hint) {
+      hint.textContent = isSignup
+        ? "注册需要先验证邮箱：填好邮箱和密码 → 获取验证码 → 输入验证码提交。"
+        : "还没有账号？点上面的「注册」，用邮箱验证码开通。";
+    }
+    const msg = $("#authMessage");
+    if (msg) {
+      msg.className = "auth-msg" + (authState.message ? " " + authState.message.type : "");
+      msg.textContent = authState.message ? authState.message.text : "";
+    }
+  }
+
+  function openAccountPanel(open) {
+    authState.panelOpen = open === undefined ? !authState.panelOpen : Boolean(open);
+    if (authState.panelOpen && !authState.user && authState.mode === "signup") {
+      authState.message = null;
+    }
+    renderAccountPanel();
+    if (authState.panelOpen && !authState.user) {
+      const field = $("#authEmail");
+      if (field && !field.value) setTimeout(() => field.focus(), 30);
+    }
+  }
+
+  /* =========================================================
      PWA
      ========================================================= */
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
@@ -5279,12 +6170,15 @@
   async function boot() {
     ensureDaily();
     updateTopbar();
+    renderAccountPanel();
     const ok = await loadWordData();
     wordDataFailed = !ok;
     if (!ok) {
       console.warn("[studyhub] 英语词库加载失败，数学错题本不受影响");
     }
     route();
+    // 先让页面可用，再在后台恢复登录态，避免登录请求慢时白屏
+    restoreSession();
   }
 
   boot();
@@ -5322,7 +6216,26 @@
         stars: state.stars,
         wrong: state.wrong.length,
         mathTotal: mathState.items.length
-      })
+      }),
+      // ---- 账号 / 云同步 ----
+      cloudReady: () => authAvailable(),
+      getAuth: () => ({
+        user: authState.user,
+        mode: authState.mode,
+        sync: authState.sync,
+        syncText: authState.syncText,
+        panelOpen: authState.panelOpen,
+        hasPendingOtp: Boolean(authState.pendingOtp)
+      }),
+      openAccountPanel,
+      switchAuthMode,
+      profilePairs: () => profilePairs().map((pair) => ({ ...pair, key: profileKeyOf(pair) })),
+      mergeEnState,
+      mergeMathState,
+      clearProfileStorage,
+      renderAccountPanel,
+      validEmail,
+      emailOf
     };
   }
 })();

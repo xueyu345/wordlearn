@@ -3,10 +3,11 @@
  *   - 页面导航：网络优先，失败时回退到缓存的 index.html
  *   - words.json：网络优先（保证词库更新能及时生效），失败用缓存
  *   - 其他静态资源：缓存优先，后台顺带更新
+ *   - 跨域资源（如云服务 SDK 的 CDN）一律不拦截，交给浏览器按正常 HTTP 缓存处理
  */
 "use strict";
 
-const VERSION = "v4";
+const VERSION = "v5";
 const SHELL_CACHE = "wordhero-shell-" + VERSION;
 const WORD_CACHE = "wordhero-words-" + VERSION;
 

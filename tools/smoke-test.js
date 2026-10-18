@@ -12,7 +12,11 @@ const vm = require("vm");
 
 const root = path.resolve(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-const script = html.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1];
+// 只取带内联代码的 script 块：带 src 的外链（如云服务 SDK）内容为空，跳过
+const script = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)]
+  .map((m) => m[1])
+  .find((code) => code.trim().length > 0);
+if (!script) throw new Error("index.html 里没找到内联主脚本");
 
 /* ---------- 极简元素 ---------- */
 class ClassList {
