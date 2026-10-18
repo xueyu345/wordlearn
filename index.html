@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#FFF7EC" />
-<meta name="description" content="学习通 —— 小学生的英语单词与数学错题学习空间。英语 10 个主题 104 个高频单词，数学错题本支持按知识点抽题复习。" />
-<title>学习通 · 小学生英语单词与数学错题本</title>
-<link rel="manifest" href="manifest.json" />
-<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
-<link rel="apple-touch-icon" href="icons/icon-192.png" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="学习通" />
-<style>
+<html lang="zh-CN" data-page-node-id="atSJRvEDFXLODwtZEbHP79"><head data-page-node-id="vFhDZi5WXtR0W3i6rimyrE">
+<meta charset="UTF-8" data-page-node-id="KbLwznVdxCeK8U1xUvXwpa">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="yqfGlyoHn17GzT8OiVSj7v">
+<meta name="theme-color" content="#FFF7EC" data-page-node-id="n6dupYV33EkHCf3lphvfuw">
+<meta name="description" content="学习通 —— 小学生的英语单词与数学错题学习空间。英语 10 个主题 104 个高频单词，数学错题本支持按知识点抽题复习。" data-page-node-id="B1HA0FBc1eZy9M5F8XthNW">
+<title data-page-node-id="NVXi0sYPHaOIc8cMf9BUXO">学习通 · 小学生英语单词与数学错题本</title>
+<link rel="manifest" href="manifest.json" data-page-node-id="JzVkSKVz6ZFTHzshvzb1hx">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" data-page-node-id="T7t0KZSDy0HtsL3YdRONhr">
+<link rel="apple-touch-icon" href="icons/icon-192.png" data-page-node-id="kTSqZjLa7y0gmsJgwP64hy">
+<meta name="apple-mobile-web-app-capable" content="yes" data-page-node-id="h7TfuAwJrDqOOSPezsytY5">
+<meta name="apple-mobile-web-app-status-bar-style" content="default" data-page-node-id="Uy73b2ryW6OCfiFiZrHkGG">
+<meta name="apple-mobile-web-app-title" content="学习通" data-page-node-id="Mn6qofNyPppWUrE3emdmti">
+<style data-page-node-id="QaGeR9P3Bp05sqcde19xeu">
   :root {
     --bg: #FFF7EC;
     --surface: #FFFFFF;
@@ -125,6 +124,39 @@
   .stat-pill b { font-size: 16px; }
   .stat-pill .pill-unit { color: var(--muted); font-size: 12px; font-weight: 700; }
   .stat-pill.bump { animation: bump .45s ease; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .grade-picker { position: relative; display: flex; }
+  .grade-select {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 40px;
+    padding: 0 30px 0 14px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, .85);
+    border: 1px solid var(--line);
+    box-shadow: 0 4px 0 rgba(240, 230, 216, .8);
+    color: var(--ink, #3b2f2a);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .grade-select:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(240, 230, 216, .8); }
+  .grade-select:focus-visible { outline: 3px solid rgba(240, 160, 80, .45); outline-offset: 2px; }
+  .grade-picker::after {
+    content: "▾";
+    position: absolute; right: 13px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 11px;
+    color: #B0805C;
+  }
   .icon-btn {
     width: 40px; height: 40px;
     display: grid; place-items: center;
@@ -1767,6 +1799,8 @@
     .stat-pill { height: 36px; padding: 0 10px; font-size: 13px; }
     .stat-pill b { font-size: 14px; }
     .stat-pill .pill-unit { display: none; }
+    .grade-select { height: 36px; padding: 0 26px 0 10px; font-size: 13px; }
+    .grade-picker::after { right: 11px; }
     .icon-btn { width: 36px; height: 36px; font-size: 16px; }
     .page { padding: 8px 16px 60px; }
     .hero { padding: 28px 22px 30px; border-radius: 27px; }
@@ -1885,6 +1919,9 @@
     .brand-text small { display: none; }
     .brand-text strong { font-size: 15.5px; }
     .stat-pill { padding: 0 8px; gap: 4px; }
+    .top-stats { gap: 6px; }
+    .grade-select { height: 34px; padding: 0 22px 0 9px; font-size: 12px; }
+    .grade-picker::after { right: 9px; font-size: 10px; }
     .unit-grid { grid-template-columns: 1fr 1fr; }
     .unit-desc { display: none; }
     .unit-card h3 { font-size: 14.5px; }
@@ -1900,494 +1937,525 @@
     }
   }
 </style>
-</head>
-<body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="#/home" aria-label="学习通首页">
-      <span class="brand-badge" aria-hidden="true">🦉</span>
-      <span class="brand-text">
-        <strong>学习通</strong>
-        <small>STUDY HUB</small>
+<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<body data-page-node-id="Xj856siIFq6D4JdIUrU7Hv" style="">
+<header class="topbar" data-page-node-id="gjGbBoqB9uj3zG72AInk3R">
+  <div class="topbar-inner" data-page-node-id="4XZR24trzwmiozeNk61aJo">
+    <a class="brand" href="#/home" aria-label="学习通首页" data-page-node-id="hSCqtTFJZgIDmFbrI1RS8h">
+      <span class="brand-badge" aria-hidden="true" data-page-node-id="yb60OcqhlSmIEH984UIvU0">🦉</span>
+      <span class="brand-text" data-page-node-id="DrkK0GwoBAhcuyPWjUX68A">
+        
+        <strong data-page-node-id="H8cF1rDEMktwLOzsPVo0iR">学习通</strong><small data-page-node-id="8vYHNtneQ0OPzBdTaghi5Y">STUDY HUB</small>
       </span>
     </a>
-    <div class="top-stats">
-      <div class="stat-pill" id="starPill" title="我的星星">
-        <span aria-hidden="true">⭐</span><b id="starCount">0</b>
+    <div class="top-stats" data-page-node-id="HSDu3ycjX1yz354ROODFdJ">
+      <div class="grade-picker">
+        <label class="sr-only" for="gradeSelect">选择年级</label>
+        <select id="gradeSelect" class="grade-select" title="切换年级（各年级记录独立保存）">
+          <option value="1">一年级</option>
+          <option value="2">二年级</option>
+          <option value="3">三年级</option>
+          <option value="4">四年级</option>
+          <option value="5">五年级</option>
+          <option value="6">六年级</option>
+        </select>
       </div>
-      <div class="stat-pill" title="连续打卡天数">
-        <span aria-hidden="true">🔥</span><b id="streakCount">0</b><span class="pill-unit">天</span>
+      <div class="stat-pill" id="starPill" title="我的星星" data-page-node-id="kmIu1BZOGEz1GvvAdtNiFF">
+        <span aria-hidden="true" data-page-node-id="4gR2DWVQ8A4mkx8OaAaz4O">⭐</span><b id="starCount" data-page-node-id="cHuwawME53NIaMEKmS8T0w">0</b>
       </div>
-      <button class="icon-btn" id="soundToggle" type="button" aria-label="开关音效" title="开关音效">🔊</button>
-      <button class="icon-btn" id="voiceToggle" type="button" aria-label="开关语音朗读" title="开关语音朗读">🔈</button>
+      <div class="stat-pill" title="连续打卡天数" data-page-node-id="Yrh2b9RdgCb7qMC0GDFFON">
+        <span aria-hidden="true" data-page-node-id="MauQbt7EtUDbZCYPLBv0Wd">🔥</span><b id="streakCount" data-page-node-id="dVV2ZQMpnTDYmE42PJJXfm">0</b><span class="pill-unit" data-page-node-id="7xqHXs96xgJdPB3Eorupl1">天</span>
+      </div>
+      <button class="icon-btn" id="soundToggle" type="button" aria-label="关闭音效" title="关闭音效" data-page-node-id="bTFeKtVwB3mqtAfG3x67Dv">🔊</button>
+      <button class="icon-btn" id="voiceToggle" type="button" aria-label="关闭语音朗读" title="关闭语音朗读" data-page-node-id="vLxzmHKFq62wTiYehBspGn">🔈</button>
     </div>
   </div>
 </header>
 
-<main class="page">
+<main class="page" data-page-node-id="90wflEJZDFKFvfb6ZJLWLA">
   <!-- ================= HOME ================= -->
-  <section class="view" id="view-home">
-    <div class="hero hero-hub">
-      <div class="hero-content">
-        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 每天 10 分钟 · 两门功课一起进步</div>
-        <h1>背单词、订正错题<br /><span>今天想学哪一门？</span></h1>
-        <p>右边两扇门，一扇通向英语单词，一扇通向数学错题。挑一扇推开，学习通陪你今天也前进一步。</p>
+  <section class="view active" id="view-home" data-page-node-id="BnHzMXzrRYrQiIUd2JnSsw">
+    <div class="hero hero-hub" data-page-node-id="DDRg6dOWiwtsd8Z8dqu9Gd">
+      <div class="hero-content" data-page-node-id="8mkXtyqv7NWPWw76p2Xezl">
+        <div class="eyebrow" data-page-node-id="YMZA00AbfszVHcIsVMZimo"><span class="dot" aria-hidden="true" data-page-node-id="neTChgmuqw6ZqvSh7IS0pk"></span> 每天 10 分钟 · 两门功课一起进步</div>
+        <h1 data-page-node-id="QP6uPoeRq3twgTDxPLz2A1">背单词、订正错题<br data-page-node-id="FDhENmEorsE1rsyMv0yasH"><span data-page-node-id="O4RyvL8JDVbILvdIttDQ8q">今天想学哪一门？</span></h1>
+        <p data-page-node-id="gaTKEylDmllDTMAtVIuTVs">右边两扇门，一扇通向英语单词，一扇通向数学错题。挑一扇推开，学习通陪你今天也前进一步。</p>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="float-emoji f1">🔤</div>
-        <div class="float-emoji f2">➗</div>
-        <div class="float-emoji f3">⭐</div>
-        <div class="bubble">背单词，<br />也订正错题！</div>
-        <div class="mascot-ball">
-          <div class="mascot">🦉</div>
+      <div class="hero-art" aria-hidden="true" data-page-node-id="k68QNiCQiwhOdcsBD0jHu8">
+        <div class="float-emoji f1" data-page-node-id="3hsCD27xJbHlNsQE6XtaCh">🔤</div>
+        <div class="float-emoji f2" data-page-node-id="sDNEFVFaSt9LZct2z3zdzc">➗</div>
+        <div class="float-emoji f3" data-page-node-id="C25517VMfwoFB42e8lDfEi">⭐</div>
+        <div class="bubble" data-page-node-id="XVGbmEYwpwmSKzSSZ4wQGL">背单词，<br data-page-node-id="iHCV5l3dH1rXgxRQysgBW6">也订正错题！</div>
+        <div class="mascot-ball" data-page-node-id="8rGCNuMBtAjP209dDfPlpR">
+          <div class="mascot" data-page-node-id="dYsm458rlFcrda36rbIfFF">🦉</div>
         </div>
       </div>
     </div>
 
-    <div class="subject-grid">
-      <a class="subject-card subject-en" href="#/home/en">
-        <div class="subject-top">
-          <span class="subject-icon" aria-hidden="true">🔤</span>
-          <span class="subject-tag">英语 · 单词</span>
+    <div class="subject-grid" data-page-node-id="B5lgtJyAYWm32UGIM8DHt7">
+      <a class="subject-card subject-en" href="#/home/en" data-page-node-id="000Zsf89hW6fZSQuqZBiGB">
+        <div class="subject-top" data-page-node-id="FEdcaRzW4u614OIc5VoQSM">
+          <span class="subject-icon" aria-hidden="true" data-page-node-id="GLcYHb6nqnSgEjuChqbSfw">🔤</span>
+          <span class="subject-tag" data-page-node-id="YTMPdlL1tJ8jm3dhFX6bMN">英语 · 单词</span>
         </div>
-        <h2>单词关卡</h2>
-        <p class="subject-desc">10 个主题、104 个高频单词，听、读、拼、配四种玩法，每天 10 个新朋友。</p>
-        <div class="subject-meta">
-          <span><b id="hubLearned">0</b> / <span id="hubTotal">104</span> 已认识</span>
-          <span class="subject-go">进去看看 →</span>
+        <h2 data-page-node-id="Hc7pxvNQ25Kza7huQ4aIX2">单词关卡</h2>
+        <p class="subject-desc" data-page-node-id="rkuhYKN6YJM3Fslp3UfDKj" id="hubEnDesc">10 个主题、104 个高频单词，听、读、拼、配四种玩法，每天 10 个新朋友。</p>
+        <div class="subject-meta" data-page-node-id="E4nAg69RENff8YEo6iU8kY">
+          <span data-page-node-id="zoAiL8fHaCpvYdEkDtDFqf"><b id="hubLearned" data-page-node-id="TzLAGAPKpUx8zmoiyVVEe3">0</b> / <span id="hubTotal" data-page-node-id="VS8xPOHdqypjgGvA8S8yAf">104</span> 已认识</span>
+          <span class="subject-go" data-page-node-id="lOaQNIAFy47VYKSXe949jH">进去看看 →</span>
         </div>
       </a>
-      <a class="subject-card subject-math" href="#/home/math">
-        <div class="subject-top">
-          <span class="subject-icon" aria-hidden="true">➗</span>
-          <span class="subject-tag">数学 · 错题本</span>
+      <a class="subject-card subject-math" href="#/home/math" data-page-node-id="vDna1MCwJXbYdMom531q1u">
+        <div class="subject-top" data-page-node-id="XVjRgBOnsoy7EYhWmwrZwg">
+          <span class="subject-icon" aria-hidden="true" data-page-node-id="7vmdFgcBtogQNmLAYWZeA2">➗</span>
+          <span class="subject-tag" data-page-node-id="GCrQbHtFyK7XdW5hEBWBsp">数学 · 错题本</span>
         </div>
-        <h2>数学错题本</h2>
-        <p class="subject-desc">把做错的题拍下来、记下来，按知识点整理。复习时抽题重做，把不会的变成会的。</p>
-        <div class="subject-meta">
-          <span><b id="hubMathTotal">0</b> 道错题 · <span id="hubMathTodo">0</span> 道待攻克</span>
-          <span class="subject-go">进去看看 →</span>
+        <h2 data-page-node-id="rxCuZxRXH3PJrMdV8neWER">数学错题本</h2>
+        <p class="subject-desc" data-page-node-id="7gcbhk1SvPFRA53OQgtqci">把做错的题拍下来、记下来，按知识点整理。复习时抽题重做，把不会的变成会的。</p>
+        <div class="subject-meta" data-page-node-id="RXLlEJO7RPb9IWWL5ogzJA">
+          <span data-page-node-id="JqoiB24nsbVq9A0OfPxTvd"><b id="hubMathTotal" data-page-node-id="IvF7TMdGLDwbtFPCFfkgtm">0</b> 道错题 · <span id="hubMathTodo" data-page-node-id="R8f5lsrf6TEbAUvgX8xpbX">0</span> 道待攻克</span>
+          <span class="subject-go" data-page-node-id="FFg4pMAkJUGct2LFAcZPHz">进去看看 →</span>
         </div>
       </a>
     </div>
   </section>
 
   <!-- ================= 英语主页 ================= -->
-  <section class="view" id="view-home-en">
-    <div class="hero">
-      <div class="hero-content">
-        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> 每日英语 · 10 分钟</div>
-        <h1>每天一点点<br /><span>单词记得牢！</span></h1>
-        <p>听一听、读一读、拼一拼，跟着学习通把英语单词装进口袋。今天也来认识 10 个新朋友吧！</p>
-        <div class="hero-actions">
-          <button class="btn btn-white" id="startDaily" type="button">🚀 开始今日学习</button>
-          <a class="btn btn-ghost-light" href="#/quiz/all">🎲 随机挑战</a>
+  <section class="view" id="view-home-en" data-page-node-id="9NymEtkH08CDmVJohDzQ9O">
+    <div class="hero" data-page-node-id="yxNnDxJ6ZSOKBwshXsOAwu">
+      <div class="hero-content" data-page-node-id="22IA8AAbhuT2h1D3J6G1DT">
+        <div class="eyebrow" data-page-node-id="L5SRageYQBsgHJGG27GP0y"><span class="dot" aria-hidden="true" data-page-node-id="RKddAYRyFfpbY9ICRqDua7"></span> <span id="homeEnGrade">三年级</span> · 每日 10 分钟</div>
+        <h1 data-page-node-id="bYNuGJOP02uASuwNPfMMGH">每天一点点<br data-page-node-id="qwACFl7QV85JwEJz8DB2wC"><span data-page-node-id="bGVU4UER5rEBdwd6K6no8B">单词记得牢！</span></h1>
+        <p data-page-node-id="fzgXoCHqkxtn8l1BgDQetC">听一听、读一读、拼一拼，跟着学习通把英语单词装进口袋。今天也来认识 10 个新朋友吧！</p>
+        <div class="hero-actions" data-page-node-id="TLohfQa3UILkv3Hm5AVESW">
+          <button class="btn btn-white" id="startDaily" type="button" data-page-node-id="pZOBrel60MLrsQrk82dHzu">🚀 开始今日学习</button>
+          <a class="btn btn-ghost-light" href="#/quiz/all" data-page-node-id="74tUxAEJhLVditnAMxPfLL">🎲 随机挑战</a>
         </div>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="float-emoji f1">📚</div>
-        <div class="float-emoji f2">🔤</div>
-        <div class="float-emoji f3">⭐</div>
-        <div class="bubble">每天一点点，<br />单词记得牢！</div>
-        <div class="mascot-ball">
-          <div class="mascot">🦉</div>
+      <div class="hero-art" aria-hidden="true" data-page-node-id="ouJKGLneyd3WRIYtkB38n9">
+        <div class="float-emoji f1" data-page-node-id="HICdsROrGMNVzdQaMeey6y">📚</div>
+        <div class="float-emoji f2" data-page-node-id="mol3XJdxRHFPwOsdx8sTzH">🔤</div>
+        <div class="float-emoji f3" data-page-node-id="mYTid7YcUmadhpCqgK5WaB">⭐</div>
+        <div class="bubble" data-page-node-id="YHqZjGhrm22EZYUtPC6Cp8">每天一点点，<br data-page-node-id="UOD4duMCoXcRA3hbh2EVyL">单词记得牢！</div>
+        <div class="mascot-ball" data-page-node-id="4tEo7pSyfVL0VLgQbU6cmR">
+          <div class="mascot" data-page-node-id="Vaw6A8fhk6PXeuKfz307At">🦉</div>
         </div>
       </div>
     </div>
 
-    <a class="back-btn" href="#/home" style="margin-bottom:14px;display:inline-flex;">← 回到学习通首页</a>
+    <a class="back-btn" href="#/home" style="margin-bottom:14px;display:inline-flex;" data-page-node-id="SIRUzG4qRGZlMjU2rbU4km">← 回到学习通首页</a>
 
-    <div class="stats-grid">
-      <article class="panel">
-        <div class="goal-ring" id="goalRing" style="--pct: 0%">
-          <div><strong id="goalNum">0</strong><span>/ 10</span></div>
+    <div class="stats-grid" data-page-node-id="Vo2aHlPPBfkg963pJdSlJE">
+      <article class="panel" data-page-node-id="3mq5UVXqgs9TanF8klMis8">
+        <div class="goal-ring" id="goalRing" style="--pct: 0%" data-page-node-id="2oW78erQifd9A30AwZWLRa">
+          <div data-page-node-id="dVsajjY8XwNvh5Svj6RVGk"><strong id="goalNum" data-page-node-id="X1Jv0K94egtqRjGZLzevos">0</strong><span data-page-node-id="6xYBzBM1klxtHfQfe9ifSk">/ 10</span></div>
         </div>
-        <div class="panel-copy">
-          <span class="panel-kicker">今日目标</span>
-          <h3 id="goalTitle">还差 10 个单词</h3>
-          <p id="goalSub">学单词、做挑战都算数哦</p>
-        </div>
-      </article>
-      <article class="panel">
-        <div class="panel-icon" aria-hidden="true">🔥</div>
-        <div class="panel-copy">
-          <span class="panel-kicker">连续打卡</span>
-          <h3><span id="homeStreak">0</span> 天</h3>
-          <div class="week-dots" id="weekDots" aria-label="最近七天学习情况"></div>
+        <div class="panel-copy" data-page-node-id="TWyTWCyFG7MkdPRoOaX3uu">
+          <span class="panel-kicker" data-page-node-id="EJGoRqXPDLu9g26SqfSBfe">今日目标</span>
+          <h3 id="goalTitle" data-page-node-id="5pWeRKK7oi0EtuEICzU6eq">还差 10 个单词</h3>
+          <p id="goalSub" data-page-node-id="8tnH6CRuB0DEQEJ1PUP3fZ">学单词、做挑战都算数哦</p>
         </div>
       </article>
-      <article class="panel">
-        <div class="panel-icon" aria-hidden="true">📚</div>
-        <div class="panel-copy">
-          <span class="panel-kicker">单词宝库</span>
-          <h3><span id="learnedTotal">0</span> / <span id="allTotal">104</span></h3>
-          <p>已经认识的单词</p>
+      <article class="panel" data-page-node-id="EiU3PFqBe7e4LZAebBLowE">
+        <div class="panel-icon" aria-hidden="true" data-page-node-id="5DTK2UgycsbaSdIbX93lrM">🔥</div>
+        <div class="panel-copy" data-page-node-id="hWW8qFxURZ8R2SlCva8p7U">
+          <span class="panel-kicker" data-page-node-id="A46vVnAtH0z7VPCDwsemvp">连续打卡</span>
+          <h3 data-page-node-id="1YYx0bHTuLUZjIQEnRbxxl"><span id="homeStreak" data-page-node-id="dAs7p4swGPDw80HfibH4S4">0</span> 天</h3>
+          <div class="week-dots" id="weekDots" aria-label="最近七天学习情况" data-page-node-id="6DciJVCHGgaEYSHBjFjizr"></div>
+        </div>
+      </article>
+      <article class="panel" data-page-node-id="EGyjsK537x2AnHtMWSREIF">
+        <div class="panel-icon" aria-hidden="true" data-page-node-id="6Pl4Dc0lZJ8VAc28pHEzJY">📚</div>
+        <div class="panel-copy" data-page-node-id="5MCQZhVRrnxvUUrMoMkPZ2">
+          <span class="panel-kicker" data-page-node-id="CRfAupbBgGwqv1dPkTQDvO">单词宝库</span>
+          <h3 data-page-node-id="0nKejsw9JuhU1G1LcmoRJo"><span id="learnedTotal" data-page-node-id="LxZzjfNp5pwx7b3YreFMBe">0</span> / <span id="allTotal" data-page-node-id="SMqZ3mDyY1uc8z9dd1u5N0">104</span></h3>
+          <p data-page-node-id="g71u3sm5meaze4CjFgF867">已经认识的单词</p>
         </div>
       </article>
     </div>
 
-    <section class="section-block">
-      <div class="section-head">
-        <div>
-          <h2>选一个主题开始</h2>
-          <p>10 个有趣的主题，104 个小学高频单词</p>
+    <section class="section-block" data-page-node-id="YTElPKgMX2r9iRWo8OHcBB">
+      <div class="section-head" data-page-node-id="LyQpQoreoK2H5qJoIIz1J7">
+        <div data-page-node-id="r3IgJAEFgInKEvFSGgHW1A">
+          <h2 data-page-node-id="ktb4603r5rMNYTABzVt7TC">选一个主题开始</h2>
+          <p data-page-node-id="6ALOcByGLG5oUG6FGA9ibd">10 个有趣的主题，104 个小学高频单词</p>
         </div>
-        <div class="section-count">由易到难 · 慢慢来</div>
+        <div class="section-count" data-page-node-id="40DU2VKSvkPzcPt5ATAZvJ">由易到难 · 慢慢来</div>
       </div>
-      <div class="unit-grid" id="unitGrid"></div>
-      <a class="mixed-banner" href="#/quiz/all">
-        <span class="mixed-emoji" aria-hidden="true">🎲</span>
-        <span class="mixed-copy">
-          <strong>混合大挑战</strong>
-          <small>从全部 104 个单词里随机抽题，看看你有多厉害！</small>
+      <div class="unit-grid" id="unitGrid" data-page-node-id="4igUR8eME3ZyMeAiuWe2De"></div>
+      <a class="mixed-banner" href="#/quiz/all" data-page-node-id="PfL38VklfHqHaNdC29kp1Q">
+        <span class="mixed-emoji" aria-hidden="true" data-page-node-id="txMsVFrtWomxK6gQ6ADGAx">🎲</span>
+        <span class="mixed-copy" data-page-node-id="nzTs4aCDMyFrN9i11ty8Fe">
+          <strong data-page-node-id="jTvTv3b9j4BRBjArqOZ4ML">混合大挑战</strong>
+          <small data-page-node-id="CZlKObB1JOK1tQYalgxtnY">从全部 104 个单词里随机抽题，看看你有多厉害！</small>
         </span>
-        <span class="mixed-go">开始 →</span>
+        <span class="mixed-go" data-page-node-id="lPNmjiGwba6J755kqKCwlv">开始 →</span>
       </a>
-      <div class="tip-card">
-        <span class="tip-icon" aria-hidden="true">💡</span>
-        <span><strong>学习秘诀：</strong>先听发音，再大声跟读；做错的单词会住进「错词本」，常回去看看它们，很快就会变成好朋友啦。</span>
+      <div class="tip-card" data-page-node-id="AFl8KmRStPMf7P7fCL1Fpj">
+        <span class="tip-icon" aria-hidden="true" data-page-node-id="RGCYeF8pDBeIScq6uICj3W">💡</span>
+        <span data-page-node-id="hSenbGAMo9WEZ6imZc5tA8"><strong data-page-node-id="EhopytyDgjsTZaYeW4iBTR">学习秘诀：</strong>先听发音，再大声跟读；做错的单词会住进「错词本」，常回去看看它们，很快就会变成好朋友啦。</span>
       </div>
-      <div class="setting-card">
-        <div class="setting-copy">
-          <strong>翻卡时自动朗读</strong>
-          <small>关掉后需要自己点小喇叭才发音，适合安静环境</small>
+      <div class="setting-card" data-page-node-id="A4CZAURAyewjNPTYBxVEP9">
+        <div class="setting-copy" data-page-node-id="CpMG1V6FcUrzUOElEDPiUA">
+          <strong data-page-node-id="6W8OrZM0bm8BDwmxFwfR66">翻卡时自动朗读</strong>
+          <small data-page-node-id="loi0Cp1dXrVoTaEpKD33nE">关掉后需要自己点小喇叭才发音，适合安静环境</small>
         </div>
-        <button class="switch" id="autoSpeakToggle" type="button" role="switch"
-                aria-pressed="true" aria-label="翻卡时自动朗读"></button>
+        <button class="switch" id="autoSpeakToggle" type="button" role="switch" aria-pressed="true" aria-label="翻卡时自动朗读" data-page-node-id="M4HRvAD7zrtAQEAw9UmOSW"></button>
       </div>
     </section>
   </section>
 
   <!-- ================= UNIT ================= -->
-  <section class="view" id="view-unit">
-    <a class="back-btn" href="#/home">← 返回首页</a>
-    <div class="unit-banner" id="unitBanner"></div>
-    <section class="section-block" style="margin-top: 26px;">
-      <div class="section-head">
-        <div>
-          <h2>选一种玩法</h2>
-          <p>先学一学，再闯关，记得更牢</p>
+  <section class="view" id="view-unit" data-page-node-id="zBfiSjhL9Fbd0FHD1BKFME">
+    <a class="back-btn" href="#/home" data-page-node-id="AWOx1SdZEi3tACiNMHTsip">← 返回首页</a>
+    <div class="unit-banner" id="unitBanner" data-page-node-id="tojpdwgAWRHbDRs87OVp72"></div>
+    <section class="section-block" style="margin-top: 26px;" data-page-node-id="Pwsd9jOk3KvV3uh7mXCUFr">
+      <div class="section-head" data-page-node-id="UmKVuPkS1aIIhbKbSYQiKX">
+        <div data-page-node-id="UhGUd74muGor7G5VstrVCS">
+          <h2 data-page-node-id="EL606DHizXhhqA51ZChcym">选一种玩法</h2>
+          <p data-page-node-id="jArxHmXvWag8J780WdOccE">先学一学，再闯关，记得更牢</p>
         </div>
       </div>
-      <div class="mode-grid" id="modeGrid"></div>
+      <div class="mode-grid" id="modeGrid" data-page-node-id="1do9qYniDj5zmfUShqVuNW"></div>
     </section>
-    <section class="word-section">
-      <div class="section-head">
-        <div>
-          <h2>本主题单词</h2>
-          <p>点一点单词卡，听一听发音</p>
+    <section class="word-section" data-page-node-id="XcQ2yCYIfbdVGR1JKmCECR">
+      <div class="section-head" data-page-node-id="zbKCpSejtpW7GzKntdY18W">
+        <div data-page-node-id="HYpkVF4vGr6HHz75ZBsyFg">
+          <h2 data-page-node-id="zQRh279hjq8wVnH68xed24">本主题单词</h2>
+          <p data-page-node-id="RUhl04AqMHErdo14udg3N4">点一点单词卡，听一听发音</p>
         </div>
-        <div class="section-count" id="unitWordCount">12 个单词</div>
+        <div class="section-count" id="unitWordCount" data-page-node-id="1pwHGz7DXQVCM6QClfy4Nf">12 个单词</div>
       </div>
-      <div class="word-grid" id="wordGrid"></div>
+      <div class="word-grid" id="wordGrid" data-page-node-id="5wYH60aY10kKcOj0n3a7e9"></div>
     </section>
   </section>
 
   <!-- ================= LEARN ================= -->
-  <section class="view" id="view-learn">
-    <div class="mode-top">
-      <a class="back-btn" id="learnBack" href="#/home">←</a>
-      <div class="mode-title">
-        <strong id="learnTitle">动物朋友</strong>
-        <small>学一学 · 点卡片翻面</small>
+  <section class="view" id="view-learn" data-page-node-id="gtMeMnAIL3GVz4QBbGgUVb">
+    <div class="mode-top" data-page-node-id="AH0qbu1sS9BziMY2mpcw96">
+      <a class="back-btn" id="learnBack" href="#/home" data-page-node-id="f9KAgK7ReyoxIo6eAtjm63">←</a>
+      <div class="mode-title" data-page-node-id="K8MNDjORLkFXcxNILN9hna">
+        <strong id="learnTitle" data-page-node-id="U8NZGvzw4XlJfowlvXJuAT">动物朋友</strong>
+        <small data-page-node-id="K8sjHmOHXzagbAMXhaVBEB">学一学 · 点卡片翻面</small>
       </div>
-      <div class="mode-count" id="learnCount">1 / 12</div>
+      <div class="mode-count" id="learnCount" data-page-node-id="rBGHoqdyimnue8BHqeug9Y">1 / 12</div>
     </div>
-    <div class="progress-track slim"><span id="learnBar"></span></div>
+    <div class="progress-track slim" data-page-node-id="v13leI7XZOFKuZG2IVS00B"><span id="learnBar" data-page-node-id="2OxCjdsCAwnhCR1ChRZCEl"></span></div>
 
-    <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="单词卡片，点击翻面">
-      <div class="flashcard-inner">
-        <div class="face front">
-          <span class="card-tag">点我翻面 ↻</span>
-          <span class="word-emoji" id="learnEmoji">🐱</span>
-          <div class="word-main" id="learnWord">cat</div>
-          <div class="ipa" id="learnIpa">/kæt/</div>
-          <button class="speak-chip" id="learnSpeak" type="button" data-speak="cat">🔊 听发音</button>
+    <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="单词卡片，点击翻面" data-page-node-id="xYCo70pR6ROgqRzzMwg6Km">
+      <div class="flashcard-inner" data-page-node-id="AwrgNYs2CXhJqALilIN4d8">
+        <div class="face front" data-page-node-id="CBfvUNeSKIN1q69fkKNJyU">
+          <span class="card-tag" data-page-node-id="C0f3kcVPV8OTNBWGH0uWsF">点我翻面 ↻</span>
+          <span class="word-emoji" id="learnEmoji" data-page-node-id="1vyNEkYwk4wP1AuHlBPXlf">🐱</span>
+          <div class="word-main" id="learnWord" data-page-node-id="NwUQJbAACSS9yXnyjREdtE">cat</div>
+          <div class="ipa" id="learnIpa" data-page-node-id="bJUkM6pDQwOWxB7G10wEHd">/kæt/</div>
+          <button class="speak-chip" id="learnSpeak" type="button" data-speak="cat" data-page-node-id="vW0jSVgCdMWg0Tumy7kP89">🔊 听发音</button>
         </div>
-        <div class="face back">
-          <span class="card-tag">中文意思</span>
-          <span class="word-emoji" id="learnEmojiBack">🐱</span>
-          <div class="meaning" id="learnMeaning">猫</div>
-          <div class="example-box">
-            <p class="example-en" id="learnExample">A cat likes fish.</p>
-            <p class="example-cn" id="learnExampleCn">猫喜欢鱼。</p>
+        <div class="face back" data-page-node-id="OgZIODUVMzXA9aDeUSRbmg">
+          <span class="card-tag" data-page-node-id="XAcfvEaepKo3WtSpkHaybk">中文意思</span>
+          <span class="word-emoji" id="learnEmojiBack" data-page-node-id="sZ4BUw0hJS7zXVDKUZDZAu">🐱</span>
+          <div class="meaning" id="learnMeaning" data-page-node-id="KRVmtLztU9mFdDClxG9sM9">猫</div>
+          <div class="example-box" data-page-node-id="m8W9tFveRPUN1Wp5kpQVN6">
+            <p class="example-en" id="learnExample" data-page-node-id="5cc0vSJ6Id41dscaMC44J8">A cat likes fish.</p>
+            <p class="example-cn" id="learnExampleCn" data-page-node-id="bFn5EQGPkLfGlT0pl2sM9k">猫喜欢鱼。</p>
           </div>
-          <button class="speak-chip" id="learnExampleSpeak" type="button" data-speak="A cat likes fish.">🔊 听例句</button>
+          <button class="speak-chip" id="learnExampleSpeak" type="button" data-speak="A cat likes fish." data-page-node-id="k94y7z7iQcAaWjoJhz3fIj">🔊 听例句</button>
         </div>
       </div>
     </div>
 
-    <div class="learn-actions">
-      <button class="btn btn-soft" id="btnAgain" type="button">😅 还不熟</button>
-      <button class="btn btn-primary" id="btnKnown" type="button">🌟 认识啦</button>
+    <div class="learn-actions" data-page-node-id="qrGWYlR2j3X6yWhyhZbAlG">
+      <button class="btn btn-soft" id="btnAgain" type="button" data-page-node-id="gl3mag70BkYvhfaWehnHiQ">😅 还不熟</button>
+      <button class="btn btn-primary" id="btnKnown" type="button" data-page-node-id="3mF5RvmFbdqgbMJ3plOofw">🌟 认识啦</button>
     </div>
-    <p class="kbd-tip">小提示：按空格键也能翻卡片哦</p>
+    <p class="kbd-tip" data-page-node-id="TABa2oxDcWyVhtZoqdAgrM">小提示：按空格键也能翻卡片哦</p>
   </section>
 
   <!-- ================= QUIZ ================= -->
-  <section class="view" id="view-quiz">
-    <div class="mode-top">
-      <a class="back-btn" id="quizBack" href="#/home">←</a>
-      <div class="mode-title">
-        <strong id="quizTitle">动物朋友</strong>
-        <small>选一选 · 四选一闯关</small>
+  <section class="view" id="view-quiz" data-page-node-id="jp6xB8WLk5m6oArSdu4bm4">
+    <div class="mode-top" data-page-node-id="Z77EqVKSkBDSc0Deuok0rj">
+      <a class="back-btn" id="quizBack" href="#/home" data-page-node-id="xmDC10SFFuTWq1H5839msL">←</a>
+      <div class="mode-title" data-page-node-id="FyMauvBe7E69XUATqZs20H">
+        <strong id="quizTitle" data-page-node-id="pooZPFvpqeMmUDe4QCDm2k">动物朋友</strong>
+        <small data-page-node-id="1jSGgbmgbvGst0Pv2HnP0E">选一选 · 四选一闯关</small>
       </div>
-      <div class="hearts" id="quizHearts" aria-label="剩余爱心"></div>
+      <div class="hearts" id="quizHearts" aria-label="剩余爱心" data-page-node-id="ZdmUEmJy4qjUkx77U5TPGp"></div>
     </div>
-    <div class="progress-meta">
-      <span id="quizStep">第 1 / 10 题</span>
-      <span class="streak" id="quizStreak">🔥 连对 0</span>
+    <div class="progress-meta" data-page-node-id="51ME6Vq22pc9NJmnsKRzbP">
+      <span id="quizStep" data-page-node-id="gwHY6F9KdjWjD7TK878a65">第 1 / 10 题</span>
+      <span class="streak" id="quizStreak" data-page-node-id="JHoAhG6JMrkWqw1E5GmEUb">🔥 连对 0</span>
     </div>
-    <div class="progress-track slim"><span id="quizBar"></span></div>
-    <div class="question-card" id="questionCard"></div>
-    <div class="options" id="quizOptions"></div>
-    <div class="feedback-line" id="quizFeedback" aria-live="polite"></div>
+    <div class="progress-track slim" data-page-node-id="PtGOgwFuj1gjKMloMXyXcj"><span id="quizBar" data-page-node-id="8d5sjyhXfj5aMFsQAdmZB9"></span></div>
+    <div class="question-card" id="questionCard" data-page-node-id="84udgiIgXfTschGyMf8NCk"></div>
+    <div class="options" id="quizOptions" data-page-node-id="XruWoUvdigiU4nYGmqsLDW"></div>
+    <div class="feedback-line" id="quizFeedback" aria-live="polite" data-page-node-id="TormX6rLWALLOOEz2ddIOt"></div>
   </section>
 
   <!-- ================= SPELL ================= -->
-  <section class="view" id="view-spell">
-    <div class="mode-top">
-      <a class="back-btn" id="spellBack" href="#/home">←</a>
-      <div class="mode-title">
-        <strong id="spellTitle">动物朋友</strong>
-        <small>拼一拼 · 听发音写单词</small>
+  <section class="view" id="view-spell" data-page-node-id="qIk9HHAcScBIlKgvYs6Zjr">
+    <div class="mode-top" data-page-node-id="EnKFIKfxKOrKEZOjd7pErJ">
+      <a class="back-btn" id="spellBack" href="#/home" data-page-node-id="kvwsTJS9Rgrc4OCU4i6PUF">←</a>
+      <div class="mode-title" data-page-node-id="uQ1WxUL02JzfyRzo1MvH9E">
+        <strong id="spellTitle" data-page-node-id="HlOGaWkIQ4Sa947YrAuHep">动物朋友</strong>
+        <small data-page-node-id="T7Gs01CcDwX7txJuZ9XCsx">拼一拼 · 听发音写单词</small>
       </div>
-      <div class="mode-count" id="spellCount">1 / 8</div>
+      <div class="mode-count" id="spellCount" data-page-node-id="PnM8a5CsnqfMB4j8LUXeb2">1 / 8</div>
     </div>
-    <div class="progress-track slim"><span id="spellBar"></span></div>
+    <div class="progress-track slim" data-page-node-id="zRizmShJnWtNUPTfCA3FGl"><span id="spellBar" data-page-node-id="UgHmcSTyYhFarjXExpsWBG"></span></div>
 
-    <div class="spell-card" id="spellCard">
-      <div class="spell-top">
-        <span class="spell-emoji" id="spellEmoji">🐱</span>
-        <span class="spell-zh" id="spellZh">猫</span>
+    <div class="spell-card" id="spellCard" data-page-node-id="xF4ItyatC7T1BsZYBwUoW9">
+      <div class="spell-top" data-page-node-id="WHrpwqliXFjxAsl2uHPx1i">
+        <span class="spell-emoji" id="spellEmoji" data-page-node-id="gwCiCmD1quPJVGxHVRZw4r">🐱</span>
+        <span class="spell-zh" id="spellZh" data-page-node-id="LULDdRxTgqw8oI9zYWd5N3">猫</span>
       </div>
-      <p class="spell-label" id="spellLabel">听一听，拼出这个单词</p>
-      <button class="speak-big" id="spellSpeak" type="button" aria-label="播放单词发音">🔊</button>
-      <div class="spell-mask" id="spellMask"></div>
-      <div class="spell-count" id="spellLetters">共 3 个字母</div>
-      <input class="spell-input" id="spellInput" type="text" autocomplete="off" autocapitalize="off"
-             spellcheck="false" maxlength="30" placeholder="在这里输入英文单词" aria-label="输入英文单词" />
-      <div class="spell-actions">
-        <button class="btn btn-soft" id="spellHint" type="button">💡 提示</button>
-        <button class="btn btn-primary" id="spellCheck" type="button">检查 ✓</button>
-        <button class="btn btn-primary hidden" id="spellNext" type="button">下一题 →</button>
+      <p class="spell-label" id="spellLabel" data-page-node-id="s2Q3rsAECYDCKMOjVAkMyI">听一听，拼出这个单词</p>
+      <button class="speak-big" id="spellSpeak" type="button" aria-label="播放单词发音" data-page-node-id="NrRSykcOTeN0kATrohklQp">🔊</button>
+      <div class="spell-mask" id="spellMask" data-page-node-id="H2BQZ8BRvBqdurRZlCBPtJ"></div>
+      <div class="spell-count" id="spellLetters" data-page-node-id="pW94YnzOiszMomkSaZSf9H">共 3 个字母</div>
+      <input class="spell-input" id="spellInput" type="text" autocomplete="off" autocapitalize="off" maxlength="30" placeholder="在这里输入英文单词" aria-label="输入英文单词" data-page-node-id="jmP57aIkF2rbrYQqgsbWwC">
+      <div class="spell-actions" data-page-node-id="Y4foZFYWVtdkgJkKu4NuzY">
+        <button class="btn btn-soft" id="spellHint" type="button" data-page-node-id="r5HbELmef4UbDXbgY29WVd">💡 提示</button>
+        <button class="btn btn-primary" id="spellCheck" type="button" data-page-node-id="G6F5oRFc4Wnuwp3TdXDf3M">检查 ✓</button>
+        <button class="btn btn-primary hidden" id="spellNext" type="button" data-page-node-id="Ts2i33fuOFEUe2R1kEHd0b">下一题 →</button>
       </div>
-      <div class="feedback-line" id="spellFeedback" aria-live="polite"></div>
+      <div class="feedback-line" id="spellFeedback" aria-live="polite" data-page-node-id="cL6UreLBOINrmsCrzVXzH8"></div>
     </div>
-    <p class="kbd-tip">按回车键提交答案</p>
+    <p class="kbd-tip" data-page-node-id="tsNUp7m2AKkOtBddlYZrho">按回车键提交答案</p>
   </section>
 
   <!-- ================= MATCH ================= -->
-  <section class="view" id="view-match">
-    <div class="mode-top">
-      <a class="back-btn" id="matchBack" href="#/home">←</a>
-      <div class="mode-title">
-        <strong id="matchTitle">动物朋友</strong>
-        <small>连一连 · 英文中文配配对</small>
+  <section class="view" id="view-match" data-page-node-id="FtMBF6FdnRGlXgsNOdQ7G4">
+    <div class="mode-top" data-page-node-id="UgTBMPty15xMJTtgnUkiOP">
+      <a class="back-btn" id="matchBack" href="#/home" data-page-node-id="nlBSVnNIbh5yuWOQsNuJIN">←</a>
+      <div class="mode-title" data-page-node-id="ox6IAJtqS5zDHeLHHMpXU0">
+        <strong id="matchTitle" data-page-node-id="uwogJauo5jAgj1lLdr62g0">动物朋友</strong>
+        <small data-page-node-id="QPvN0eKJUar5ideEVQ3oPz">连一连 · 英文中文配配对</small>
       </div>
     </div>
-    <div class="match-status">
-      <div class="match-chip">已配对 <b id="matchPairs">0 / 6</b></div>
-      <div class="match-chip">翻牌 <b id="matchMoves">0</b> 步</div>
-      <div class="match-chip">用时 <b id="matchTime">00:00</b></div>
+    <div class="match-status" data-page-node-id="GNQ5zB7QJZRUo2ZkMUBU9A">
+      <div class="match-chip" data-page-node-id="LGqdJsErx3QRzppVDycwPB">已配对 <b id="matchPairs" data-page-node-id="kDFiEGFrOVkmxCWyanoXsE">0 / 6</b></div>
+      <div class="match-chip" data-page-node-id="aMFDGE5JqiokPRzhnoxMjV">翻牌 <b id="matchMoves" data-page-node-id="hSW6vnCBygEcJ2duborZAX">0</b> 步</div>
+      <div class="match-chip" data-page-node-id="uM27LYxeD9sj39hheCRVnl">用时 <b id="matchTime" data-page-node-id="qSvZuEnG23PqfKYPKLwsta">00:00</b></div>
     </div>
-    <div class="match-board" id="matchBoard"></div>
-    <p class="kbd-tip">翻开两张卡片，把英文和中文配成一对！</p>
+    <div class="match-board" id="matchBoard" data-page-node-id="IHCWbXiM6s4AjEdIkRDIwA"></div>
+    <p class="kbd-tip" data-page-node-id="Tr8s76wUbXdgJ1THao1FS1">翻开两张卡片，把英文和中文配成一对！</p>
   </section>
 
   <!-- ================= WRONG BOOK ================= -->
-  <section class="view" id="view-wrong">
-    <a class="back-btn" href="#/home">← 返回首页</a>
-    <div class="wrong-hero">
-      <div>
-        <span class="eyebrow-dark">REVIEW BOOK</span>
-        <h1>我的错词本</h1>
-        <p id="wrongSub">这些单词还需要多见几面。听一听、读一读，再点「记住了」把它们送回家。</p>
+  <section class="view" id="view-wrong" data-page-node-id="536I7WhAhRDYsXRDt157cB">
+    <a class="back-btn" href="#/home" data-page-node-id="rhC00wuJHWgdBImO5q1lNc">← 返回首页</a>
+    <div class="wrong-hero" data-page-node-id="tVjOv1tVqZgwCIWthWBd7Q">
+      <div data-page-node-id="mbJ4vxfvWD7qa6pxODywZm">
+        <span class="eyebrow-dark" data-page-node-id="BVfMA5tio741uzaSYhwn9O">REVIEW BOOK</span>
+        <h1 data-page-node-id="jKFHtxlo8K94tCm6MxT94D">我的错词本</h1>
+        <p id="wrongSub" data-page-node-id="hrjQ6x0yvehRvpD58b8bGi">这些单词还需要多见几面。听一听、读一读，再点「记住了」把它们送回家。</p>
       </div>
-      <button class="btn btn-primary" id="wrongChallenge" type="button">🎯 错词挑战</button>
+      <button class="btn btn-primary" id="wrongChallenge" type="button" data-page-node-id="4giwGyEhGqkqlhGMyy8zny">🎯 错词挑战</button>
     </div>
-    <div class="wrong-list" id="wrongList"></div>
+    <div class="wrong-list" id="wrongList" data-page-node-id="iPBCxifXXolMUmY8CvaA7Y"></div>
   </section>
 
   <!-- ================= RESULT ================= -->
-  <section class="view" id="view-result">
-    <div class="result-card" id="resultCard"></div>
+  <section class="view" id="view-result" data-page-node-id="lTlmP8ARVEUZYSiq2hIGXL">
+    <div class="result-card" id="resultCard" data-page-node-id="P2uplxZ8XX0S0p4vhEoIs1"></div>
   </section>
 
   <!-- ================= 数学主页 ================= -->
-  <section class="view" id="view-home-math">
-    <a class="back-btn" href="#/home" style="margin-bottom:16px;display:inline-flex;">← 回到学习通首页</a>
-    <div class="math-hero">
-      <div class="math-hero-copy">
-        <span class="eyebrow-dark">MATH ERROR BOOK</span>
-        <h1>数学错题本</h1>
-        <p id="mathHeroSub">把做错的题记下来，按知识点整理。复习时抽题重做，一道一道把它们攻下来。</p>
-        <div class="math-hero-actions">
-          <a class="btn btn-primary" id="mathAddBtn" href="#/math/add">✏️ 记一道错题</a>
-          <button class="btn btn-soft" id="mathReviewBtn" type="button">🎯 抽题复习</button>
+  <section class="view" id="view-home-math" data-page-node-id="rY4MtWF2I4iRFHKaa2l33v">
+    <a class="back-btn" href="#/home" style="margin-bottom:16px;display:inline-flex;" data-page-node-id="ktW017R3wLKXDw8InWFffm">← 回到学习通首页</a>
+    <div class="math-hero" data-page-node-id="KBAgh4BHe3MI3TDV5WNk5o">
+      <div class="math-hero-copy" data-page-node-id="T2CbHGnIKV2ZVGwWY37mZp">
+        <span class="eyebrow-dark" data-page-node-id="HDlhdzPH8i6bQAcCKgiVI7">MATH ERROR BOOK</span>
+        <h1 data-page-node-id="Kbm9ZwCQtB4pGKKOfKD7Wm">数学错题本</h1>
+        <p id="mathHeroSub" data-page-node-id="8CEA24x5MVivWOyIr5hMvy">把做错的题记下来，按知识点整理。复习时抽题重做，一道一道把它们攻下来。</p>
+        <div class="math-hero-actions" data-page-node-id="OU50HOGMGOJZjRo2C3LoQ2">
+          <a class="btn btn-primary" id="mathAddBtn" href="#/math/add" data-page-node-id="AAAjEt8NMgpYFImHtKDZvs">✏️ 记一道错题</a>
+          <button class="btn btn-soft" id="mathReviewBtn" type="button" data-page-node-id="8VWfd3MhwHn8BBsNuGA4EO">🎯 抽题复习</button>
         </div>
       </div>
-      <div class="math-hero-stats">
-        <div class="math-stat">
-          <strong id="mathStatTotal">0</strong>
-          <span>错题总数</span>
+      <div class="math-hero-stats" data-page-node-id="Omd99JiDDyaqMk6KJPG9x9">
+        <div class="math-stat" data-page-node-id="b7s7THm6mUF9ocAcD8APuy">
+          <strong id="mathStatTotal" data-page-node-id="b49Pc5XftUihfFy34RxQ6J">0</strong>
+          <span data-page-node-id="ZRHDsjv86UHJxjsQmhBfhf">错题总数</span>
         </div>
-        <div class="math-stat">
-          <strong id="mathStatTodo">0</strong>
-          <span>待攻克</span>
+        <div class="math-stat" data-page-node-id="cfFJlzsjj2RTPddmMGz2cr">
+          <strong id="mathStatTodo" data-page-node-id="4FivT1juFgGg4tlJzzKuPm">0</strong>
+          <span data-page-node-id="8k2H4K0vGC0swlDQKPZ2eQ">待攻克</span>
         </div>
-        <div class="math-stat">
-          <strong id="mathStatDone">0</strong>
-          <span>已掌握</span>
+        <div class="math-stat" data-page-node-id="ahs7iA89xN9cZWD5WAKMvT">
+          <strong id="mathStatDone" data-page-node-id="EALNJ2B6CZeciShgl4N3oL">0</strong>
+          <span data-page-node-id="V8ZR2fpve3WmkCclEQHmA1">已掌握</span>
         </div>
       </div>
     </div>
 
-    <section class="section-block" style="margin-top:26px;">
-      <div class="section-head">
-        <div>
-          <h2>按知识点看</h2>
-          <p>薄弱的知识点会排在前面，点进去只看这一类的错题</p>
+    <section class="section-block" style="margin-top:26px;" data-page-node-id="tz2c2ymQAm65wBafG1Y6q0">
+      <div class="section-head" data-page-node-id="M4eoTI2PvS1jBBKyEwnvk7">
+        <div data-page-node-id="H0rFeDx16mbk9jIWPufz4L">
+          <h2 data-page-node-id="uGdoXt1vWOvSxvFo0awMD8">按知识点看</h2>
+          <p data-page-node-id="qmGvpjQBj5aYJA0CWlRfyO">薄弱的知识点会排在前面，点进去只看这一类的错题</p>
         </div>
       </div>
-      <div class="kp-grid" id="kpGrid"></div>
+      <div class="kp-grid" id="kpGrid" data-page-node-id="Fu2JR1pbZdxLRz0VQUj7ov"></div>
     </section>
 
-    <section class="section-block" style="margin-top:26px;">
-      <div class="section-head">
-        <div>
-          <h2>最近记的错题</h2>
-          <p>点开可以看题目、答案和当时错在哪</p>
+    <section class="section-block" style="margin-top:26px;" data-page-node-id="zcfbi0XfqOKWxdg0urKG1v">
+      <div class="section-head" data-page-node-id="MkIUc6rqz8HRdmSDOGaitU">
+        <div data-page-node-id="NvlnnfG57mIh3DEMV9TYsV">
+          <h2 data-page-node-id="KoDlx7uCxhn8LccH3Ze3Fv">最近记的错题</h2>
+          <p data-page-node-id="j96eN5t7EEQ3fFN7cwuW5b">点开可以看题目、答案和当时错在哪</p>
         </div>
-        <div class="section-count" id="mathRecentCount">共 0 道</div>
+        <div class="section-count" id="mathRecentCount" data-page-node-id="haLzA9Qkdcc7pEpVpaNP64">共 0 道</div>
       </div>
-      <div class="math-tools">
-        <input class="math-search" id="mathSearch" type="search" placeholder="搜题目、知识点、错因…" aria-label="搜索错题" />
-        <div class="filter-chips" id="mathFilterChips">
-          <button class="chip-btn active" type="button" data-filter="all">全部</button>
-          <button class="chip-btn" type="button" data-filter="todo">待攻克</button>
-          <button class="chip-btn" type="button" data-filter="done">已掌握</button>
+      <div class="math-tools" data-page-node-id="4ssC6hr6ycIai7QLoxehO0">
+        <input class="math-search" id="mathSearch" type="search" placeholder="搜题目、知识点、错因…" aria-label="搜索错题" data-page-node-id="JsEc7LEI2TwTGTTfdBX9Vz">
+        <div class="filter-chips" id="mathFilterChips" data-page-node-id="QHuLrDYY9OAdDAE7Ea0LH1">
+          <button class="chip-btn active" type="button" data-filter="all" data-page-node-id="NsTrLxyT18At7oaUeKADfp">全部</button>
+          <button class="chip-btn" type="button" data-filter="todo" data-page-node-id="TUt0UIt18jPAW9i8D1RHeT">待攻克</button>
+          <button class="chip-btn" type="button" data-filter="done" data-page-node-id="HTIvFTaRP8CqOOH5bI5ceB">已掌握</button>
         </div>
       </div>
-      <div class="math-list" id="mathList"></div>
+      <div class="math-list" id="mathList" data-page-node-id="c3ScEZpoQe0PB2oJ3Qacde"></div>
     </section>
   </section>
 
   <!-- ================= 数学错题录入 ================= -->
-  <section class="view" id="view-math-add">
-    <a class="back-btn" href="#/home/math" style="margin-bottom:16px;display:inline-flex;">← 回到错题本</a>
-    <div class="form-card">
-      <div class="form-head">
-        <h1 id="mathFormTitle">记一道错题</h1>
-        <p>题目可以直接打字，也可以拍照或截图贴上来。图片只存在你自己的设备上。</p>
+  <section class="view" id="view-math-add" data-page-node-id="Zg9R1v9Q77EwEEkUKC5Q9G">
+    <a class="back-btn" href="#/home/math" style="margin-bottom:16px;display:inline-flex;" data-page-node-id="GpKVKGuYUAvrnOhGDCpOGQ">← 回到错题本</a>
+    <div class="form-card" data-page-node-id="ZGs1JeqArea4N7kXb37VIc">
+      <div class="form-head" data-page-node-id="BCcopXGPUVqBm6ibux4Xm5">
+        <h1 id="mathFormTitle" data-page-node-id="4af4Frpx2GgCgUm2lYT7GU">记一道错题</h1>
+        <p data-page-node-id="vcw0JUkOiZLImLen5ZAT24">题目可以直接打字，也可以拍照或截图贴上来。图片只存在你自己的设备上。</p>
       </div>
 
-      <div class="form-field">
-        <label for="mathQuestion">题目 <em>必填</em></label>
-        <textarea id="mathQuestion" rows="4" placeholder="例如：小明有 24 颗糖，平均分给 6 个小朋友，每人分到几颗？"></textarea>
+      <div class="form-field" data-page-node-id="NavTdEjjm8SrI9KF21djEL">
+        <label for="mathQuestion" data-page-node-id="KeLBmwMUI3joXH5Fm7K4vD">题目 <em data-page-node-id="HBSsSyFov8dc0AFycxZWc4">必填</em></label>
+        <textarea id="mathQuestion" rows="4" placeholder="例如：小明有 24 颗糖，平均分给 6 个小朋友，每人分到几颗？" data-page-node-id="QVtIwFvYISPOmAV55E2UyP"></textarea>
       </div>
 
-      <div class="form-field">
-        <label>题目图片 <small>可选，最多 3 张</small></label>
-        <div class="image-drop" id="mathImageDrop" tabindex="0" role="button" aria-label="点击或拖拽添加图片">
-          <span class="image-drop-hint">📷 点击选图 / 拖到这里 / 直接粘贴截图</span>
-          <input type="file" id="mathImageInput" accept="image/*" multiple hidden />
+      <div class="form-field" data-page-node-id="TRfoFO3gQ3IMghh3fQSVtv">
+        <label data-page-node-id="jnY3JhuXFltT9of09RDv8U">题目图片 <small data-page-node-id="zNUGh5gEaJ5QSYD3ubB2XA">可选，最多 3 张</small></label>
+        <div class="image-drop" id="mathImageDrop" tabindex="0" role="button" aria-label="点击或拖拽添加图片" data-page-node-id="2xoucpuVxbOteCBFy8NupB">
+          <span class="image-drop-hint" data-page-node-id="PmCx3JKdT0CSLWIQM1aJqR">📷 点击选图 / 拖到这里 / 直接粘贴截图</span>
+          <input type="file" id="mathImageInput" accept="image/*" multiple="" hidden="" data-page-node-id="FqDnd07jggUL2asjOvzQzs">
         </div>
-        <div class="image-preview" id="mathImagePreview"></div>
+        <div class="image-preview" id="mathImagePreview" data-page-node-id="3eGERTRFQzgeqvI3CHFRsY"></div>
       </div>
 
-      <div class="form-row">
-        <div class="form-field">
-          <label for="mathMyAnswer">我的答案 <small>可选</small></label>
-          <input id="mathMyAnswer" type="text" placeholder="当时写的答案" />
+      <div class="form-row" data-page-node-id="wfTEA3rQ9PZL1yq3OqBKqA">
+        <div class="form-field" data-page-node-id="WeTQr132ZV3R8M1rWllwdz">
+          <label for="mathMyAnswer" data-page-node-id="0OIGPcZRdMMf27wc38CjkC">我的答案 <small data-page-node-id="AVWVEH2bWJgVpw78PhgGe2">可选</small></label>
+          <input id="mathMyAnswer" type="text" placeholder="当时写的答案" data-page-node-id="9xVTAaEXkpcC1aEn49lE8l">
         </div>
-        <div class="form-field">
-          <label for="mathAnswer">正确答案 <em>必填</em></label>
-          <input id="mathAnswer" type="text" placeholder="正确答案和关键步骤" />
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-field">
-          <label for="mathKpSelect">知识点 <em>必填</em></label>
-          <select id="mathKpSelect"></select>
-        </div>
-        <div class="form-field">
-          <label for="mathTypeSelect">题型 <small>可选</small></label>
-          <select id="mathTypeSelect"></select>
+        <div class="form-field" data-page-node-id="OIz1SzzLDabl2xkDB6ZmrF">
+          <label for="mathAnswer" data-page-node-id="xfJp63vMzDstkQ5VUwMQDH">正确答案 <em data-page-node-id="IPU2mp48bgZqkzIDlYkPoW">必填</em></label>
+          <input id="mathAnswer" type="text" placeholder="正确答案和关键步骤" data-page-node-id="JyzMoftJKxRlWp17PUsZ7c">
         </div>
       </div>
 
-      <div class="form-field" id="mathNewKpWrap" hidden>
-        <label for="mathNewKp">新的知识点名称</label>
-        <input id="mathNewKp" type="text" placeholder="例如：两位数乘法、分数加减" maxlength="20" />
+      <div class="form-row" data-page-node-id="NLdSuqnEBwU1M9rr2kji9F">
+        <div class="form-field" data-page-node-id="QdGgtSDw20slaQDUSOmZDj">
+          <label for="mathKpSelect" data-page-node-id="cT7Fmc9CHTLrT1kbZaQ5dC">知识点 <em data-page-node-id="divfusAOHSchUJtfACfU19">必填</em></label>
+          <select id="mathKpSelect" data-page-node-id="h0FHT3DDBCRKmTnKu7tLPh"></select>
+        </div>
+        <div class="form-field" data-page-node-id="ytvLfjjcnn9Ldv5CFI5vWy">
+          <label for="mathTypeSelect" data-page-node-id="ZxWM6s3TZJAYzB2enNKQOm">题型 <small data-page-node-id="pZLplJQ2YiyuWKbVdd3s8j">可选</small></label>
+          <select id="mathTypeSelect" data-page-node-id="r567RvHQRKlIRQfO6c52Mu"></select>
+        </div>
       </div>
 
-      <div class="form-field">
-        <label for="mathReason">错在哪 <small>可选，写下来更容易记住</small></label>
-        <textarea id="mathReason" rows="2" placeholder="例如：忘记进位 / 看错单位 / 计算粗心"></textarea>
+      <div class="form-field" id="mathNewKpWrap" hidden="" data-page-node-id="BNKsrgPmKhNi6GwVYwA9bj">
+        <label for="mathNewKp" data-page-node-id="EGd0uSo4wYJtpySSaX3GLc">新的知识点名称</label>
+        <input id="mathNewKp" type="text" placeholder="例如：两位数乘法、分数加减" maxlength="20" data-page-node-id="CPoaYObB31jp9bNrs8mJnC">
       </div>
 
-      <div class="form-actions">
-        <button class="btn btn-soft" type="button" id="mathFormCancel">取消</button>
-        <button class="btn btn-primary" type="button" id="mathFormSave">保存到错题本</button>
+      <div class="form-field" data-page-node-id="Zc0fnFvbbCOcQFiGTgj7tT">
+        <label for="mathReason" data-page-node-id="8QpTO4WruIz7lF1Rn8Vu4E">错在哪 <small data-page-node-id="knUnh1PuoQLdbmnkYhLBaG">可选，写下来更容易记住</small></label>
+        <textarea id="mathReason" rows="2" placeholder="例如：忘记进位 / 看错单位 / 计算粗心" data-page-node-id="4DnhwDkymqiBWnPJkaruM6"></textarea>
+      </div>
+
+      <div class="form-actions" data-page-node-id="3U9sPgE5m2jOX8NaMnKJAa">
+        <button class="btn btn-soft" type="button" id="mathFormCancel" data-page-node-id="GipWrqgY8bgvTRd2Q5Acnw">取消</button>
+        <button class="btn btn-primary" type="button" id="mathFormSave" data-page-node-id="gXlGsHNs8XWEUvWsxwowBQ">保存到错题本</button>
       </div>
     </div>
   </section>
 
   <!-- ================= 数学抽题复习 ================= -->
-  <section class="view" id="view-math-review">
-    <div class="mode-top">
-      <a class="back-btn" id="reviewBack" href="#/home/math">←</a>
-      <div class="mode-title">
-        <strong id="reviewTitle">抽题复习</strong>
-        <small id="reviewSub">按知识点抽题</small>
+  <section class="view" id="view-math-review" data-page-node-id="6b6ochEkq0P8QeX7ZZ4zKr">
+    <div class="mode-top" data-page-node-id="RsO4dv05zzKy4dCOzgHjsO">
+      <a class="back-btn" id="reviewBack" href="#/home/math" data-page-node-id="I28lBYoLXoxv8mw9vBxoAj">←</a>
+      <div class="mode-title" data-page-node-id="8daQDGy3OZVaeQsdb8Cs7H">
+        <strong id="reviewTitle" data-page-node-id="WXt3AyZ1H1kbMXtt0rR4FI">抽题复习</strong>
+        <small id="reviewSub" data-page-node-id="XNHzZA4xbRT0WukJQZ3BMR">按知识点抽题</small>
       </div>
-      <div class="mode-count" id="reviewCount">1 / 5</div>
+      <div class="mode-count" id="reviewCount" data-page-node-id="NsFgBQ6AKeULI6QvdrsDeQ">1 / 5</div>
     </div>
-    <div class="progress-track slim"><span id="reviewBar"></span></div>
+    <div class="progress-track slim" data-page-node-id="k0mzWD3QG0sBrsWlC8QPCH"><span id="reviewBar" data-page-node-id="2jL5TkCkilPyKTL9EU6WPJ"></span></div>
 
-    <div class="review-card" id="reviewCard">
-      <div class="review-head">
-        <span class="review-kp" id="reviewKp">知识点</span>
-        <span class="review-type" id="reviewType">题型</span>
+    <div class="review-card" id="reviewCard" data-page-node-id="N69LqeKARP5gdtpYzPco2l">
+      <div class="review-head" data-page-node-id="ucIBfGWATU3nt8SaT4NuIm">
+        <span class="review-kp" id="reviewKp" data-page-node-id="xMyAlRtqzWoDU89MK9EWcR">知识点</span>
+        <span class="review-type" id="reviewType" data-page-node-id="HIiFwbAAtMb3b3YNqJMJlz">题型</span>
       </div>
-      <div class="review-question" id="reviewQuestion"></div>
-      <div class="review-images" id="reviewImages"></div>
+      <div class="review-question" id="reviewQuestion" data-page-node-id="TSTXsoQIoCtfYmFpdndM2J"></div>
+      <div class="review-images" id="reviewImages" data-page-node-id="fCSlUYFYnQzFMIShOaPc8W"></div>
 
-      <div class="review-myanswer" id="reviewMyAnswerWrap">
-        <span class="review-label">我当时写的</span>
-        <p id="reviewMyAnswer"></p>
+      <div class="review-myanswer" id="reviewMyAnswerWrap" data-page-node-id="6q7w5lbVUr4Lu7kiKPr27v">
+        <span class="review-label" data-page-node-id="ogJ894Cvt5PfsEvA0tAuyc">我当时写的</span>
+        <p id="reviewMyAnswer" data-page-node-id="JNAVxH5BWjvBly7fd53vGj"></p>
       </div>
 
-      <div class="review-answer" id="reviewAnswerBox" hidden>
-        <span class="review-label">正确答案</span>
-        <p id="reviewAnswer"></p>
-        <div class="review-reason" id="reviewReasonWrap">
-          <span class="review-label">错在哪</span>
-          <p id="reviewReason"></p>
+      <div class="review-answer" id="reviewAnswerBox" hidden="" data-page-node-id="ML4PMQfe9BysX2tDtiWiVA">
+        <span class="review-label" data-page-node-id="j4fVbYRO1VkAL0GezCnDEO">正确答案</span>
+        <p id="reviewAnswer" data-page-node-id="lL0bKdaOF1nhAt21h2vCWA"></p>
+        <div class="review-reason" id="reviewReasonWrap" data-page-node-id="g0PpHtxrBjdHy2PUaehaMR">
+          <span class="review-label" data-page-node-id="MiZsSBiVbLDyM3aFW9okFy">错在哪</span>
+          <p id="reviewReason" data-page-node-id="J5ErFVT6eakkqvTqzk78YJ"></p>
         </div>
       </div>
 
-      <button class="btn btn-primary btn-wide" id="reviewReveal" type="button">👀 先自己做一遍，再看答案</button>
+      <button class="btn btn-primary btn-wide" id="reviewReveal" type="button" data-page-node-id="AHBoDaCEWGAJFTzuuB1BYs">👀 先自己做一遍，再看答案</button>
 
-      <div class="review-judge" id="reviewJudge" hidden>
-        <p class="review-judge-tip">这次做对了吗？</p>
-        <div class="review-judge-actions">
-          <button class="btn btn-soft" id="reviewAgain" type="button">😅 还是没做对</button>
-          <button class="btn btn-primary" id="reviewGot" type="button">✅ 这次做对了</button>
+      <div class="review-judge" id="reviewJudge" hidden="" data-page-node-id="csrUDaXFVEroDTjnggSju5">
+        <p class="review-judge-tip" data-page-node-id="pRaEB8r4BhvAkEF4lyKLCx">这次做对了吗？</p>
+        <div class="review-judge-actions" data-page-node-id="BsRjASKRSgfFXftq0ZkXnj">
+          <button class="btn btn-soft" id="reviewAgain" type="button" data-page-node-id="U2rK6JqYA4FVspJqzGxBTG">😅 还是没做对</button>
+          <button class="btn btn-primary" id="reviewGot" type="button" data-page-node-id="TZXsZRNQdKqG3PCy0Cc77J">✅ 这次做对了</button>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<div id="confetti" aria-hidden="true"></div>
-<div id="toast" role="status" aria-live="polite"></div>
+<div id="confetti" aria-hidden="true" data-page-node-id="7CHRMDDft2oAQu2HsERQlD"></div>
+<div id="toast" role="status" aria-live="polite" data-page-node-id="L2k7fwwlD5VTFZ3frj7MsD"></div>
 
-<script>
+<script data-page-node-id="9rCkDMamw3cXo77eIzZxWi">
 (() => {
   "use strict";
+
+  /* =========================================================
+     年级：内容与学习档案都按年级隔离
+     （必须放在词库与状态之前，prepareUnits 要用到 currentGrade）
+     ========================================================= */
+  const STORAGE_KEY = "wordHeroState.v1";
+  const GRADES = [1, 2, 3, 4, 5, 6];
+  const DEFAULT_GRADE = 3;          // 旧版本只有一套基础词库，等价于三年级
+  const GRADE_KEY = "studyHubGrade.v1";
+
+  function stateKey(grade) { return STORAGE_KEY + ".g" + grade; }
+  function mathKey(grade) { return "studyHubMath.v1.g" + grade; }
+
+  function loadCurrentGrade() {
+    try {
+      const saved = Number(localStorage.getItem(GRADE_KEY));
+      if (GRADES.includes(saved)) return saved;
+    } catch (error) { /* ignore */ }
+    return DEFAULT_GRADE;
+  }
+
+  let currentGrade = loadCurrentGrade();
 
   /* =========================================================
      单词数据
@@ -2395,7 +2463,8 @@
   /* =========================================================
      单词数据（运行时从 words.json 加载）
      ========================================================= */
-  let UNITS = [];
+  let UNITS = [];          // 当前年级的单元（各页面只用这个）
+  let ALL_UNITS = [];      // 全部年级的单元（切换年级时从这里重切）
   let ALL_WORDS = [];
   let WORD_MAP = new Map();
   let TOTAL_WORDS = 0;
@@ -2406,19 +2475,31 @@
   const FALLBACK_KEY = "wordHeroWordsCache.v1";
 
   function prepareUnits(rawUnits) {
-    const units = rawUnits.map((unit) => ({
+    ALL_UNITS = rawUnits.map((unit) => ({
       ...unit,
+      grade: Number(unit.grade) || DEFAULT_GRADE,
       words: (unit.words || []).map((word, index) => ({
         ...word,
         id: unit.id + "-" + index,
         unitId: unit.id
       }))
     }));
-    UNITS = units;
-    ALL_WORDS = units.flatMap((unit) => unit.words);
+    applyGradeUnits();
+    dataReady = true;
+  }
+
+  // 按当前年级切出可用单元。没有 grade 字段的老词库视为默认年级
+  function applyGradeUnits() {
+    const matched = ALL_UNITS.filter((unit) => unit.grade === currentGrade);
+    // 词库文件还没补全年级数据时，宁可全给也不让孩子看到空白页
+    UNITS = matched.length ? matched : ALL_UNITS;
+    ALL_WORDS = UNITS.flatMap((unit) => unit.words);
     WORD_MAP = new Map(ALL_WORDS.map((word) => [word.id, word]));
     TOTAL_WORDS = ALL_WORDS.length;
-    dataReady = true;
+  }
+
+  function hasGradeData() {
+    return ALL_UNITS.some((unit) => unit.grade === currentGrade);
   }
 
   async function loadWordData() {
@@ -2450,7 +2531,6 @@
     return false;
   }
 
-  const STORAGE_KEY = "wordHeroState.v1";
   const SPEECH_OK = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -2470,6 +2550,40 @@
     return dateKey(new Date(Date.now() - 86400000));
   }
 
+  /* =========================================================
+     当前年级（loadCurrentGrade / currentGrade 已在词库层之前定义）
+     ========================================================= */
+  function saveCurrentGrade() {
+    try {
+      localStorage.setItem(GRADE_KEY, String(currentGrade));
+    } catch (error) { /* ignore */ }
+  }
+
+  const GRADE_CN = { 1: "一", 2: "二", 3: "三", 4: "四", 5: "五", 6: "六" };
+
+  function gradeLabel(grade) { return (GRADE_CN[grade] || grade) + "年级"; }
+
+  function unitCountOfGrade(grade) {
+    return ALL_UNITS.filter((unit) => unit.grade === grade).length;
+  }
+
+  // 切换年级 = 切换学习档案：进度、错词、数学错题都各归各的
+  function switchGrade(grade) {
+    const next = Number(grade);
+    if (!GRADES.includes(next) || next === currentGrade) return false;
+    currentGrade = next;
+    saveCurrentGrade();
+    state = loadState();
+    mathState = loadMathState(currentGrade);
+    applyGradeUnits();
+    ensureDaily();
+    updateTopbar();
+    return true;
+  }
+
+  /* =========================================================
+     英语学习状态（按年级隔离）
+     ========================================================= */
   function defaultState() {
     return {
       stars: 0,
@@ -2483,31 +2597,53 @@
     };
   }
 
-  function loadState() {
+  function normalizeState(saved) {
     const base = defaultState();
+    if (!saved || typeof saved !== "object") return base;
+    return {
+      ...base,
+      ...saved,
+      learned: saved.learned && typeof saved.learned === "object" ? saved.learned : {},
+      wrong: Array.isArray(saved.wrong) ? saved.wrong : [],
+      daily: saved.daily && typeof saved.daily === "object" ? saved.daily : base.daily,
+      history: saved.history && typeof saved.history === "object" ? saved.history : {},
+      settings: { ...base.settings, ...(saved.settings || {}) }
+    };
+  }
+
+  function loadGradeState(grade) {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return base;
-      const saved = JSON.parse(raw);
-      return {
-        ...base,
-        ...saved,
-        learned: saved.learned && typeof saved.learned === "object" ? saved.learned : {},
-        wrong: Array.isArray(saved.wrong) ? saved.wrong : [],
-        daily: saved.daily && typeof saved.daily === "object" ? saved.daily : base.daily,
-        history: saved.history && typeof saved.history === "object" ? saved.history : {},
-        settings: { ...base.settings, ...(saved.settings || {}) }
-      };
+      const raw = localStorage.getItem(stateKey(grade));
+      if (!raw) return null;
+      return normalizeState(JSON.parse(raw));
     } catch (error) {
-      return base;
+      return null;
     }
+  }
+
+  // 老版本只有一份数据，迁移到默认年级（三年级）的档案里
+  function migrateLegacyState() {
+    try {
+      const legacy = localStorage.getItem(STORAGE_KEY);
+      if (!legacy) return;
+      const target = stateKey(DEFAULT_GRADE);
+      if (!localStorage.getItem(target)) {
+        localStorage.setItem(target, legacy);
+      }
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (error) { /* ignore */ }
+  }
+
+  function loadState() {
+    migrateLegacyState();
+    return loadGradeState(currentGrade) || defaultState();
   }
 
   let state = loadState();
 
   function saveState() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(stateKey(currentGrade), JSON.stringify(state));
     } catch (error) {
       /* 本地存储不可用时，页面仍然可以正常玩 */
     }
@@ -2802,8 +2938,12 @@
     const streak = $("#streakCount");
     const sound = $("#soundToggle");
     const voice = $("#voiceToggle");
+    const gradeSelect = $("#gradeSelect");
     if (stars) stars.textContent = state.stars;
     if (streak) streak.textContent = currentStreak();
+    if (gradeSelect && gradeSelect.value !== String(currentGrade)) {
+      gradeSelect.value = String(currentGrade);
+    }
     if (sound) {
       sound.textContent = state.settings.sound ? "🔊" : "🔇";
       sound.classList.toggle("muted", !state.settings.sound);
@@ -2851,6 +2991,8 @@
   function renderHome() {
     ensureDaily();
     updateTopbar();
+    const gradeTag = $("#homeEnGrade");
+    if (gradeTag) gradeTag.textContent = gradeLabel(currentGrade).replace(" ", "");
     const count = Math.min(state.daily.words.length, GOAL);
     const percent = Math.round((count / GOAL) * 100);
     const ring = $("#goalRing");
@@ -3723,7 +3865,7 @@
   /* =========================================================
      数学错题本
      ========================================================= */
-  const MATH_KEY = "studyHubMath.v1";
+  const MATH_LEGACY_KEY = "studyHubMath.v1";
   const MATH_TYPES = ["计算题", "应用题", "概念判断", "图形几何", "单位换算", "其他"];
   const MATH_KP_PRESET = [
     "加减法", "乘除法", "四则混合运算", "分数", "小数",
@@ -3742,29 +3884,44 @@
     };
   }
 
-  function loadMathState() {
+  function normalizeMathState(saved) {
     const base = defaultMathState();
+    return {
+      ...base,
+      ...saved,
+      items: Array.isArray(saved.items) ? saved.items : [],
+      customKps: Array.isArray(saved.customKps) ? saved.customKps : []
+    };
+  }
+
+  // 老版本只有一份错题数据，迁移到默认年级（三年级）的档案里
+  function migrateLegacyMathState() {
     try {
-      const raw = localStorage.getItem(MATH_KEY);
-      if (!raw) return base;
-      const saved = JSON.parse(raw);
-      return {
-        ...base,
-        ...saved,
-        items: Array.isArray(saved.items) ? saved.items : [],
-        customKps: Array.isArray(saved.customKps) ? saved.customKps : []
-      };
+      const legacy = localStorage.getItem(MATH_LEGACY_KEY);
+      if (!legacy) return;
+      const target = mathKey(DEFAULT_GRADE);
+      if (!localStorage.getItem(target)) localStorage.setItem(target, legacy);
+      localStorage.removeItem(MATH_LEGACY_KEY);
+    } catch (error) { /* ignore */ }
+  }
+
+  function loadMathState(grade) {
+    migrateLegacyMathState();
+    try {
+      const raw = localStorage.getItem(mathKey(grade));
+      if (!raw) return defaultMathState();
+      return normalizeMathState(JSON.parse(raw));
     } catch (error) {
-      return base;
+      return defaultMathState();
     }
   }
 
-  let mathState = loadMathState();
+  let mathState = loadMathState(currentGrade);
 
   function saveMathState() {
     mathState.updatedAt = Date.now();
     try {
-      localStorage.setItem(MATH_KEY, JSON.stringify(mathState));
+      localStorage.setItem(mathKey(currentGrade), JSON.stringify(mathState));
       return true;
     } catch (error) {
       toast("保存失败：设备存储空间可能不够了，删掉几道旧错题再试试");
@@ -3800,6 +3957,11 @@
     const total = $("#hubTotal");
     if (learned) learned.textContent = learnedCount();
     if (total) total.textContent = TOTAL_WORDS;
+    const desc = $("#hubEnDesc");
+    if (desc) {
+      desc.textContent = gradeLabel(currentGrade) + " · " + UNITS.length + " 个主题、"
+        + TOTAL_WORDS + " 个高频单词，听、读、拼、配四种玩法，每天 10 个新朋友。";
+    }
     const stats = mathStats();
     const mathTotal = $("#hubMathTotal");
     const mathTodo = $("#hubMathTodo");
@@ -4544,6 +4706,28 @@
     }
   });
 
+  const gradeSelectEl = $("#gradeSelect");
+  if (gradeSelectEl) {
+    gradeSelectEl.value = String(currentGrade);
+    gradeSelectEl.addEventListener("change", () => {
+      const target = Number(gradeSelectEl.value);
+      if (!switchGrade(target)) {
+        gradeSelectEl.value = String(currentGrade);
+        return;
+      }
+      playClick();
+      const units = unitCountOfGrade(currentGrade);
+      toast(units
+        ? "已切换到" + gradeLabel(currentGrade) + "，进度和错题都换成这一档啦"
+        : gradeLabel(currentGrade) + "的词库还在准备中，先看看现有内容吧");
+      // 切换档案后当前页面数据已不同，回到该学科的首页最稳妥
+      const hash = location.hash || "#/home";
+      const inMath = hash.indexOf("#/math") === 0 || hash.indexOf("#/home/math") === 0;
+      location.hash = inMath ? "#/home/math" : "#/home/en";
+      route();
+    });
+  }
+
   $("#soundToggle").addEventListener("click", () => {
     state.settings.sound = !state.settings.sound;
     saveState();
@@ -4837,10 +5021,20 @@
       deleteMathItem,
       getMathState: () => mathState,
       setMathState: (next) => { mathState = next; },
-      getWordState: () => ({ units: UNITS, total: TOTAL_WORDS, dataReady })
+      getWordState: () => ({ units: UNITS, total: TOTAL_WORDS, dataReady }),
+      getGrade: () => currentGrade,
+      switchGrade,
+      unitCountOfGrade,
+      getStats: () => ({
+        learned: learnedCount(),
+        stars: state.stars,
+        wrong: state.wrong.length,
+        mathTotal: mathState.items.length
+      })
     };
   }
 })();
 </script>
-</body>
-</html>
+
+
+</body></html>

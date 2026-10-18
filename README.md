@@ -20,6 +20,27 @@ python -m http.server 8000
 
 在手机/平板上用 Chrome 或 Safari 打开后，可以通过「添加到主屏幕」当成 App 使用，断网也能继续学。
 
+## 年级
+
+顶栏左侧的下拉框可以切换 **1–6 年级**。切换年级 = 切换一整套学习档案：
+
+- **内容按年级隔离**——每个年级只看得到自己那一档的英语主题和数学错题
+- **记录各自独立**——星星、连续打卡、已学单词、错词本、数学错题都分年级保存，兄弟姐妹共用一台设备也互不干扰
+- 当前年级记在 `studyHubGrade.v1`，下次打开自动回到上次选的年级
+
+词库分布（共 30 个主题 / 290 词）：
+
+| 年级 | 主题数 | 词数 | 内容举例 |
+| --- | --- | --- | --- |
+| 一年级 | 4 | 34 | 打招呼、数字 1–10、我的玩具、我的家人 |
+| 二年级 | 4 | 32 | 农场动物、颜色、水果、身体 |
+| 三年级 | 10 | 104 | 动物朋友、食物、学校用品…（原有基础词库） |
+| 四年级 | 4 | 40 | 我的学校、时间与作息、天气、衣服 |
+| 五年级 | 4 | 40 | 食物、爱好、职业、城市地方 |
+| 六年级 | 4 | 40 | 出行、心情、自然环保、未来计划 |
+
+> 老版本只有一套词库、一份记录。升级后这份记录会自动迁移到**三年级**档案里，不会丢。
+
 ## 两块内容
 
 ### 英语 · 单词关卡
@@ -42,17 +63,27 @@ python -m http.server 8000
 - **抽题复习**：按知识点抽题（也支持全部知识点），每轮最多 10 道，未掌握的优先、错得多的靠前。
   流程是「先自己做一遍 → 看答案 → 这次做对了吗」，答对标记为已掌握并 +1 ⭐，答错则 `wrongCount + 1` 并退回待攻克，下一轮优先出现。
 
-数学错题存在 `localStorage` 的 `studyHubMath.v1` 里，**只在你自己的设备上**，不会上传任何服务器。
+数学错题存在 `localStorage` 的 `studyHubMath.v1.gN`（N 为年级）里，**只在你自己的设备上**，不会上传任何服务器。
 
 ## 词库怎么改
 
-词库的唯一真源是 `words.js`，改完运行一次构建脚本：
+词库的唯一真源是 `words.js` 和分年级的 `words-grade-*.js`，改完运行一次构建脚本：
 
 ```bash
 node tools/build-words-json.js
 ```
 
-它会校验字段完整性并生成 `words.json`。页面运行时只读取 `words.json`，**不会**加载 `words.js`。
+它会校验字段完整性、单元 id 唯一性和 `grade` 合法性，并生成 `words.json`，同时打印每个年级的主题数与词数。页面运行时只读取 `words.json`，**不会**加载这些 `.js` 源文件。
+
+`words.js` 用 spread 把各年级的词库拼在一起：
+
+```js
+units: [
+  ...window.GRADE_12_UNITS,   // words-grade-12.js：一年级 + 二年级
+  { grade: 3, id: "animals", /* ... */ },   // 三年级直接写在这里
+  ...window.GRADE_456_UNITS   // words-grade-456.js：四年级 + 五年级 + 六年级
+]
+```
 
 一个单词的字段：
 
@@ -60,10 +91,11 @@ node tools/build-words-json.js
 { w: "cat", ipa: "/kæt/", zh: "猫", emoji: "🐱", en: "A cat likes fish.", cn: "猫喜欢鱼。" }
 ```
 
-新增一个主题，就往 `units` 数组里加一项：
+新增一个主题，就往 `units` 数组里加一项（`grade` 必填，取值 1–6）：
 
 ```js
 {
+  grade: 4,               // 属于哪个年级
   id: "clothes",          // 唯一，会拼进 URL 和存储 key，别改
   name: "衣服穿搭", en: "Clothes", emoji: "👕",
   color: "#7057F5", soft: "#F0ECFF",   // 主题色 / 浅色背景
@@ -89,7 +121,9 @@ node tools/build-words-json.js
 
 ```
 index.html              # 全部页面、样式、逻辑（单文件应用）
-words.js                # 词库真源（生产环境不加载）
+words.js                # 词库真源：三年级 + 汇总入口（生产环境不加载）
+words-grade-12.js       # 一年级、二年级词库
+words-grade-456.js      # 四年级、五年级、六年级词库
 words.json              # 构建产物，运行时数据源
 manifest.json           # PWA 清单
 sw.js                   # Service Worker（离线缓存）
@@ -98,7 +132,7 @@ tools/
   build-words-json.js   # 词库构建 + 校验
   make-icons.js         # 图标生成（纯 Node，无依赖）
   smoke-test.js         # 启动流程冒烟测试
-  test-math.js          # 数学错题本端到端测试（34 项断言）
+  test-math.js          # 数学错题本 + 年级隔离端到端测试（65 项断言）
 ```
 
 ## 路由
@@ -121,7 +155,8 @@ tools/
 ## 技术说明
 
 - 原生 HTML/CSS/JS，无框架、无构建、无外部依赖
-- 英语进度存 `wordHeroState.v1`（沿用旧键名，保证升级不丢数据），词库离线副本存 `wordHeroWordsCache.v1`，数学错题存 `studyHubMath.v1`
+- **按年级隔离存储**：英语进度存 `wordHeroState.v1.gN`，数学错题存 `studyHubMath.v1.gN`，当前年级存 `studyHubGrade.v1`（N 为 1–6）。旧版的 `wordHeroState.v1` / `studyHubMath.v1` 会在首次启动时自动迁移到三年级档案
+- 词库离线副本存 `wordHeroWordsCache.v1`（存全年级数据，体积不大）
 - 手写 hash 路由；带查询串的路由会先剥掉 `?` 再切分路径
 - Service Worker 策略：页面与词库网络优先（保证更新及时），静态资源缓存优先
 - 所有插入 DOM 的用户内容都经过 `esc()` 转义
@@ -131,7 +166,7 @@ tools/
 
 ```bash
 node tools/smoke-test.js   # 启动流程（加载词库 -> 渲染首页）
-node tools/test-math.js    # 数学错题本全流程 34 项断言
+node tools/test-math.js    # 数学错题本全流程 + 年级切换/隔离，65 项断言
 ```
 
 ## 已知限制
@@ -139,5 +174,6 @@ node tools/test-math.js    # 数学错题本全流程 34 项断言
 - 结算页依赖内存中的 `lastResult`，刷新 `#/result` 会回到首页
 - 词库 id 基于数组下标，中间插入单词会导致历史记录错位（见上文）
 - 浏览器 TTS 的音色取决于系统，不同设备效果会有差异
-- 数学错题的图片以 dataURL 存在 `localStorage`，单设备约 5MB 上限；图片已压缩，但错题特别多时可能写满，建议定期清理已掌握的题
-- 数学错题**仅存本地**，换设备不会同步
+- 数学错题的图片以 dataURL 存在 `localStorage`，单设备约 5MB 上限**（各年级共用这一配额）**；图片已压缩，但错题特别多时可能写满，建议定期清理已掌握的题
+- 数学错题与英语进度**仅存本地**，换设备不会同步
+- 跨年级的旧链接（如一年级的 `#/unit/animals`）会被导回该科目的首页，不会静默显示错误内容

@@ -10,7 +10,7 @@ const vm = require("vm");
 
 const root = path.resolve(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const script = html.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1];
 
 /* ---------- 极简 DOM ---------- */
 class ClassList {
@@ -165,7 +165,10 @@ setTimeout(() => {
   api.route.call(null); // hash 为空 -> #/home
   const words = api.getWordState();
   check("英语词库加载成功", words.dataReady === true);
-  check("词库共 104 词", words.total === 104, "实际 " + words.total);
+  check("默认年级为三年级", api.getGrade() === 3, "实际 " + api.getGrade());
+  check("三年级词库共 104 词", words.total === 104, "实际 " + words.total);
+  check("三年级共 10 个主题", words.units.length === 10, "实际 " + words.units.length);
+  check("单元都带年级字段", words.units.every((u) => u.grade === 3));
   check("首页显示已认识单词数", registry.get("hubLearned").textContent === "0", registry.get("hubLearned").textContent);
   check("首页显示错题总数 0", registry.get("hubMathTotal").textContent === "0", registry.get("hubMathTotal").textContent);
 
@@ -246,8 +249,8 @@ setTimeout(() => {
   check("列表只剩该知识点的题", listHtml.includes("长方形") && !listHtml.includes("24 颗糖"));
 
   console.log("\n[8] 数据持久化");
-  const raw = storage.get("studyHubMath.v1");
-  check("已写入 localStorage", Boolean(raw));
+  const raw = storage.get("studyHubMath.v1.g3");
+  check("已按年级写入 localStorage", Boolean(raw));
   const parsed = JSON.parse(raw || "{}");
   check("持久化 2 道错题", (parsed.items || []).length === 2);
 
@@ -261,6 +264,85 @@ setTimeout(() => {
   windowObj.location.hash = "#/quiz/all";
   api.route();
   check("选一选可启动", registry.get("quizOptions").innerHTML.includes("option-btn"));
+
+  console.log("\n[10] 年级切换：内容按年级隔离");
+  const g3Stats = api.getStats();
+  check("切换前记住了三年级错题数", g3Stats.mathTotal === 2, "实际 " + g3Stats.mathTotal);
+
+  check("切到一年级成功", api.switchGrade(1) === true);
+  check("当前年级已是一年级", api.getGrade() === 1, "实际 " + api.getGrade());
+  const g1 = api.getWordState();
+  check("一年级共 34 词", g1.total === 34, "实际 " + g1.total);
+  check("一年级共 4 个主题", g1.units.length === 4, "实际 " + g1.units.length);
+  check("一年级单元都属于一年级", g1.units.every((u) => u.grade === 1));
+  check("年级已写入 localStorage", storage.get("studyHubGrade.v1") === "1", storage.get("studyHubGrade.v1"));
+  check("一年级的英语进度是空的", api.getStats().learned === 0, "实际 " + api.getStats().learned);
+  check("一年级的数学错题是空的", api.getStats().mathTotal === 0, "实际 " + api.getStats().mathTotal);
+
+  console.log("\n[11] 一年级 → 六年级内容各不相同");
+  api.switchGrade(6);
+  const g6 = api.getWordState();
+  check("六年级共 40 词", g6.total === 40, "实际 " + g6.total);
+  check("六年级共 4 个主题", g6.units.length === 4, "实际 " + g6.units.length);
+  check("六年级单元都属于六年级", g6.units.every((u) => u.grade === 6));
+  check("六年级内容与一年级不同",
+    g6.units[0].id !== g1.units[0].id, g6.units[0].id + " vs " + g1.units[0].id);
+
+  console.log("\n[12] 六年级档案独立性");
+  const g6State = api.getMathState();
+  g6State.items.push({
+    id: "math-g6-1", question: "六年级的一道错题", kp: "分数",
+    type: "计算题", reason: "", answer: "", myAnswer: "",
+    images: [], done: false, wrongCount: 0, createdAt: Date.now()
+  });
+  check("六年级记下 1 道错题", api.getStats().mathTotal === 1, "实际 " + api.getStats().mathTotal);
+  // 走一次真实保存路径（新建知识点会写入当前年级的键）
+  api.getMathState().customKps.push("分数");
+  windowObj.location.hash = "#/math/add?kp=" + encodeURIComponent("分数");
+  api.route();
+  registry.get("mathQuestion").value = "六年级新录的一道分数题";
+  registry.get("mathAnswer").value = "1/2";
+  api.submitMathForm();
+  check("六年级数据写到自己的键", Boolean(storage.get("studyHubMath.v1.g6")),
+    Array.from(storage.keys()).filter((k) => k.startsWith("studyHubMath")).join(", "));
+  check("六年级错题变成 2 道", api.getStats().mathTotal === 2, "实际 " + api.getStats().mathTotal);
+  check("三年级的数据没被改写",
+    JSON.parse(storage.get("studyHubMath.v1.g3") || "{}").items.length === 2);
+
+  console.log("\n[13] 切回三年级，原档案完好");
+  api.switchGrade(3);
+  check("回到三年级", api.getGrade() === 3);
+  check("三年级错题仍是 2 道", api.getStats().mathTotal === 2, "实际 " + api.getStats().mathTotal);
+  check("三年级词库仍是 104 词", api.getWordState().total === 104, "实际 " + api.getWordState().total);
+  check("六年级的错题没串到三年级",
+    !api.getMathState().items.some((i) => i.id === "math-g6-1"));
+
+  console.log("\n[14] 非法年级被拒绝");
+  check("不存在的年级返回 false", api.switchGrade(9) === false);
+  check("重复切到当前年级返回 false", api.switchGrade(3) === false);
+  check("年级仍是三年级", api.getGrade() === 3);
+
+  console.log("\n[15] 切年级后页面渲染正常");
+  windowObj.location.hash = "#/home/en";
+  api.route();
+  check("三年级首页仍渲染 10 个主题",
+    (registry.get("unitGrid").innerHTML.match(/unit-card/g) || []).length === 10,
+    String((registry.get("unitGrid").innerHTML.match(/unit-card/g) || []).length));
+  check("首页年级标签已更新", registry.get("homeEnGrade").textContent.includes("三"),
+    registry.get("homeEnGrade").textContent);
+
+  api.switchGrade(1);
+  windowObj.location.hash = "#/home/en";
+  api.route();
+  check("一年级首页只渲染 4 个主题",
+    (registry.get("unitGrid").innerHTML.match(/unit-card/g) || []).length === 4,
+    String((registry.get("unitGrid").innerHTML.match(/unit-card/g) || []).length));
+
+  console.log("\n[16] 跨年级的旧链接被挡回本科目首页");
+  windowObj.location.hash = "#/unit/animals"; // 三年级单元
+  api.route();
+  check("一年级访问三年级单元被导回英语首页",
+    windowObj.location.hash === "#/home/en", windowObj.location.hash);
 
   console.log("\n" + "═".repeat(46));
   console.log("通过 " + pass + " / " + (pass + fail));
