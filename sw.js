@@ -7,13 +7,14 @@
  */
 "use strict";
 
-const VERSION = "v7";
+const VERSION = "v8";
 const SHELL_CACHE = "wordhero-shell-" + VERSION;
 const WORD_CACHE = "wordhero-words-" + VERSION;
 
 const SHELL_ASSETS = [
   "./",
   "./index.html",
+  "./math-problems.js",
   "./manifest.json",
   "./icons/icon.svg",
   "./icons/icon-192.png",

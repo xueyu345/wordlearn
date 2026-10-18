@@ -35,6 +35,9 @@
   }
 
   * { box-sizing: border-box; }
+
+  /* hidden 属性优先：按钮类自带 display:flex，会把浏览器默认的 hidden 样式盖掉 */
+  [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
@@ -2226,6 +2229,56 @@
     .dash-line { grid-template-columns: 76px 1fr 44px; }
   }
 
+  /* ---------- 解题挑战 ---------- */
+  .solve-note { margin-top: 10px; font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .solve-card { background: var(--surface); border-radius: var(--radius); padding: 20px 20px 24px; box-shadow: var(--shadow); }
+  .solve-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 10px; }
+  .solve-q { font-size: 19px; line-height: 1.7; font-weight: 700; margin-bottom: 16px; }
+  .solve-answer-row { display: flex; gap: 8px; align-items: stretch; }
+  .solve-answer-row input {
+    flex: 1; min-width: 0; font-size: 17px; padding: 12px 14px;
+    border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg);
+  }
+  .solve-answer-row input:focus { outline: none; border-color: var(--purple); }
+  .solve-help { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .solve-tip {
+    margin-top: 10px; padding: 10px 12px; border-radius: 12px;
+    background: rgba(255, 201, 60, .22); color: #8A6A1F; font-size: 12.5px; line-height: 1.7;
+  }
+  .solve-result { margin-top: 16px; }
+  .solve-verdict { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+  .solve-verdict.ok { color: var(--green, #2FA36B); }
+  .solve-verdict.no { color: var(--red); }
+  .solve-analysis { background: var(--bg); border-radius: 14px; padding: 14px 16px; }
+  .solve-analysis h4 { font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+  .solve-analysis ol { margin: 0; padding-left: 20px; }
+  .solve-analysis li { font-size: 13.5px; line-height: 1.9; }
+  .solve-analysis .solve-answer-line { margin-top: 10px; font-size: 13.5px; }
+  .solve-analysis .solve-answer-line b { color: var(--purple); }
+  .solve-actions { margin-top: 14px; }
+  .solve-score { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .solve-score div {
+    flex: 1; min-width: 88px; background: var(--bg); border-radius: 14px; padding: 12px 8px; text-align: center;
+  }
+  .solve-score strong { display: block; font-size: 22px; }
+  .solve-score span { font-size: 11.5px; color: var(--muted); }
+  .solve-pick { display: grid; gap: 10px; }
+  .solve-pick-item {
+    display: flex; gap: 10px; align-items: flex-start; background: var(--bg);
+    border-radius: 14px; padding: 12px 14px; border: 1.5px solid transparent;
+  }
+  .solve-pick-item.checked { border-color: var(--purple); background: var(--purple-soft); }
+  .solve-pick-item input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--purple); }
+  .solve-pick-body { flex: 1; min-width: 0; }
+  .solve-pick-q { font-size: 13.5px; line-height: 1.6; }
+  .solve-pick-ans { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.7; }
+  .solve-pick-ans b { color: var(--purple); }
+  .solve-pick-ans s { color: var(--red); }
+  .solve-empty { text-align: center; padding: 30px 16px; color: var(--muted); font-size: 13px; }
+  .review-analysis { margin-top: 12px; }
+  .review-analysis ol { margin: 6px 0 0; padding-left: 20px; }
+  .review-analysis li { font-size: 13.5px; line-height: 1.9; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: .01ms !important;
@@ -2490,6 +2543,7 @@
   }
 </style>
 <style id="__dm_no_drag_style__" data-page-node-id="DjddPwycsJIsDW85cPAEVz">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__" data-page-node-id="tR3N1vklkz7VWMSkL0P5Yi">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style><!-- 云服务 SDK（CDN 形式，暴露全局 WorkBuddyCloud）；主脚本在其后执行，初始化时机由 boot 保证 -->
+<script src="math-problems.js" data-page-node-id="mpbank"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js" crossorigin="anonymous" data-page-node-id="FhjwsCuxarLXIolYRDxHPT"></script></head>
 <body data-page-node-id="Xj856siIFq6D4JdIUrU7Hv" style="position: relative;">
 <header class="topbar" data-page-node-id="gjGbBoqB9uj3zG72AInk3R">
@@ -2926,6 +2980,7 @@
         <p id="mathHeroSub" data-page-node-id="8CEA24x5MVivWOyIr5hMvy">把做错的题记下来，按知识点整理。复习时抽题重做，一道一道把它们攻下来。</p>
         <div class="math-hero-actions" data-page-node-id="OU50HOGMGOJZjRo2C3LoQ2">
           <a class="btn btn-primary" id="mathAddBtn" href="#/math/add" data-page-node-id="AAAjEt8NMgpYFImHtKDZvs">✏️ 记一道错题</a>
+          <a class="btn btn-soft" id="mathSolveBtn" href="#/math/solve" data-page-node-id="solveEntry">🧩 先做再记</a>
           <button class="btn btn-soft" id="mathReviewBtn" type="button" data-page-node-id="8VWfd3MhwHn8BBsNuGA4EO">🎯 抽题复习</button>
         </div>
       </div>
@@ -3004,8 +3059,8 @@
           <input id="mathMyAnswer" type="text" placeholder="当时写的答案" data-page-node-id="9xVTAaEXkpcC1aEn49lE8l">
         </div>
         <div class="form-field" data-page-node-id="OIz1SzzLDabl2xkDB6ZmrF">
-          <label for="mathAnswer" data-page-node-id="xfJp63vMzDstkQ5VUwMQDH">正确答案 <em data-page-node-id="IPU2mp48bgZqkzIDlYkPoW">必填</em></label>
-          <input id="mathAnswer" type="text" placeholder="正确答案和关键步骤" data-page-node-id="JyzMoftJKxRlWp17PUsZ7c">
+          <label for="mathAnswer" data-page-node-id="xfJp63vMzDstkQ5VUwMQDH">正确答案 <small data-page-node-id="IPU2mp48bgZqkzIDlYkPoW">可选，不填也能先记下来</small></label>
+          <input id="mathAnswer" type="text" placeholder="还没对答案？可以先空着，以后再补" data-page-node-id="JyzMoftJKxRlWp17PUsZ7c">
         </div>
       </div>
 
@@ -3033,6 +3088,88 @@
       <div class="form-actions" data-page-node-id="3U9sPgE5m2jOX8NaMnKJAa">
         <button class="btn btn-soft" type="button" id="mathFormCancel" data-page-node-id="GipWrqgY8bgvTRd2Q5Acnw">取消</button>
         <button class="btn btn-primary" type="button" id="mathFormSave" data-page-node-id="gXlGsHNs8XWEUvWsxwowBQ">保存到错题本</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 数学解题挑战 ================= -->
+  <section class="view" id="view-math-solve">
+    <a class="back-btn" href="#/home/math" style="margin-bottom:16px;display:inline-flex;">← 回到错题本</a>
+
+    <!-- 出题设置 -->
+    <div class="form-card" id="solveSetup">
+      <div class="form-head">
+        <h1>🧩 解题挑战</h1>
+        <p>先做题、看解析，做错的再收进错题本。题目严格按你当前的年级来出，不会超纲。</p>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="solveKpSelect">练哪个知识点</label>
+          <select id="solveKpSelect"></select>
+        </div>
+        <div class="form-field">
+          <label for="solveCountSelect">做几道</label>
+          <select id="solveCountSelect">
+            <option value="5">5 道</option>
+            <option value="10">10 道</option>
+            <option value="15">15 道</option>
+          </select>
+        </div>
+      </div>
+      <p class="solve-note" id="solveStageNote"></p>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="button" id="solveStartBtn">开始挑战</button>
+      </div>
+    </div>
+
+    <!-- 答题中 -->
+    <div class="solve-card" id="solvePlay" hidden>
+      <div class="mode-top">
+        <a class="back-btn" id="solveQuit" href="#/home/math">←</a>
+        <div class="mode-title">
+          <strong id="solveTitle">解题挑战</strong>
+          <span id="solveSub">按当前年级出题</span>
+        </div>
+        <div class="mode-count" id="solveCount">1 / 5</div>
+      </div>
+      <div class="progress-line"><span id="solveBar"></span></div>
+
+      <div class="solve-tags">
+        <span class="math-item-kp" id="solveKp"></span>
+        <span class="math-item-type" id="solveType"></span>
+      </div>
+      <p class="solve-q" id="solveQuestion"></p>
+
+      <div class="solve-answer-row">
+        <input id="solveInput" type="text" placeholder="写出你的答案（分数写 1/2 这样）" autocomplete="off">
+        <button class="btn btn-primary" type="button" id="solveCheckBtn">检查</button>
+      </div>
+      <div class="solve-help">
+        <button class="btn btn-ghost btn-small" type="button" id="solveHintBtn">💡 给点提示</button>
+        <button class="btn btn-ghost btn-small" type="button" id="solveSkipBtn">跳过这题</button>
+      </div>
+      <p class="solve-tip" id="solveTip" hidden></p>
+
+      <div class="solve-result" id="solveResult" hidden>
+        <div class="solve-verdict" id="solveVerdict"></div>
+        <div class="solve-analysis" id="solveAnalysis"></div>
+        <div class="solve-actions">
+          <button class="btn btn-primary" type="button" id="solveNextBtn">下一题</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 一轮结束 -->
+    <div class="form-card" id="solveSummary" hidden>
+      <div class="form-head">
+        <h1 id="solveSummaryTitle">这一轮做完了</h1>
+        <p id="solveSummarySub"></p>
+      </div>
+      <div class="solve-score" id="solveScore"></div>
+      <div class="solve-pick" id="solvePick"></div>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="button" id="solveAddBtn">把选中的收进错题本</button>
+        <button class="btn btn-soft" type="button" id="solveAgainBtn">再来一组</button>
       </div>
     </div>
   </section>
@@ -3068,6 +3205,10 @@
         <div class="review-reason" id="reviewReasonWrap" data-page-node-id="g0PpHtxrBjdHy2PUaehaMR">
           <span class="review-label" data-page-node-id="MiZsSBiVbLDyM3aFW9okFy">错在哪</span>
           <p id="reviewReason" data-page-node-id="J5ErFVT6eakkqvTqzk78YJ"></p>
+        </div>
+        <div class="review-analysis" id="reviewAnalysisWrap" hidden>
+          <span class="review-label">解题步骤</span>
+          <ol id="reviewAnalysis"></ol>
         </div>
       </div>
 
@@ -5973,12 +6114,6 @@
       toast("题目不能空着，至少写上题目内容");
       return;
     }
-    if (!answer) {
-      $("#mathAnswer").classList.add("invalid");
-      $("#mathAnswer").focus();
-      toast("别忘了填正确答案");
-      return;
-    }
     if (!kp) {
       toast("请选择一个知识点");
       return;
@@ -6011,6 +6146,262 @@
     }
     if (!saveMathState()) return;
     playFinish();
+    location.hash = "#/home/math";
+  }
+
+  /* ---------- 解题挑战 ----------
+   * 先做题 → 判对错 → 看按年级讲的解析 → 只把做错的收进错题本
+   * 题库是外置的 math-problems.js，按 currentGrade 出题，不会超纲。
+   */
+  let solveSession = null;
+
+  function solveBank() {
+    return (typeof window !== "undefined" && window.MathProblemBank) || null;
+  }
+
+  function solveAvailable() {
+    const bank = solveBank();
+    return Boolean(bank && typeof bank.makeSet === "function");
+  }
+
+  // 打开设置面板：把当前教材的知识点填进下拉框
+  function setupSolve() {
+    const bank = solveBank();
+    const select = $("#solveKpSelect");
+    const kps = mathPresetKps();
+    select.innerHTML = '<option value="">🎲 混合练习（按当前年级随机）</option>'
+      + kps.map((kp) => `<option value="${esc(kp)}">${esc(kp)}</option>`).join("");
+    const preset = roundCount(10);
+    $("#solveCountSelect").value = String([5, 10, 15].includes(preset) ? preset : 10);
+
+    const note = $("#solveStageNote");
+    if (!solveAvailable()) {
+      $("#solveStartBtn").disabled = true;
+      note.textContent = "题库没加载出来，刷新页面再试试。记错题不受影响。";
+      return;
+    }
+    $("#solveStartBtn").disabled = false;
+    const stages = (bank.GRADE_TOPICS[currentGrade] || []).map((id) => (bank.TOPICS[id] || {}).name).filter(Boolean);
+    note.textContent = "当前是" + gradeLabel(currentGrade) + "（" + mathBookMeta(currentMathBook).name + "），"
+      + "会从这个阶段的知识点里出题：" + stages.join("、") + "。";
+    showSolvePane("setup");
+  }
+
+  function showSolvePane(which) {
+    $("#solveSetup").hidden = which !== "setup";
+    $("#solvePlay").hidden = which !== "play";
+    $("#solveSummary").hidden = which !== "summary";
+  }
+
+  function startSolve() {
+    if (!solveAvailable()) {
+      toast("题库没能加载出来，刷新一下再试试");
+      return;
+    }
+    const bank = solveBank();
+    const kp = $("#solveKpSelect").value || "";
+    const count = Number($("#solveCountSelect").value) || 5;
+    const queue = bank.makeSet({ grade: currentGrade, kp: kp, count: count });
+    if (!queue.length) {
+      toast("这个知识点暂时出不了题，换一个试试");
+      return;
+    }
+    solveSession = {
+      kp: kp,
+      grade: currentGrade,
+      queue: queue.map((item) => ({ ...item, myAnswer: "", ok: false, checked: false, skipped: false })),
+      index: 0,
+      right: 0,
+      wrong: 0
+    };
+    $("#solveTitle").textContent = kp || "混合练习";
+    $("#solveSub").textContent = gradeLabel(currentGrade) + " · 共 " + queue.length + " 道";
+    playClick();
+    showSolvePane("play");
+    renderSolve();
+  }
+
+  function currentSolve() {
+    if (!solveSession) return null;
+    return solveSession.queue[solveSession.index] || null;
+  }
+
+  function renderSolve() {
+    const item = currentSolve();
+    if (!solveSession || !item) { finishSolve(); return; }
+    const total = solveSession.queue.length;
+    $("#solveCount").textContent = (solveSession.index + 1) + " / " + total;
+    $("#solveBar").style.width = Math.round((solveSession.index / total) * 100) + "%";
+    $("#solveKp").textContent = item.kp || item.topicName;
+    $("#solveType").textContent = item.stage || item.type || "";
+    $("#solveQuestion").textContent = item.q;
+    $("#solveInput").value = "";
+    $("#solveInput").disabled = false;
+    $("#solveTip").hidden = true;
+    $("#solveResult").hidden = true;
+    $("#solveCheckBtn").hidden = false;
+    $("#solveCheckBtn").textContent = "检查";
+    $("#solveHintBtn").hidden = false;
+    $("#solveSkipBtn").hidden = false;
+    $("#solveNextBtn").textContent = solveSession.index + 1 >= total ? "看看这一轮战果" : "下一题";
+    try { $("#solveInput").focus(); } catch (error) { /* 移动端不强制弹键盘 */ }
+  }
+
+  function checkSolve() {
+    const bank = solveBank();
+    const item = currentSolve();
+    if (!bank || !item || item.checked) return;
+    const value = $("#solveInput").value.trim();
+    if (!value) {
+      toast("先写上答案，不会的话点「给点提示」或「跳过」");
+      return;
+    }
+    item.myAnswer = value;
+    item.checked = true;
+    item.ok = bank.checkAnswer(value, item);
+    if (item.ok) { solveSession.right += 1; playCorrect(); addStars(1); }
+    else { solveSession.wrong += 1; playWrong(); }
+
+    $("#solveInput").disabled = true;
+    $("#solveCheckBtn").hidden = true;
+    $("#solveHintBtn").hidden = true;
+    $("#solveSkipBtn").hidden = true;
+    $("#solveTip").hidden = true;
+
+    const verdict = $("#solveVerdict");
+    verdict.className = "solve-verdict " + (item.ok ? "ok" : "no");
+    verdict.textContent = item.ok ? "✅ 答对了！做对一道 +1 ⭐" : "❌ 这题做错了，看一遍解析就懂了";
+
+    const mine = item.ok ? "" : `<p class="solve-answer-line">你写的是：<s>${esc(value)}</s></p>`;
+    $("#solveAnalysis").innerHTML = `
+      <h4>解题思路（${esc(item.stage || "")}）</h4>
+      <ol>${item.steps.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
+      <p class="solve-answer-line">正确答案：<b>${esc(item.a)}</b></p>
+      ${mine}`;
+    $("#solveResult").hidden = false;
+  }
+
+  function skipSolve() {
+    const item = currentSolve();
+    if (!item || item.checked) return;
+    item.checked = true;
+    item.skipped = true;
+    item.ok = false;
+    item.myAnswer = item.myAnswer || "";
+    solveSession.wrong += 1;
+    $("#solveInput").disabled = true;
+    $("#solveCheckBtn").hidden = true;
+    $("#solveHintBtn").hidden = true;
+    $("#solveSkipBtn").hidden = true;
+    $("#solveTip").hidden = true;
+    const verdict = $("#solveVerdict");
+    verdict.className = "solve-verdict no";
+    verdict.textContent = "⏭️ 先跳过了，看看解析";
+    $("#solveAnalysis").innerHTML = `
+      <h4>解题思路（${esc(item.stage || "")}）</h4>
+      <ol>${item.steps.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
+      <p class="solve-answer-line">正确答案：<b>${esc(item.a)}</b></p>`;
+    $("#solveResult").hidden = false;
+  }
+
+  function nextSolve() {
+    const item = currentSolve();
+    if (item && !item.checked) { checkSolve(); return; }
+    if (!solveSession) return;
+    solveSession.index += 1;
+    if (solveSession.index >= solveSession.queue.length) finishSolve();
+    else renderSolve();
+    window.scrollTo(0, 0);
+  }
+
+  function finishSolve() {
+    if (!solveSession) return;
+    const total = solveSession.queue.length;
+    const rate = total ? Math.round((solveSession.right / total) * 100) : 0;
+    $("#solveBar").style.width = "100%";
+    $("#solveSummaryTitle").textContent = rate >= 90 ? "太棒了，几乎全对！" : rate >= 60 ? "做得不错，还有几道要练" : "别急，把错的收进错题本慢慢啃";
+    $("#solveSummarySub").textContent = "把这些题收进错题本后，就能在「抽题复习」里反复练了。";
+    $("#solveScore").innerHTML = `
+      <div><strong>${total}</strong><span>做了几道</span></div>
+      <div><strong style="color:var(--green);">${solveSession.right}</strong><span>做对</span></div>
+      <div><strong style="color:var(--red);">${solveSession.wrong}</strong><span>做错/跳过</span></div>
+      <div><strong>${rate}%</strong><span>正确率</span></div>`;
+
+    const failed = solveSession.queue.filter((item) => !item.ok);
+    const box = $("#solvePick");
+    if (!failed.length) {
+      box.innerHTML = '<div class="solve-empty">🎉 全部做对，没有要收进错题本的题。</div>';
+      $("#solveAddBtn").hidden = true;
+    } else {
+      $("#solveAddBtn").hidden = false;
+      $("#solveAddBtn").textContent = "把选中的 " + failed.length + " 道收进错题本";
+      box.innerHTML = failed.map((item, index) => `
+        <label class="solve-pick-item checked">
+          <input type="checkbox" id="solvePick${index}" data-solve-pick="${index}" checked>
+          <span class="solve-pick-body">
+            <span class="solve-pick-q">${esc(item.q)}</span>
+            <span class="solve-pick-ans">${item.myAnswer ? `你写的：<s>${esc(item.myAnswer)}</s>　` : ""}正确答案：<b>${esc(item.a)}</b></span>
+          </span>
+        </label>`).join("");
+    }
+    showSolvePane("summary");
+    window.scrollTo(0, 0);
+  }
+
+  // 把勾选的题收进错题本（已有的只累加错误次数，不重复记一条）
+  function addSolveToWrongBook() {
+    if (!solveSession) return;
+    const failed = solveSession.queue.filter((item) => !item.ok);
+    const chosen = [];
+    failed.forEach((item, index) => {
+      const box = $("#solvePick" + index);
+      if (!box || box.checked !== false) chosen.push(item);
+    });
+    if (!chosen.length) {
+      toast("还没有勾选要收进错题本的题");
+      return;
+    }
+    const now = Date.now();
+    let added = 0;
+    let merged = 0;
+    chosen.forEach((item) => {
+      const kp = item.kp || item.topicName || "未分类";
+      const existing = mathState.items.find((entry) => entry.question === item.q);
+      if (existing) {
+        existing.wrongCount = (existing.wrongCount || 1) + 1;
+        existing.done = false;
+        if (!existing.answer) existing.answer = item.a;
+        if (item.myAnswer && !existing.myAnswer) existing.myAnswer = item.myAnswer;
+        if (!existing.analysis) existing.analysis = item.steps.slice();
+        existing.updatedAt = now;
+        merged += 1;
+        return;
+      }
+      mathState.items.unshift({
+        id: "m" + now + Math.random().toString(36).slice(2, 6),
+        question: item.q,
+        answer: item.a,
+        kp: kp,
+        type: item.type || "",
+        myAnswer: item.myAnswer || "",
+        reason: item.tip ? "易错提醒：" + item.tip : "",
+        analysis: item.steps.slice(),
+        images: [],
+        done: false,
+        wrongCount: 1,
+        createdAt: now,
+        updatedAt: now
+      });
+      added += 1;
+      if (!isPresetKp(kp) && !mathState.customKps.includes(kp)) mathState.customKps.push(kp);
+    });
+    if (!saveMathState()) return;
+    solveSession = null;
+    const text = added && merged
+      ? "收进 " + added + " 道，另有 " + merged + " 道之前记过，已累计错因"
+      : added ? "已把 " + added + " 道题收进错题本 📌" : "这 " + merged + " 道之前记过，错误次数已更新";
+    toast(text);
+    confetti(24);
     location.hash = "#/home/math";
   }
 
@@ -6078,13 +6469,22 @@
 
     $("#reviewAnswerBox").hidden = true;
     $("#reviewJudge").hidden = true;
-    $("#reviewAnswer").textContent = item.answer;
+    $("#reviewAnswer").textContent = item.answer || "（当时还没记正确答案，可以在编辑里补上）";
     const reasonWrap = $("#reviewReasonWrap");
     if (item.reason) {
       reasonWrap.hidden = false;
       $("#reviewReason").textContent = item.reason;
     } else {
       reasonWrap.hidden = true;
+    }
+    // 从「解题挑战」收进来的题自带解析步骤
+    const analysisWrap = $("#reviewAnalysisWrap");
+    const steps = Array.isArray(item.analysis) ? item.analysis.filter(Boolean) : [];
+    if (steps.length) {
+      analysisWrap.hidden = false;
+      $("#reviewAnalysis").innerHTML = steps.map((step) => `<li>${esc(step)}</li>`).join("");
+    } else {
+      analysisWrap.hidden = true;
     }
     $("#reviewAnswerBox").hidden = true;
     $("#reviewReveal").hidden = false;
@@ -6357,6 +6757,10 @@
         showView("math-add");
         setupMathForm(item);
         setTitle("修改错题");
+      } else if (argument === "solve") {
+        showView("math-solve");
+        setupSolve();
+        setTitle("解题挑战");
       } else if (argument === "review") {
         const kp = new URLSearchParams(raw.split("?")[1] || "").get("kp") || "";
         showView("math-review");
@@ -6957,7 +7361,59 @@
     if (checkBtn) checkBtn.addEventListener("click", () => { playClick(); checkUpdate(); });
   }
 
+  /* =========================================================
+     解题挑战事件
+     ========================================================= */
+  function setupSolveEvents() {
+    const start = $("#solveStartBtn");
+    if (start) start.addEventListener("click", () => { startSolve(); });
+
+    const check = $("#solveCheckBtn");
+    if (check) check.addEventListener("click", () => { checkSolve(); });
+
+    const next = $("#solveNextBtn");
+    if (next) next.addEventListener("click", () => { playClick(); nextSolve(); });
+
+    const hint = $("#solveHintBtn");
+    if (hint) {
+      hint.addEventListener("click", () => {
+        const item = currentSolve();
+        if (!item) return;
+        const tip = $("#solveTip");
+        tip.textContent = item.tip ? "💡 " + item.tip : "💡 先把题目读两遍，找出已知条件和要求的问题。";
+        tip.hidden = false;
+        hint.hidden = true;
+      });
+    }
+
+    const skip = $("#solveSkipBtn");
+    if (skip) skip.addEventListener("click", () => { playClick(); skipSolve(); });
+
+    const addBtn = $("#solveAddBtn");
+    if (addBtn) addBtn.addEventListener("click", () => { playClick(); addSolveToWrongBook(); });
+
+    const again = $("#solveAgainBtn");
+    if (again) again.addEventListener("click", () => { startSolve(); });
+
+    // 回车：没判过时提交答案，判过了就进下一题
+    const input = $("#solveInput");
+    if (input) {
+      input.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        const item = currentSolve();
+        if (item && item.checked) nextSolve();
+        else checkSolve();
+      });
+      input.addEventListener("input", () => {
+        const item = currentSolve();
+        if (item && !item.checked) item.myAnswer = input.value.trim();
+      });
+    }
+  }
+
   setupSettingsEvents();
+  setupSolveEvents();
 
   /* =========================================================
      登录态恢复
@@ -7812,6 +8268,35 @@
     }
     // 先让页面可用，再在后台恢复登录态，避免登录请求慢时白屏
     restoreSession();
+
+    // 调试入口：?_solve=play 直接开一轮解题挑战；?_solve=done 自动做完到结算页（方便自动化截图）
+    try {
+      const debugSolve = new URLSearchParams(location.search).get("_solve");
+      if (debugSolve) {
+        location.hash = "#/math/solve";
+        setTimeout(() => {
+          startSolve();
+          if (debugSolve === "ok") {
+            // 演示：第一题直接答对，展示解析卡片
+            solveSession.index = 0;
+            renderSolve();
+            $("#solveInput").value = solveSession.queue[0].a;
+            checkSolve();
+            return;
+          }
+          if (debugSolve !== "done") return;
+          // 自动把一轮做完：做错第 1、2 题，其余跳过，正好能走到结算页
+          solveSession.queue.forEach((item, index) => {
+            solveSession.index = index;
+            renderSolve();
+            $("#solveInput").value = index < 2 ? "随便填的" : "";
+            if (index < 2) checkSolve(); else skipSolve();
+          });
+          solveSession.index = solveSession.queue.length;
+          finishSolve();
+        }, 350);
+      }
+    } catch (_) {}
   }
 
   boot();
@@ -7897,7 +8382,36 @@
       importBackupFile,
       wipeLocalData,
       getGoal: () => GOAL,
-      getAppVersion: () => APP_VERSION
+      getAppVersion: () => APP_VERSION,
+      // ---- 解题挑战 ----
+      setupSolve,
+      startSolve,
+      checkSolve,
+      nextSolve,
+      skipSolve,
+      finishSolve,
+      addSolveToWrongBook,
+      solveAvailable,
+      solveCurrent: () => {
+        const item = currentSolve();
+        return item ? { ...item } : null;
+      },
+      getSolve: () => (solveSession ? {
+        kp: solveSession.kp,
+        index: solveSession.index,
+        total: solveSession.queue.length,
+        right: solveSession.right,
+        wrong: solveSession.wrong,
+        items: solveSession.queue.map((item) => ({
+          q: item.q, a: item.a, ok: item.ok, checked: item.checked, skipped: item.skipped,
+          kp: item.kp, topic: item.topic, stage: item.stage, type: item.type, steps: item.steps
+        }))
+      } : null),
+      setSolveInput: (value) => { $("#solveInput").value = value; },
+      checkAnswerRaw: (input, problem) => {
+        const bank = solveBank();
+        return bank ? bank.checkAnswer(input, problem) : false;
+      }
     };
   }
 })();
