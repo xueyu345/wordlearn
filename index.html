@@ -2758,10 +2758,11 @@
   }
   .side-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .side-sub, .side-tail { flex: 0 0 auto; font-size: 10.5px; font-weight: 700; color: var(--muted); }
+  /* 选中态用红色渐变 + 白字，和未选中区分到一眼能看出来 */
   .side-item.active {
-    background: linear-gradient(135deg, var(--orange), #FF7A59);
+    background: linear-gradient(135deg, #FF5A45, #E62E1E);
     color: #fff;
-    box-shadow: 0 6px 0 #D95732, 0 12px 22px rgba(217, 87, 50, .18);
+    box-shadow: 0 6px 0 #B72214, 0 12px 22px rgba(183, 34, 20, .26);
   }
   .side-item.active .side-sub, .side-item.active .side-tail { color: rgba(255, 255, 255, .88); }
   .side-item.active .side-ico { background: rgba(255, 255, 255, .24); box-shadow: none; }
@@ -4019,7 +4020,7 @@
   let TOTAL_WORDS = 0;
   let GOAL = 10;
   // 应用版本：显示在设置页「关于」，改动较大时手动加一
-  const APP_VERSION = "1.4.1";
+  const APP_VERSION = "1.4.2";
   let dataReady = false;
   let wordDataFailed = false;
 
@@ -8018,12 +8019,6 @@
     const removeTarget = event.target.closest("[data-remove-wrong]");
     if (removeTarget) {
       removeWrong(removeTarget.getAttribute("data-remove-wrong"));
-    }
-
-    const navTarget = event.target.closest("[data-nav]");
-    if (navTarget) {
-      event.preventDefault();
-      location.hash = navTarget.getAttribute("data-nav");
     }
 
     /* ---------- 数学错题本 ---------- */
