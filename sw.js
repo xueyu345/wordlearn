@@ -7,7 +7,7 @@
  */
 "use strict";
 
-const VERSION = "v9";
+const VERSION = "v10";
 const SHELL_CACHE = "wordhero-shell-" + VERSION;
 const WORD_CACHE = "wordhero-words-" + VERSION;
 

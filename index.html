@@ -2808,23 +2808,42 @@
     .nav-toggle { display: grid; }
     .app-main { margin-left: 84px; }
     .sidebar { width: 84px; padding: 14px 9px; gap: 10px; }
+
+    /* 图标条只留图标：文字整段不显示，避免被裁成「英…」 */
     .side-head { justify-content: center; }
-    .side-brand-text, .side-sub, .side-tail, .side-group-title, .side-note { display: none; }
-    .side-item { justify-content: center; padding: 0; min-height: 50px; }
+    .side-label, .side-brand-text, .side-sub, .side-tail, .side-group-title, .side-note { display: none; }
+    .side-item { justify-content: center; padding: 0; min-height: 46px; border-radius: 15px; }
     .side-item:hover { transform: none; }
+    /* 图标不再垫白色方块，选中时整块就是橙色，一眼能看出在哪儿 */
+    .side-item .side-ico { width: 34px; height: 34px; font-size: 19px; background: transparent; box-shadow: none; }
+    .side-item.active .side-ico { background: transparent; box-shadow: none; }
     .side-grade .grade-select { height: 40px; padding: 0 22px 0 8px; font-size: 12.5px; }
     .side-grade::after { right: 8px; font-size: 10px; }
 
+    /* 顶栏：固定两行——第一行 ☰ + 品牌，第二行所有开关和下拉框。
+       品牌设成不收缩，避免被挤成竖排或直接被压没 */
+    .topbar-inner { flex-wrap: wrap; row-gap: 8px; justify-content: flex-start; align-items: center; }
+    .nav-toggle { order: 0; }
+    .brand { order: 1; flex: 0 0 auto; }
+    .brand-text { min-width: 0; overflow: hidden; }
+    .brand-text strong, .brand-text small { white-space: nowrap; }
+    .top-stats { order: 2; flex: 1 1 100%; min-width: 0; justify-content: flex-end; flex-wrap: wrap; }
+
     body.nav-open .sidebar { width: 282px; box-shadow: 14px 0 44px rgba(103, 76, 40, .20); }
     body.nav-open .side-head { justify-content: space-between; }
+    body.nav-open .side-label,
     body.nav-open .side-brand-text,
     body.nav-open .side-sub,
     body.nav-open .side-tail,
-    body.nav-open .side-group-title,
-    body.nav-open .side-note { display: flex; }
+    body.nav-open .side-group-title { display: flex; }
     body.nav-open .side-note { display: block; }
     body.nav-open .side-close { display: grid; }
-    body.nav-open .side-item { justify-content: flex-start; padding: 0 13px; }
+    body.nav-open .side-item { justify-content: flex-start; padding: 0 13px; min-height: 50px; }
+    body.nav-open .side-item .side-ico {
+      width: 30px; height: 30px; font-size: 17px;
+      background: #fff; box-shadow: 0 2px 6px rgba(103, 76, 40, .10);
+    }
+    body.nav-open .side-item.active .side-ico { background: rgba(255, 255, 255, .24); box-shadow: none; }
     body.nav-open .side-grade .grade-select { padding: 0 32px 0 14px; font-size: 14.5px; }
     body.nav-open .side-grade::after { right: 14px; font-size: 11px; }
     body.nav-open .side-mask { opacity: 1; pointer-events: auto; }
@@ -2835,7 +2854,11 @@
     .app-main { margin-left: 0; }
     .sidebar { width: 292px; transform: translateX(-100%); }
     body.nav-open .sidebar { width: 292px; transform: translateX(0); }
-    .topbar-inner { gap: 10px; }
+    .topbar-inner { gap: 10px; padding: 10px 14px; }
+    /* 手机：第一行 ☰ + 品牌，第二行开关整体落到下一行 */
+    .top-stats { flex: 1 1 100%; gap: 6px; }
+    /* 顶栏变两行后，登录面板要往下让开一点，别压在开关上 */
+    .account-panel { position: fixed; top: 116px; right: 12px; left: 12px; width: auto; }
     .dash-quick { grid-template-columns: 1fr; }
   }
 
@@ -2866,16 +2889,16 @@
     </div>
 
     <nav class="side-nav" aria-label="学习科目">
-      <button class="side-item" type="button" data-nav="dashboard">
+      <button class="side-item" type="button" data-nav="dashboard" aria-label="学习仪表盘" title="学习仪表盘">
         <span class="side-ico" aria-hidden="true">📊</span>
         <span class="side-label">学习仪表盘</span>
       </button>
-      <button class="side-item" type="button" data-nav="en">
+      <button class="side-item" type="button" data-nav="en" aria-label="英语" title="英语">
         <span class="side-ico" aria-hidden="true">🔤</span>
         <span class="side-label">英语</span>
         <span class="side-sub" id="sideEnHint">单词闯关</span>
       </button>
-      <button class="side-item" type="button" data-nav="math">
+      <button class="side-item" type="button" data-nav="math" aria-label="数学" title="数学">
         <span class="side-ico" aria-hidden="true">➗</span>
         <span class="side-label">数学</span>
         <span class="side-sub" id="sideMathHint">错题本</span>
@@ -2899,12 +2922,12 @@
     </div>
 
     <div class="side-foot">
-      <button class="side-item" type="button" data-nav="account">
+      <button class="side-item" type="button" data-nav="account" aria-label="账户" title="账户">
         <span class="side-ico" aria-hidden="true">👤</span>
         <span class="side-label">账户</span>
         <span class="side-tail" id="sideAccountTail">未登录</span>
       </button>
-      <button class="side-item" type="button" data-nav="settings">
+      <button class="side-item" type="button" data-nav="settings" aria-label="设置" title="设置">
         <span class="side-ico" aria-hidden="true">⚙️</span>
         <span class="side-label">设置</span>
       </button>
@@ -3991,7 +4014,7 @@
   let TOTAL_WORDS = 0;
   let GOAL = 10;
   // 应用版本：显示在设置页「关于」，改动较大时手动加一
-  const APP_VERSION = "1.4.0";
+  const APP_VERSION = "1.4.1";
   let dataReady = false;
   let wordDataFailed = false;
 
