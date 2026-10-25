@@ -27,3 +27,6 @@ desktop.ini
 # 微信开发者工具等本地生成，与项目无关
 wechatcode/
 .wbapp_*.genie
+
+# 临时预览/截图目录
+.shots/

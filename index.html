@@ -2849,6 +2849,11 @@
     body.nav-open .side-mask { opacity: 1; pointer-events: auto; }
   }
 
+  /* 窄平板：星星/打卡挤不下（仪表盘里看得到），让位给下拉框和登录，别掉出第三行 */
+  @media (max-width: 900px) {
+    .stat-pill { display: none; }
+  }
+
   /* ---------- <768px：完全抽屉 ---------- */
   @media (max-width: 767px) {
     .app-main { margin-left: 0; }
