@@ -166,7 +166,9 @@ setTimeout(() => {
   }
 
   console.log("\n[1] 首页双入口");
-  api.route.call(null); // hash 为空 -> #/home
+  // 新版式：#/home 直接是学习仪表盘，原来的「两扇门」欢迎页在 #/home/hub
+  windowObj.location.hash = "#/home/hub";
+  api.route.call(null);
   const words = api.getWordState();
   check("英语词库加载成功", words.dataReady === true);
   check("默认年级为三年级", api.getGrade() === 3, "实际 " + api.getGrade());
@@ -451,6 +453,8 @@ setTimeout(() => {
   api.route();
   check("首页显示当前教材名", registry.get("homeEnBook").textContent.includes("通用"),
     registry.get("homeEnBook").textContent);
+  windowObj.location.hash = "#/home/hub";
+  api.route();
   check("首页统计与词库一致", registry.get("hubTotal").textContent === String(api.getWordState().total),
     registry.get("hubTotal").textContent);
   check("英语教材下拉框有 3 个选项",

@@ -357,12 +357,22 @@ async function settle(n = 6) { for (let i = 0; i < n; i += 1) await tick(); }
     $("dashMath").innerHTML.slice(0, 200));
   check("原样脚本不会注入", !$("dashMath").innerHTML.includes("<img src=x"));
 
-  section("[12] 首页入口摘要");
-  windowObj.location.hash = "#/home";
+  section("[12] 科目选择页入口摘要");
+  // 改动版式后 #/home 直接就是学习仪表盘，"两扇门"欢迎页挪到了 #/home/hub
+  windowObj.location.hash = "#/home/hub";
   api.route();
   check("入口卡片显示摘要", $("dashEntryNote").textContent.includes("已认识")
     && $("dashEntryNote").textContent.includes("连续打卡"), $("dashEntryNote").textContent);
   check("摘要里有待攻克错题数", $("dashEntryNote").textContent.includes("待攻克错题"), $("dashEntryNote").textContent);
+
+  // 默认首页（没点任何科目）应该是学习仪表盘。
+  // 这个迷你 DOM 的 querySelectorAll 返回空数组，测不了 .active，改看标题和内容渲染。
+  windowObj.location.hash = "#/home";
+  api.route();
+  check("没点科目时默认进学习仪表盘", windowObj.document.title.indexOf("学习进度") === 0,
+    windowObj.document.title);
+  check("仪表盘顶部有科目快捷入口", $("dashQuickEnDesc").textContent.includes("个单词")
+    && $("dashQuickMathDesc").textContent.includes("错题"), $("dashQuickEnDesc").textContent);
 
   section("[13] 运行时无异常");
   check("没有未捕获错误", errors.length === 0, errors.slice(0, 3).join(" | "));
