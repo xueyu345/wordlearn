@@ -1,0 +1,64 @@
+.quiz-page { padding-top: 20rpx; }
+
+.meta-row { margin-bottom: 16rpx; }
+.mini-pill { height: 48rpx; padding: 0 18rpx; font-size: 22rpx; }
+.hearts { gap: 6rpx; }
+.heart { font-size: 30rpx; transition: transform .2s ease; }
+.heart.lost { opacity: .35; transform: scale(.86); }
+
+.q-card { text-align: center; padding: 32rpx 24rpx; }
+.q-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+.q-label { font-size: 24rpx; font-weight: 700; color: var(--muted); }
+.q-number { font-size: 24rpx; font-weight: 800; color: var(--purple); }
+.q-emoji-big { display: block; font-size: 84rpx; margin: 8rpx 0 4rpx; }
+.q-word-big { display: block; font-size: 56rpx; font-weight: 800; letter-spacing: 1rpx; }
+.q-ipa { display: block; font-size: 26rpx; color: var(--muted); margin-top: 6rpx; }
+.q-zh-big { display: block; font-size: 44rpx; font-weight: 800; margin-top: 8rpx; }
+.q-hint { display: block; font-size: 24rpx; color: var(--muted); margin-top: 12rpx; }
+
+.options { display: flex; flex-direction: column; gap: 18rpx; }
+.option-btn {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 22rpx;
+  padding: 24rpx 24rpx;
+  box-shadow: 0 6rpx 18rpx rgba(103, 76, 40, .08);
+  border: 4rpx solid transparent;
+}
+.option-hover { transform: translateY(2rpx); }
+.option-key {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 99rpx;
+  background: var(--purple-soft);
+  color: var(--purple);
+  font-size: 26rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.option-text { flex: 1; font-size: 30rpx; font-weight: 700; }
+.mark { font-size: 32rpx; font-weight: 800; margin-left: 12rpx; }
+.option-btn.is-correct { border-color: var(--green); background: #E4F6EC; }
+.option-btn.is-correct .mark { color: var(--green); }
+.option-btn.is-wrong { border-color: var(--red); background: #FDEAEC; }
+.option-btn.is-wrong .mark { color: var(--red); }
+
+.feedback-line {
+  margin-top: 24rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 700;
+  min-height: 40rpx;
+}
+.feedback-line.ok { color: var(--green); }
+.feedback-line.no { color: var(--red); }

@@ -1,0 +1,139 @@
+/* 解题挑战 */
+.form-card { padding: 28rpx; }
+.form-head { margin-bottom: 28rpx; }
+.form-head .muted { display: block; margin-top: 10rpx; line-height: 1.6; }
+
+.stage-note {
+  color: var(--muted);
+  font-size: 24rpx;
+  line-height: 1.7;
+  background: #FFFDF8;
+  border: 2rpx solid var(--line);
+  border-radius: 18rpx;
+  padding: 18rpx 20rpx;
+  margin-bottom: 24rpx;
+}
+
+/* 答题中 */
+.solve-card { padding: 26rpx; }
+
+.mode-top { display: flex; align-items: center; gap: 16rpx; }
+.back-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 99rpx;
+  background: #F3ECE2;
+  color: var(--ink);
+  font-size: 30rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mode-title { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mode-name { font-size: 30rpx; font-weight: 800; }
+.mode-count { font-size: 24rpx; font-weight: 700; color: var(--purple); flex-shrink: 0; }
+
+.solve-tags { display: flex; flex-wrap: wrap; gap: 10rpx; margin: 24rpx 0 16rpx; }
+.solve-q { font-size: 34rpx; font-weight: 800; line-height: 1.6; }
+
+.solve-answer-row { display: flex; align-items: center; gap: 16rpx; margin-top: 24rpx; }
+.solve-input { flex: 1; min-width: 0; }
+
+.solve-help { display: flex; gap: 20rpx; margin-top: 18rpx; }
+.solve-tip {
+  margin-top: 18rpx;
+  color: var(--orange-deep);
+  font-size: 26rpx;
+  line-height: 1.6;
+  background: #FFF6E6;
+  border-radius: 16rpx;
+  padding: 16rpx 20rpx;
+}
+
+.solve-result { margin-top: 26rpx; border-top: 2rpx solid var(--line); padding-top: 24rpx; }
+.solve-verdict { font-size: 30rpx; font-weight: 800; line-height: 1.6; }
+.solve-verdict.ok { color: var(--green); }
+.solve-verdict.no { color: var(--red); }
+
+.solve-analysis {
+  margin-top: 18rpx;
+  background: #FFFDF8;
+  border: 2rpx solid var(--line);
+  border-radius: 18rpx;
+  padding: 20rpx;
+}
+.analysis-title { font-size: 26rpx; font-weight: 800; margin-bottom: 12rpx; }
+.step-row { display: flex; margin-bottom: 10rpx; }
+.step-no {
+  width: 36rpx;
+  height: 36rpx;
+  flex-shrink: 0;
+  margin-right: 12rpx;
+  border-radius: 99rpx;
+  background: var(--purple-soft);
+  color: var(--purple);
+  font-size: 20rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-text { flex: 1; font-size: 26rpx; line-height: 1.6; color: var(--ink); }
+.solve-answer-line { margin-top: 12rpx; font-size: 26rpx; color: var(--muted); }
+.strong { font-weight: 800; color: var(--green); }
+.strike { text-decoration: line-through; color: var(--red); }
+
+/* 结算 */
+.solve-score {
+  display: flex;
+  margin: 8rpx 0 24rpx;
+  background: #FFFDF8;
+  border: 2rpx solid var(--line);
+  border-radius: 18rpx;
+  padding: 20rpx 0;
+}
+.score-cell { flex: 1; text-align: center; }
+.score-cell .num { display: block; font-size: 38rpx; font-weight: 800; }
+.score-cell .num.green { color: var(--green); }
+.score-cell .num.red { color: var(--red); }
+.score-cell .num.purple { color: var(--purple); }
+.score-label { display: block; font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+
+.solve-pick { margin-bottom: 24rpx; }
+.pick-empty { text-align: center; color: var(--muted); font-size: 26rpx; padding: 24rpx 0; }
+.pick-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  padding: 18rpx;
+  border-radius: 18rpx;
+  background: #FFFDF8;
+  border: 2rpx solid var(--line);
+  margin-bottom: 14rpx;
+}
+.pick-row.checked { background: var(--purple-soft); border-color: #D9D0FF; }
+.pick-box {
+  width: 40rpx;
+  height: 40rpx;
+  flex-shrink: 0;
+  margin-top: 4rpx;
+  border-radius: 10rpx;
+  border: 2rpx solid #C9BEE0;
+  background: #fff;
+  color: var(--purple);
+  font-size: 24rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pick-row.checked .pick-box { background: var(--purple); border-color: var(--purple); color: #fff; }
+.pick-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pick-q { font-size: 28rpx; font-weight: 700; line-height: 1.55; }
+.pick-ans { font-size: 24rpx; color: var(--muted); margin-top: 6rpx; }
+
+.form-actions { display: flex; gap: 20rpx; }
+.form-actions .btn { flex: 1; }
+.btn-back { margin-top: 16rpx; }

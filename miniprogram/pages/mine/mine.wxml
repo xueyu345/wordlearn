@@ -1,0 +1,142 @@
+<view class="page">
+
+  <!-- 账号与同步 -->
+  <view class="card">
+    <view class="section-title"><text class="t">账号与同步</text></view>
+
+    <view class="acct-head">
+      <view class="acct-avatar">{{avatarText}}</view>
+      <view class="acct-main">
+        <text class="acct-name">{{accountName}}</text>
+        <text class="muted tiny">{{accountDesc}}</text>
+      </view>
+      <text class="pill {{logged ? 'pill-mint' : 'pill-orange'}}">{{syncBadge}}</text>
+    </view>
+
+    <view class="acct-actions" wx:if="{{logged}}">
+      <view class="btn btn-primary btn-mini" bindtap="onSyncNow">🔄 立即同步</view>
+      <view class="btn btn-danger btn-mini" bindtap="onSignOut">退出登录</view>
+    </view>
+    <view class="acct-actions" wx:else>
+      <view class="btn btn-primary btn-mini" bindtap="goLogin">去登录 / 注册</view>
+    </view>
+
+    <text class="muted tiny note-line" wx:if="{{logged}}">退出登录会清空这台设备上的学习档案，避免下一个登录的人看到你的进度；云端备份不会丢，重新登录即可拉回。</text>
+    <text class="muted tiny note-line" wx:else>支持手机验证码、邮箱、微信、WorkBuddy 四种方式。</text>
+  </view>
+
+  <!-- 学习偏好 -->
+  <view class="card">
+    <view class="section-title"><text class="t">学习偏好</text></view>
+
+    <view class="field">
+      <text class="field-label">每日单词目标</text>
+      <picker mode="selector" range="{{goalNames}}" value="{{goalIndex}}" bindchange="onGoalChange">
+        <view class="picker-view"><text>{{goalNames[goalIndex]}}</text><text class="picker-arrow">▾</text></view>
+      </picker>
+      <text class="muted tiny">完成当天目标就能拿到奖励星星。</text>
+    </view>
+
+    <view class="field">
+      <text class="field-label">每轮题目数量</text>
+      <picker mode="selector" range="{{roundNames}}" value="{{roundIndex}}" bindchange="onRoundChange">
+        <view class="picker-view"><text>{{roundNames[roundIndex]}}</text><text class="picker-arrow">▾</text></view>
+      </picker>
+    </view>
+
+    <view class="set-row">
+      <view class="set-label">
+        <text class="bold">音效</text>
+        <text class="muted tiny">答对答错时的提示音</text>
+      </view>
+      <switch checked="{{sound}}" color="#7057F5" bindchange="onSoundChange" />
+    </view>
+
+    <view class="set-row">
+      <view class="set-label">
+        <text class="bold">拼写区分大小写</text>
+        <text class="muted tiny">关掉时，Apple 和 apple 都算对</text>
+      </view>
+      <switch checked="{{strictCase}}" color="#7057F5" bindchange="onStrictCaseChange" />
+    </view>
+
+    <text class="muted tiny note-line">小程序版暂不支持朗读发音（没有可用语音合成），单词发音请点单词卡片上的喇叭，或跟随老师读。</text>
+  </view>
+
+  <!-- 年级与教材 -->
+  <view class="card">
+    <view class="section-title"><text class="t">年级与教材</text></view>
+
+    <view class="field">
+      <text class="field-label">年级</text>
+      <picker mode="selector" range="{{gradeNames}}" value="{{gradeIndex}}" bindchange="onGradeChange">
+        <view class="picker-view"><text>{{gradeNames[gradeIndex]}}</text><text class="picker-arrow">▾</text></view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="field-label">英语教材</text>
+      <picker mode="selector" range="{{enBookNames}}" value="{{enBookIndex}}" bindchange="onEnBookChange">
+        <view class="picker-view"><text>{{enBookNames[enBookIndex]}}</text><text class="picker-arrow">▾</text></view>
+      </picker>
+      <text class="muted tiny" wx:if="{{enBookNote}}">{{enBookNote}}</text>
+    </view>
+
+    <view class="field">
+      <text class="field-label">数学教材</text>
+      <picker mode="selector" range="{{mathBookNames}}" value="{{mathBookIndex}}" bindchange="onMathBookChange">
+        <view class="picker-view"><text>{{mathBookNames[mathBookIndex]}}</text><text class="picker-arrow">▾</text></view>
+      </picker>
+      <text class="muted tiny" wx:if="{{mathBookNote}}">{{mathBookNote}}</text>
+    </view>
+
+    <text class="muted tiny note-line">每个「年级 + 教材」都是一份独立档案，切换后学到的是那套教材自己的进度。</text>
+  </view>
+
+  <!-- 错题试卷 -->
+  <view class="card">
+    <view class="section-title"><text class="t">错题试卷</text></view>
+    <text class="muted tiny">把数学错题本和英语错词本汇总成一张卷子，在手机上直接作答、交卷自动判分。</text>
+    <view class="acct-actions">
+      <view class="btn btn-primary btn-mini" bindtap="goPaper">📝 去组卷</view>
+    </view>
+  </view>
+
+  <!-- 数据与备份 -->
+  <view class="card">
+    <view class="section-title"><text class="t">数据与备份</text></view>
+
+    <text class="muted">{{dataSummary}}</text>
+
+    <view class="acct-actions data-actions">
+      <view class="btn btn-soft btn-mini" bindtap="onExport">导出备份</view>
+      <view class="btn btn-soft btn-mini" bindtap="onImport">导入恢复</view>
+      <view class="btn btn-danger btn-mini" bindtap="onWipe">清空本机数据</view>
+    </view>
+
+    <text class="muted tiny note-line" wx:if="{{noteText}}">{{noteText}}</text>
+    <text class="muted tiny note-line">导出会生成一个 JSON 备份文件并转发给微信好友或文件传输助手，收好它就能在另一台设备上恢复。</text>
+  </view>
+
+  <!-- 关于 -->
+  <view class="card">
+    <view class="section-title"><text class="t">关于</text></view>
+
+    <view class="set-row">
+      <text class="bold">版本</text>
+      <text class="muted">{{version}}</text>
+    </view>
+    <view class="set-row">
+      <text class="bold">当前档案</text>
+      <text class="muted tiny">{{profileText}}</text>
+    </view>
+    <view class="set-row">
+      <text class="bold">数据存储</text>
+      <text class="muted tiny">{{cloudStateText}}</text>
+    </view>
+
+    <view class="divider"></view>
+    <text class="muted tiny">隐私说明：学习记录默认只保存在这台手机本机，不会上传；登录后才会同步到你自己的云端账号，也只有你本人能读到。错题图片只存在本机，不会同步到云端。</text>
+  </view>
+
+</view>

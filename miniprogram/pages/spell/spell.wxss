@@ -1,0 +1,57 @@
+.spell-page { padding-top: 20rpx; }
+
+.meta-row { margin-bottom: 16rpx; }
+
+.spell-card { text-align: center; padding: 34rpx 24rpx; }
+.spell-card.shake { animation: spell-shake .42s ease; }
+
+@keyframes spell-shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-16rpx); }
+  40% { transform: translateX(16rpx); }
+  60% { transform: translateX(-10rpx); }
+  80% { transform: translateX(10rpx); }
+  100% { transform: translateX(0); }
+}
+
+.spell-emoji { display: block; font-size: 84rpx; }
+.spell-zh { display: block; font-size: 44rpx; font-weight: 800; margin-top: 6rpx; }
+.spell-label { display: block; font-size: 28rpx; font-weight: 700; margin-top: 14rpx; }
+.spell-note { display: block; font-size: 22rpx; color: var(--muted); margin-top: 8rpx; }
+
+.spell-mask {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10rpx;
+  margin: 28rpx 0;
+}
+.spell-slot {
+  min-width: 52rpx;
+  height: 64rpx;
+  border-radius: 14rpx;
+  border-bottom: 6rpx solid var(--purple);
+  background: var(--purple-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  font-weight: 800;
+  color: var(--purple);
+}
+.spell-slot.show { background: #E4F6EC; border-bottom-color: var(--green); color: var(--green); }
+.spell-slot.space { min-width: 24rpx; border: none; background: transparent; }
+
+.spell-input { text-align: center; font-size: 32rpx; font-weight: 700; letter-spacing: 2rpx; }
+
+.spell-actions { justify-content: center; gap: 20rpx; margin-top: 28rpx; }
+.is-disabled { opacity: .45; }
+
+.feedback-line {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  min-height: 40rpx;
+}
+.feedback-line.ok { color: var(--green); }
+.feedback-line.no { color: var(--red); }

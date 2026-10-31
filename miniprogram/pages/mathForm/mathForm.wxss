@@ -1,0 +1,31 @@
+/* 记一道错题 / 修改错题 */
+.form-card { padding: 28rpx; }
+
+.form-head { margin-bottom: 28rpx; }
+.form-head .muted { display: block; margin-top: 10rpx; line-height: 1.6; }
+
+.req { color: var(--red); font-size: 22rpx; font-weight: 800; }
+.opt { color: var(--muted); font-size: 22rpx; font-weight: 500; }
+
+.image-drop {
+  box-sizing: border-box;
+  border: 4rpx dashed #E4D6C2;
+  border-radius: 18rpx;
+  background: #FFFDF8;
+  padding: 32rpx 24rpx;
+  text-align: center;
+}
+.image-drop-hint { color: var(--muted); font-size: 26rpx; font-weight: 700; }
+
+.image-preview { margin-top: 18rpx; }
+
+.invalid { border-color: var(--red); background: #FFF6F6; }
+
+.form-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 8rpx;
+}
+.form-actions .btn { flex: 1; }
+
+.ph { color: #B7ABBE; }

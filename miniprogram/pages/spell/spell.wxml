@@ -1,0 +1,44 @@
+<view class="page spell-page">
+  <view class="statusbar">
+    <view class="pill pill-purple" bindtap="onBack">← 返回</view>
+    <view class="spacer"></view>
+    <view class="pill pill-orange">{{title}}</view>
+  </view>
+
+  <view class="row-between meta-row">
+    <text class="muted bold">{{stepText}}</text>
+    <text class="muted bold">{{lettersText}}</text>
+  </view>
+
+  <view class="bar">
+    <view class="bar-inner bar-inner-mint" style="width: {{barPercent}}%;"></view>
+  </view>
+
+  <view class="card spell-card {{shakeCls}}">
+    <text class="spell-emoji">{{emoji}}</text>
+    <text class="spell-zh">{{zh}}</text>
+    <text class="spell-label">看中文意思，拼出这个单词</text>
+    <text class="spell-note">小程序版暂不支持发音，看着中文意思和字母个数拼一拼～</text>
+
+    <view class="spell-mask">
+      <view class="spell-slot {{item.cls}}" wx:for="{{mask}}" wx:key="key">{{item.ch}}</view>
+    </view>
+
+    <input
+      class="input spell-input"
+      value="{{inputValue}}"
+      placeholder="在这里写下单词"
+      disabled="{{inputDisabled}}"
+      confirm-type="done"
+      bindinput="onInput"
+      bindconfirm="onCheck" />
+
+    <view class="feedback-line {{feedback.cls}}" wx:if="{{feedback.text}}">{{feedback.text}}</view>
+
+    <view class="row spell-actions">
+      <view class="btn btn-soft btn-mini {{hintDisabled ? 'is-disabled' : ''}}" bindtap="onHint">💡 提示</view>
+      <view class="btn btn-primary btn-mini" wx:if="{{showCheck}}" bindtap="onCheck">检查 ✓</view>
+      <view class="btn btn-orange btn-mini" wx:if="{{showNext}}" bindtap="onNext">下一个 →</view>
+    </view>
+  </view>
+</view>

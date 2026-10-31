@@ -1,0 +1,143 @@
+<view class="page">
+
+  <!-- ============ 组卷 ============ -->
+  <block wx:if="{{stage == 'setup'}}">
+    <view class="card">
+      <view class="h1">📝 错题组卷</view>
+      <text class="muted">把数学错题本和英语错词本里的题汇总成一张卷子，在手机上直接作答、交卷自动判分。</text>
+
+      <view class="field">
+        <text class="field-label">试卷名称 <text class="tiny">可选</text></text>
+        <input class="input" value="{{title}}" maxlength="24" placeholder="留空会自动起名" bindinput="onTitle"></input>
+      </view>
+
+      <!-- 数学 -->
+      <view class="paper-block {{mathOn ? '' : 'is-off'}}">
+        <view class="paper-switch">
+          <text class="paper-switch-title">➗ 数学错题</text>
+          <switch checked="{{mathOn}}" color="#7057F5" bindchange="onToggleMath"></switch>
+        </view>
+        <view class="field">
+          <text class="field-label">取题范围</text>
+          <picker mode="selector" range="{{scopeOptions}}" value="{{scopeIndex}}" bindchange="onScope" disabled="{{!mathOn}}">
+            <view class="picker-view">
+              <text>{{scopeOptions[scopeIndex]}}</text>
+              <text class="picker-arrow">▾</text>
+            </view>
+          </picker>
+        </view>
+        <view class="field">
+          <text class="field-label">知识点</text>
+          <picker mode="selector" range="{{kpOptions}}" value="{{kpIndex}}" bindchange="onKp" disabled="{{!mathOn}}">
+            <view class="picker-view">
+              <text>{{kpOptions[kpIndex]}}</text>
+              <text class="picker-arrow">▾</text>
+            </view>
+          </picker>
+        </view>
+        <view class="field">
+          <text class="field-label">题量</text>
+          <picker mode="selector" range="{{countOptions}}" value="{{mathCountIndex}}" bindchange="onMathCount" disabled="{{!mathOn}}">
+            <view class="picker-view">
+              <text>{{countOptions[mathCountIndex]}}</text>
+              <text class="picker-arrow">▾</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 英语 -->
+      <view class="paper-block {{enOn ? '' : 'is-off'}}">
+        <view class="paper-switch">
+          <text class="paper-switch-title">🔤 英语错词</text>
+          <switch checked="{{enOn}}" color="#7057F5" bindchange="onToggleEn"></switch>
+        </view>
+        <view class="field">
+          <text class="field-label">题型</text>
+          <picker mode="selector" range="{{modeOptions}}" value="{{modeIndex}}" bindchange="onMode" disabled="{{!enOn}}">
+            <view class="picker-view">
+              <text>{{modeOptions[modeIndex]}}</text>
+              <text class="picker-arrow">▾</text>
+            </view>
+          </picker>
+        </view>
+        <view class="field">
+          <text class="field-label">题量</text>
+          <picker mode="selector" range="{{countOptions}}" value="{{enCountIndex}}" bindchange="onEnCount" disabled="{{!enOn}}">
+            <view class="picker-view">
+              <text>{{countOptions[enCountIndex]}}</text>
+              <text class="picker-arrow">▾</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <text class="tiny paper-note">{{note}}</text>
+      <view class="form-actions">
+        <view class="btn btn-primary btn-block" bindtap="onBuild">生成试卷</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- ============ 卷子 ============ -->
+  <block wx:else>
+    <view class="card paper-sheet">
+      <view class="paper-head">
+        <view class="paper-head-copy">
+          <view class="h1">{{paperTitle}}</view>
+          <text class="muted">{{metaText}}</text>
+        </view>
+      </view>
+
+      <view class="paper-info">
+        <text>姓名 ____</text>
+        <text>用时 ____</text>
+        <text>得分 ____</text>
+      </view>
+
+      <view class="paper-score" wx:if="{{hasScore}}">
+        <view class="paper-score-card"><text class="paper-score-num">{{scoreJudged}}</text><text class="tiny">可判题目</text></view>
+        <view class="paper-score-card"><text class="paper-score-num green">{{scoreRight}}</text><text class="tiny">答对</text></view>
+        <view class="paper-score-card"><text class="paper-score-num red">{{scoreWrong}}</text><text class="tiny">答错</text></view>
+        <view class="paper-score-card"><text class="paper-score-num">{{scoreRate}}%</text><text class="tiny">正确率</text></view>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="paper-sec" wx:for="{{sections}}" wx:for-item="sec" wx:for-index="si" wx:key="title">
+        <view class="h2">{{sec.title}}</view>
+        <text class="tiny muted">{{sec.note}}</text>
+
+        <view class="paper-q {{item.cls}}" wx:for="{{sec.items}}" wx:for-item="item" wx:for-index="qi" wx:key="index">
+          <view class="paper-q-top">
+            <text class="paper-q-num">{{item.index}}</text>
+            <text class="tiny muted">{{item.tag}}</text>
+          </view>
+          <view class="paper-q-stem">{{item.stem}}</view>
+          <text class="tiny muted paper-q-tip" wx:if="{{item.hasTip}}">{{item.tip}}</text>
+
+          <view class="thumbs" wx:if="{{item.hasImages}}">
+            <view class="thumbs-item" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this">
+              <image class="thumb" src="{{img}}" mode="aspectFill" data-src="{{img}}" bindtap="onPreviewImage"></image>
+            </view>
+          </view>
+
+          <view class="paper-q-answer">
+            <text class="paper-q-label">答：</text>
+            <input class="input paper-input" value="{{item.userAnswer}}" placeholder="在这里写答案"
+              disabled="{{graded}}" data-si="{{si}}" data-qi="{{qi}}" bindinput="onAnswer"></input>
+            <text class="paper-q-mark">{{item.mark}}</text>
+          </view>
+
+          <text class="tiny paper-q-std" wx:if="{{item.showStd}}">{{item.stdText}}</text>
+        </view>
+      </view>
+
+      <view class="form-actions">
+        <view class="btn btn-primary btn-block" bindtap="onSubmit">{{submitText}}</view>
+      </view>
+      <text class="tiny muted paper-foot">答错的题会留在错题本里继续练，答对的会自动往「已掌握」挪。要打印成纸质卷子，请用网页版或桌面版。</text>
+    </view>
+  </block>
+
+</view>

@@ -1,0 +1,148 @@
+<view class="page">
+
+  <!-- 顶部：当前档案 + 切年级 -->
+  <view class="statusbar">
+    <picker mode="selector" range="{{gradeNames}}" value="{{gradeIndex}}" bindchange="onGradeChange">
+      <view class="pill pill-purple">{{gradeNames[gradeIndex]}} ▾</view>
+    </picker>
+    <view class="spacer"></view>
+    <text class="muted tiny">{{scopeNote}}</text>
+  </view>
+
+  <!-- 三个快捷入口 -->
+  <view class="dash-quick">
+    <view class="dash-quick-card q-en" bindtap="goEnglish">
+      <text class="dash-quick-ico">🔤</text>
+      <view class="dash-quick-main">
+        <text class="bold">英语单词</text>
+        <text class="muted tiny">{{quickEnDesc}}</text>
+      </view>
+      <text class="dash-quick-go">→</text>
+    </view>
+    <view class="dash-quick-card q-math" bindtap="goMath">
+      <text class="dash-quick-ico">➗</text>
+      <view class="dash-quick-main">
+        <text class="bold">数学错题</text>
+        <text class="muted tiny">{{quickMathDesc}}</text>
+      </view>
+      <text class="dash-quick-go">→</text>
+    </view>
+    <view class="dash-quick-card q-solve" bindtap="goSolve">
+      <text class="dash-quick-ico">🎯</text>
+      <view class="dash-quick-main">
+        <text class="bold">解题挑战</text>
+        <text class="muted tiny">从错题本里抽题，做对了就攻克一题</text>
+      </view>
+      <text class="dash-quick-go">去挑战 →</text>
+    </view>
+  </view>
+
+  <!-- 今日目标环形进度 -->
+  <view class="card dash-goal-card">
+    <view class="dash-ring">
+      <view class="dash-ring-half half-left">
+        <view class="dash-ring-semi" style="{{ringLeft}}"></view>
+      </view>
+      <view class="dash-ring-half half-right">
+        <view class="dash-ring-semi" style="{{ringRight}}"></view>
+      </view>
+      <view class="dash-ring-inner">
+        <text class="dash-ring-num">{{todayWords}}</text>
+        <text class="dash-ring-den">/ {{goal}} 词</text>
+      </view>
+    </view>
+    <view class="dash-goal-side">
+      <text class="h3">{{goalTitle}}</text>
+      <text class="muted">{{goalHint}}</text>
+      <view class="dash-goal-meta">
+        <text class="pill pill-orange tiny" wx:for="{{metaPills}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 概览 -->
+  <view class="card">
+    <view class="section-title"><text class="t">概览</text></view>
+    <view class="dash-stats">
+      <view class="dash-stat" wx:for="{{stats}}" wx:key="label">
+        <view class="dash-stat-value"><text class="dash-stat-num">{{item.value}}</text><text class="dash-stat-unit">{{item.unit}}</text></view>
+        <text class="dash-stat-label">{{item.label}}</text>
+        <text class="dash-stat-sub">{{item.sub}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近 14 天学习量 -->
+  <view class="card">
+    <view class="section-title"><text class="t">近 14 天学习量</text></view>
+    <text class="muted">{{trendNote}}</text>
+    <view class="dash-trend">
+      <view class="dash-bar-col" wx:for="{{trend}}" wx:key="key">
+        <text class="dash-bar-value">{{item.countText}}</text>
+        <view class="dash-bar {{item.today ? 'today' : ''}} {{item.count > 0 ? '' : 'zero'}}" style="{{item.barStyle}}"></view>
+        <text class="dash-bar-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 主题掌握度 -->
+  <view class="card">
+    <view class="section-title"><text class="t">主题掌握度</text></view>
+    <text class="muted">按当前年级和教材统计，条形越长说明这个主题学得越多。</text>
+    <view class="dash-bars" wx:if="{{!unitsEmpty}}">
+      <view class="dash-line" wx:for="{{units}}" wx:key="id">
+        <text class="dash-line-name">{{item.emoji}} {{item.name}}</text>
+        <view class="dash-track"><view class="dash-fill" style="{{item.barStyle}}"></view></view>
+        <text class="dash-line-pct">{{item.ratioText}}</text>
+      </view>
+    </view>
+    <text class="muted" wx:else>词库还在加载，稍等一下再进来看看。</text>
+  </view>
+
+  <!-- 数学错题攻克统计 -->
+  <view class="card">
+    <view class="section-title"><text class="t">数学错题</text></view>
+    <view class="dash-math-top">
+      <view class="dash-math-box"><text class="dash-math-num">{{math.total}}</text><text class="tiny muted">错题总数</text></view>
+      <view class="dash-math-box"><text class="dash-math-num">{{math.done}}</text><text class="tiny muted">已攻克</text></view>
+      <view class="dash-math-box"><text class="dash-math-num">{{math.todo}}</text><text class="tiny muted">待攻克</text></view>
+      <view class="dash-math-box"><text class="dash-math-num">{{math.percent}}%</text><text class="tiny muted">攻克率</text></view>
+    </view>
+    <view class="dash-bars" wx:if="{{mathKps.length > 0}}">
+      <view class="dash-line" wx:for="{{mathKps}}" wx:key="kp">
+        <text class="dash-line-name">{{item.kp}}</text>
+        <view class="dash-track"><view class="dash-fill" style="{{item.barStyle}}"></view></view>
+        <text class="dash-line-pct">{{item.ratioText}}</text>
+      </view>
+    </view>
+    <text class="muted" wx:if="{{mathEmpty}}">还没有录入错题。把做错的题拍下来，就能在这儿看到攻克进度。</text>
+    <view class="dash-actions"><text class="dash-link" bindtap="goMath">去整理错题 →</text></view>
+  </view>
+
+  <!-- 容易错的单词 -->
+  <view class="card">
+    <view class="section-title"><text class="t">容易错的单词</text></view>
+    <view class="dash-weak" wx:if="{{!weakEmpty}}">
+      <view class="dash-weak-chip" wx:for="{{weak}}" wx:key="id">
+        <text class="dash-weak-w">{{item.w}}</text>
+        <text class="dash-weak-zh">{{item.zh}}</text>
+        <text class="dash-weak-n">{{item.wrongText}}</text>
+      </view>
+    </view>
+    <text class="muted" wx:else>还没有出错记录，继续保持！</text>
+    <view class="dash-actions"><text class="dash-link" bindtap="goWrong">复习错词 →</text></view>
+  </view>
+
+  <!-- 打卡成就 -->
+  <view class="card">
+    <view class="section-title"><text class="t">打卡成就</text></view>
+    <view class="dash-badges">
+      <view class="badge {{item.got ? 'badge-got' : ''}}" wx:for="{{badges}}" wx:key="name">
+        <text class="badge-icon">{{item.icon}}</text>
+        <text class="badge-name">{{item.name}}</text>
+        <text class="badge-prog">{{item.progress}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,125 @@
+<view class="page">
+  <!-- 顶部：当前年级 + 数学教材摘要 -->
+  <view class="card math-hero">
+    <view class="row-between">
+      <view class="flex-1">
+        <text class="eyebrow">MATH ERROR BOOK</text>
+        <view class="h1">数学错题本</view>
+      </view>
+      <view class="pill pill-orange">{{scopeText}}</view>
+    </view>
+    <view class="hero-sub">{{heroSub}}</view>
+
+    <view class="hero-actions">
+      <view class="btn btn-primary btn-mini" bindtap="onAdd">✏️ 记一道错题</view>
+      <view class="btn btn-soft btn-mini" bindtap="onSolve">🧩 解题挑战</view>
+      <picker class="review-picker" mode="selector" range="{{reviewOptions}}" value="{{reviewIndex}}" disabled="{{!canReview}}" bindchange="onStartReview">
+        <view class="btn btn-soft btn-mini">🎯 抽题复习</view>
+      </picker>
+      <view class="btn btn-soft btn-mini" bindtap="onPaper">📝 错题组卷</view>
+    </view>
+
+    <view class="stat-row">
+      <view class="stat">
+        <text class="stat-num">{{stats.total}}</text>
+        <text class="stat-label">错题总数</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num is-todo">{{stats.todo}}</text>
+        <text class="stat-label">待攻克</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num is-done">{{stats.done}}</text>
+        <text class="stat-label">已掌握</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num is-rate">{{stats.percent}}%</text>
+        <text class="stat-label">攻克率</text>
+      </view>
+    </view>
+    <view class="bar">
+      <view class="bar-inner" style="width:{{stats.percent}}%"></view>
+    </view>
+  </view>
+
+  <!-- 按知识点看 -->
+  <view class="section-title">
+    <text class="t">按知识点看</text>
+    <text class="muted">{{kpCountText}}</text>
+  </view>
+  <view class="card" wx:if="{{hasKp}}">
+    <view class="kp-grid">
+      <view class="kp-card" wx:for="{{kpList}}" wx:key="name" data-kp="{{item.name}}" bindtap="onPickKp">
+        <view class="row-between">
+          <text class="kp-name">{{item.name}}</text>
+          <text class="{{item.badgeCls}}">{{item.badge}}</text>
+        </view>
+        <view class="bar kp-bar">
+          <view class="bar-inner" style="width:{{item.percent}}%"></view>
+        </view>
+        <view class="row-between">
+          <text class="muted">已掌握 {{item.done}}/{{item.total}}</text>
+          <text class="muted">{{item.percent}}%</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="card" wx:else>
+    <view class="empty">
+      <text class="empty-icon">🧮</text>
+      <view class="h3">还没有错题</view>
+      <text class="muted">记下第一道错题，知识点会自动出现在这里。</text>
+      <view class="btn btn-primary btn-mini" bindtap="onAdd">✏️ 记一道错题</view>
+    </view>
+  </view>
+
+  <!-- 最近记的错题 -->
+  <view class="section-title">
+    <text class="t">最近记的错题</text>
+    <text class="muted">{{listCountText}}</text>
+  </view>
+
+  <view class="card-flat search-card">
+    <input class="input" type="text" placeholder="搜题目、知识点、错因…" placeholder-class="ph" value="{{keyword}}" bindinput="onSearch" confirm-type="search" />
+    <view class="row-wrap chips">
+      <view class="{{item.cls}}" wx:for="{{filters}}" wx:key="key" data-key="{{item.key}}" bindtap="onFilter">{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{showEmpty}}">
+    <view class="empty">
+      <text class="empty-icon">{{emptyIcon}}</text>
+      <view class="h3">{{emptyTitle}}</view>
+      <text class="muted">{{emptyText}}</text>
+    </view>
+  </view>
+
+  <view class="card math-item {{item.cls}}" wx:for="{{items}}" wx:key="id">
+    <view class="math-tags">
+      <text class="pill pill-purple">{{item.kp}}</text>
+      <text class="pill pill-blue" wx:if="{{item.hasType}}">{{item.type}}</text>
+      <text class="pill pill-green" wx:if="{{item.done}}">已掌握</text>
+      <text class="pill pill-red" wx:if="{{item.hasWrong}}">{{item.wrongText}}</text>
+    </view>
+
+    <view class="math-q">{{item.q}}</view>
+
+    <view class="math-line">
+      <text class="bold">答案：</text>{{item.a}}<text class="math-mine" wx:if="{{item.hasMyAnswer}}">　我当时写的是「{{item.myAnswer}}」</text>
+    </view>
+    <view class="math-line" wx:if="{{item.hasWhy}}">错因：{{item.why}}</view>
+    <view class="math-line muted" wx:if="{{item.hasSteps}}">解析：{{item.stepsText}}</view>
+
+    <view class="thumbs math-thumbs" wx:if="{{item.hasImages}}">
+      <view class="thumbs-item" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this">
+        <image class="thumb" src="{{img}}" mode="aspectFill" data-id="{{item.id}}" data-index="{{index}}" bindtap="onPreviewImage"></image>
+      </view>
+    </view>
+
+    <view class="item-actions">
+      <view class="act" data-id="{{item.id}}" bindtap="onToggleDone">{{item.doneIcon}} {{item.doneText}}</view>
+      <view class="act" data-id="{{item.id}}" bindtap="onEdit">✏️ 编辑</view>
+      <view class="act act-danger" data-id="{{item.id}}" bindtap="onDelete">🗑️ 删除</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,39 @@
+<view class="page result-page" wx:if="{{ready}}">
+  <view class="card result-card">
+    <text class="result-badge">{{emoji}}</text>
+    <text class="result-kicker">{{kicker}}</text>
+    <text class="result-title">{{title}}</text>
+    <text class="result-desc">{{desc}}</text>
+
+    <view class="result-stars">
+      <text class="star {{item.on ? 'on' : ''}}" wx:for="{{stars}}" wx:key="key">★</text>
+    </view>
+
+    <view class="result-stats">
+      <view class="result-stat" wx:for="{{stats}}" wx:key="key">
+        <text class="stat-value">{{item.value}}</text>
+        <text class="stat-label">{{item.label}}</text>
+      </view>
+    </view>
+
+    <view class="result-words" wx:if="{{words.length}}">
+      <view class="section-title">
+        <text class="t">本轮单词</text>
+        <text class="muted">{{unitName}}</text>
+      </view>
+      <view class="word-row" wx:for="{{words}}" wx:key="key">
+        <text class="word-mark {{item.cls}}">{{item.mark}}</text>
+        <text class="word-w">{{item.w}}</text>
+        <text class="word-zh">{{item.zh}}</text>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <view class="btn btn-primary btn-block" wx:if="{{canRetry}}" bindtap="onRetry">{{retryText}}</view>
+      <view class="btn btn-soft btn-block" bindtap="onSwitchMode">🎮 换个玩法</view>
+      <view class="btn btn-block" bindtap="onBackUnit">{{backText}}</view>
+    </view>
+
+    <view class="result-home" bindtap="onHome">返回英语主页</view>
+  </view>
+</view>

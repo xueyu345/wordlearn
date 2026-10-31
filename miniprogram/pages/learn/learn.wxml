@@ -1,0 +1,44 @@
+<view class="page" wx:if="{{hasUnit}}">
+
+  <!-- 顶部 -->
+  <view class="mode-top">
+    <view class="back-btn" bindtap="goBack">←</view>
+    <view class="mode-title">
+      <view class="bold mode-name">{{unitName}}</view>
+      <text class="mode-sub">学一学 · 点卡片翻面</text>
+    </view>
+    <text class="mode-count">{{countText}}</text>
+  </view>
+  <view class="bar bar-slim"><view class="bar-inner bar-inner-orange" style="width:{{barPercent}}%"></view></view>
+
+  <!-- 3D 翻卡 -->
+  <view class="flashcard {{flipped ? 'flipped' : ''}} {{cardClass}}" bindtap="flipCard">
+    <view class="flashcard-inner">
+      <view class="face front">
+        <text class="card-tag">点我翻面 ↻</text>
+        <text class="word-emoji">{{word.emoji}}</text>
+        <view class="word-main">{{word.w}}</view>
+        <view class="ipa">{{word.ipa}}</view>
+        <text class="speak-tip">先看词形和音标，想一想是什么意思</text>
+      </view>
+      <view class="face back">
+        <text class="card-tag">中文意思</text>
+        <text class="word-emoji">{{word.emoji}}</text>
+        <view class="meaning">{{word.zh}}</view>
+        <view class="example-box">
+          <text class="example-en">{{word.en}}</text>
+          <text class="example-cn">{{word.cn}}</text>
+        </view>
+        <text class="speak-tip">跟读一遍例句，记得更牢</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评分 -->
+  <view class="learn-actions">
+    <view class="btn btn-soft {{busy ? 'btn-disabled' : ''}}" bindtap="onUnknown">😅 还不熟</view>
+    <view class="btn btn-primary {{busy ? 'btn-disabled' : ''}}" bindtap="onKnown">🌟 认识啦</view>
+  </view>
+  <text class="kbd-tip">认识就点「认识啦」，第一次认识还能得 1 颗星 ⭐</text>
+
+</view>

@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/dashboard/dashboard",
+    "pages/english/english",
+    "pages/math/math",
+    "pages/mine/mine",
+    "pages/account/account",
+    "pages/unit/unit",
+    "pages/learn/learn",
+    "pages/quiz/quiz",
+    "pages/spell/spell",
+    "pages/match/match",
+    "pages/wrong/wrong",
+    "pages/result/result",
+    "pages/mathForm/mathForm",
+    "pages/mathReview/mathReview",
+    "pages/mathSolve/mathSolve",
+    "pages/paper/paper"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#FFF7EC",
+    "navigationBarTitleText": "学习通",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF7EC"
+  },
+  "tabBar": {
+    "color": "#8B7F9B",
+    "selectedColor": "#7057F5",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/dashboard/dashboard",
+        "text": "仪表盘"
+      },
+      {
+        "pagePath": "pages/english/english",
+        "text": "英语"
+      },
+      {
+        "pagePath": "pages/math/math",
+        "text": "数学"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

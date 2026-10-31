@@ -1,0 +1,93 @@
+/* 英语主题页 */
+
+/* ---------- 主题头部 ---------- */
+.unit-banner {
+  position: relative;
+  border-radius: 32rpx;
+  padding: 30rpx;
+  border: 3rpx solid transparent;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10rpx 26rpx rgba(103, 76, 40, .1);
+  margin-bottom: 32rpx;
+}
+.unit-banner-emoji { font-size: 96rpx; margin-right: 24rpx; }
+.unit-banner-copy { flex: 1; min-width: 0; }
+.unit-kicker {
+  display: inline-block;
+  font-size: 20rpx;
+  font-weight: 800;
+  color: #7A6E8A;
+  background: rgba(255, 255, 255, .75);
+  border-radius: 99rpx;
+  padding: 4rpx 16rpx;
+}
+.unit-banner-name { margin: 8rpx 0 6rpx; }
+.unit-banner-desc { font-size: 23rpx; color: #7A6E8A; line-height: 1.5; }
+.banner-progress { margin-top: 16rpx; }
+.banner-small { display: block; font-size: 21rpx; color: #7A6E8A; margin-top: 10rpx; }
+.unit-banner-badge {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 99rpx;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+.badge-num { font-size: 38rpx; font-weight: 900; line-height: 1; }
+.badge-unit { font-size: 18rpx; margin-top: 4rpx; }
+
+/* ---------- 玩法 ---------- */
+.mode-wrap { display: flex; flex-direction: column; gap: 16rpx; margin-bottom: 32rpx; }
+.mode-card {
+  display: flex;
+  align-items: center;
+  border-radius: 22rpx;
+  padding: 24rpx 26rpx;
+}
+.mode-icon { font-size: 52rpx; margin-right: 20rpx; }
+.mode-info { flex: 1; min-width: 0; }
+.mode-name { font-size: 30rpx; font-weight: 800; }
+.mode-desc { font-size: 22rpx; color: #8B7F9B; margin-top: 2rpx; }
+.mode-arrow { font-size: 30rpx; color: #B3A8C4; font-weight: 800; }
+
+/* ---------- 单词列表 ---------- */
+.word-hint { display: block; margin: -8rpx 0 18rpx; }
+.word-grid { display: flex; flex-direction: column; gap: 16rpx; }
+.word-chip {
+  background: #fff;
+  border-radius: 22rpx;
+  padding: 22rpx 24rpx;
+  box-shadow: 0 6rpx 18rpx rgba(103, 76, 40, .07);
+  border-left: 8rpx solid #F1E9DE;
+}
+.word-chip.learned { border-left-color: #27B8A8; }
+.word-chip.open { background: #FFFDF7; }
+.chip-row { display: flex; align-items: center; }
+.chip-emoji { font-size: 46rpx; margin-right: 18rpx; }
+.chip-text { flex: 1; min-width: 0; }
+.chip-w { display: flex; align-items: baseline; }
+.chip-w .bold { font-size: 30rpx; margin-right: 12rpx; }
+.chip-ipa { font-size: 22rpx; color: #8B7F9B; }
+.chip-zh { font-size: 24rpx; color: #6B5F7C; margin-top: 2rpx; }
+.chip-mark {
+  font-size: 30rpx;
+  font-weight: 900;
+  color: #27B8A8;
+  width: 40rpx;
+  text-align: center;
+}
+.chip-example {
+  margin-top: 18rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx dashed #F0E6D8;
+}
+.chip-en { display: block; font-size: 25rpx; color: #342B45; line-height: 1.6; }
+.chip-cn { display: block; font-size: 22rpx; color: #8B7F9B; margin-top: 4rpx; }
+
+/* ---------- 空态 ---------- */
+.back-home { margin-top: 32rpx; }

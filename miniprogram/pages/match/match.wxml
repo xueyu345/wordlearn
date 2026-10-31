@@ -1,0 +1,27 @@
+<view class="page match-page">
+  <view class="statusbar">
+    <view class="pill pill-purple" bindtap="onBack">← 返回</view>
+    <view class="spacer"></view>
+    <view class="pill pill-orange">{{title}}</view>
+  </view>
+
+  <view class="row meta-row">
+    <text class="pill pill-mint mini-pill">配对 {{pairsText}}</text>
+    <text class="pill pill-blue mini-pill">步数 {{moves}}</text>
+    <text class="pill pill-purple mini-pill">用时 {{timeText}}</text>
+  </view>
+
+  <view class="match-board">
+    <view class="match-card {{item.state}}" wx:for="{{cards}}" wx:key="key" data-index="{{index}}" bindtap="onCardTap">
+      <view class="match-inner">
+        <view class="match-face match-back">?</view>
+        <view class="match-face match-front {{item.side}}">
+          <text class="match-emoji" wx:if="{{item.emoji}}">{{item.emoji}}</text>
+          <text class="match-text">{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="match-tip">点开两张卡片，把英文和中文连起来～</view>
+</view>

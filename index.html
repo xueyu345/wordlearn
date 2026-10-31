@@ -1508,6 +1508,7 @@
     border: 1px solid #F4DEDC;
     box-shadow: var(--shadow-sm);
   }
+  .wrong-hero-actions { display: flex; flex-direction: column; gap: 8px; flex: 0 0 auto; }
   .wrong-hero .eyebrow-dark { color: #D86572; font-size: 9px; font-weight: 900; letter-spacing: .18em; }
   .wrong-hero h1 { margin-top: 5px; font-size: 30px; letter-spacing: -.02em; }
   .wrong-hero p { margin-top: 6px; max-width: 520px; color: #8B7B78; font-size: 12px; line-height: 1.7; }
@@ -2085,6 +2086,8 @@
     .match-emoji { font-size: 21px; }
     .match-back { font-size: 27px; }
     .wrong-hero { flex-direction: column; align-items: flex-start; padding: 21px; gap: 14px; }
+    .wrong-hero-actions { width: 100%; flex-direction: row; }
+    .wrong-hero-actions .btn { flex: 1; }
     .wrong-hero h1 { font-size: 25px; }
     .wrong-item { align-items: flex-start; flex-wrap: wrap; gap: 10px; padding: 13px; }
     .wrong-emoji { width: 44px; height: 44px; font-size: 23px; }
@@ -2878,6 +2881,108 @@
   @media (prefers-reduced-motion: reduce) {
     .sidebar, .app-main, .side-mask, .side-item, .dash-quick-card { transition: none; }
   }
+
+  /* ---------- 错题试卷 ---------- */
+  .paper-block {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 15px 16px 2px;
+    margin-bottom: 12px;
+    background: #FFFCF6;
+  }
+  .paper-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .paper-switch input { width: 18px; height: 18px; accent-color: var(--purple); cursor: pointer; }
+  .paper-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 0 14px; }
+  .paper-block.is-off .paper-opts { opacity: .42; pointer-events: none; }
+  .print-only { display: none; }
+  .paper-note { margin: 2px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.75; }
+
+  .paper-sheet {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px 28px 30px;
+  }
+  .paper-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .paper-name { font-size: 24px; margin: 0 0 5px; }
+  .paper-sub { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+  .paper-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .paper-rule { height: 1px; background: var(--line); margin: 18px 0 2px; }
+  .paper-info-line { display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; color: #6B5F74; margin-top: 14px; }
+  .paper-info-line span b { border-bottom: 1px solid #CFC3B4; min-width: 88px; display: inline-block; }
+
+  .paper-sec { margin-top: 22px; }
+  .paper-sec-title { font-size: 16px; font-weight: 800; margin: 0 0 4px; }
+  .paper-sec-note { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .paper-q { padding: 13px 0 12px; border-bottom: 1px dashed var(--line); }
+  .paper-q-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+  .paper-q-num {
+    width: 24px; height: 24px; flex: 0 0 auto;
+    display: grid; place-items: center;
+    border-radius: 8px; font-size: 12.5px; font-weight: 800;
+    background: var(--purple-soft); color: var(--purple);
+  }
+  .paper-q-tag { font-size: 11.5px; color: var(--muted); }
+  .paper-q-stem { font-size: 15px; line-height: 1.8; white-space: pre-wrap; }
+  .paper-q-imgs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .paper-q-imgs img { width: 92px; height: 92px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+  .paper-q-answer { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .paper-q-label { font-size: 13px; color: var(--muted); flex: 0 0 auto; }
+  .paper-input {
+    flex: 1 1 180px; min-width: 140px; height: 38px; padding: 0 10px;
+    border: 1px solid var(--line); border-radius: 10px; background: #FFFDF8; font-size: 14px;
+  }
+  .paper-input:disabled { background: #F7F4EE; color: #7A6E84; }
+  .paper-q-mark { font-size: 13px; font-weight: 800; }
+  .paper-q.ok .paper-q-mark { color: var(--green); }
+  .paper-q.no .paper-q-mark { color: var(--red); }
+  .paper-q.no .paper-input { border-color: #F0C4C8; background: #FFF6F6; }
+  .paper-q.ok .paper-input { border-color: #BFE6D2; background: #F5FCF8; }
+  .paper-q-std { margin-top: 6px; font-size: 13px; color: #6B5F74; }
+  .paper-q-std b { color: var(--ink); }
+  .paper-score { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0 0; }
+  .paper-score-card {
+    flex: 1 1 104px; background: #FFF8EC; border: 1px solid var(--line);
+    border-radius: 16px; padding: 12px 14px; text-align: center;
+  }
+  .paper-score-card strong { display: block; font-size: 22px; }
+  .paper-score-card span { font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 680px) {
+    .paper-sheet { padding: 20px 17px 24px; border-radius: 22px; }
+    .paper-name { font-size: 21px; }
+    .paper-actions .btn { flex: 1; min-width: 0; padding: 0 12px; font-size: 13px; }
+    .paper-opts { grid-template-columns: 1fr; }
+  }
+
+  /* 打印：只留卷子本身，屏幕上那些按钮、侧栏、顶栏全部隐掉 */
+  @media print {
+    @page { margin: 15mm; }
+    html, body { background: #fff !important; }
+    body::before { display: none !important; }
+    .topbar, .sidebar, .side-mask, .no-print { display: none !important; }
+    .print-only { display: block !important; }
+    .app-main { margin-left: 0 !important; }
+    .page { max-width: none !important; padding: 0 !important; }
+    .view, .view.active { animation: none !important; }
+    .paper-sheet { border: 0; box-shadow: none; border-radius: 0; padding: 0; }
+    .paper-input {
+      border: 0; border-bottom: 1px solid #999; border-radius: 0;
+      background: transparent !important; height: 32px; padding: 0 2px;
+    }
+    .paper-q { break-inside: avoid; page-break-inside: avoid; border-bottom-color: #DDD; }
+    .paper-sec { page-break-inside: auto; }
+    .paper-score { break-inside: avoid; page-break-inside: avoid; }
+  }
 </style>
 <style id="__dm_no_drag_style__" data-page-node-id="DjddPwycsJIsDW85cPAEVz">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__" data-page-node-id="tR3N1vklkz7VWMSkL0P5Yi">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style><!-- 云服务 SDK（CDN 形式，暴露全局 WorkBuddyCloud）；主脚本在其后执行，初始化时机由 boot 保证 -->
 <script src="math-problems.js" data-page-node-id="mpbank"></script>
@@ -2908,6 +3013,11 @@
         <span class="side-ico" aria-hidden="true">➗</span>
         <span class="side-label">数学</span>
         <span class="side-sub" id="sideMathHint">错题本</span>
+      </button>
+      <button class="side-item" type="button" data-nav="paper" aria-label="错题试卷" title="错题试卷">
+        <span class="side-ico" aria-hidden="true">📝</span>
+        <span class="side-label">错题试卷</span>
+        <span class="side-sub">错题汇总成卷</span>
       </button>
     </nav>
 
@@ -3344,7 +3454,10 @@
         <h1 data-page-node-id="jKFHtxlo8K94tCm6MxT94D">我的错词本</h1>
         <p id="wrongSub" data-page-node-id="hrjQ6x0yvehRvpD58b8bGi">这些单词还需要多见几面。听一听、读一读，再点「记住了」把它们送回家。</p>
       </div>
-      <button class="btn btn-primary" id="wrongChallenge" type="button" data-page-node-id="4giwGyEhGqkqlhGMyy8zny">🎯 错词挑战</button>
+      <div class="wrong-hero-actions">
+        <button class="btn btn-primary" id="wrongChallenge" type="button" data-page-node-id="4giwGyEhGqkqlhGMyy8zny">🎯 错词挑战</button>
+        <a class="btn btn-soft" id="wrongPaperBtn" href="#/paper?from=en">📝 错词组卷</a>
+      </div>
     </div>
     <div class="wrong-list" id="wrongList" data-page-node-id="iPBCxifXXolMUmY8CvaA7Y"></div>
   </section>
@@ -3366,6 +3479,7 @@
           <a class="btn btn-primary" id="mathAddBtn" href="#/math/add" data-page-node-id="AAAjEt8NMgpYFImHtKDZvs">✏️ 记一道错题</a>
           <a class="btn btn-soft" id="mathSolveBtn" href="#/math/solve" data-page-node-id="solveEntry">🧩 先做再记</a>
           <button class="btn btn-soft" id="mathReviewBtn" type="button" data-page-node-id="8VWfd3MhwHn8BBsNuGA4EO">🎯 抽题复习</button>
+          <a class="btn btn-soft" id="mathPaperBtn" href="#/paper?from=math">📝 错题组卷</a>
           <a class="btn btn-soft tutor-entry-btn" href="#/tutor">👩‍🏫 问老师</a>
         </div>
       </div>
@@ -3876,6 +3990,8 @@
         <details class="settings-details" data-page-node-id="K8QJd3vEPOSb9zBVCAuwvr">
           <summary data-page-node-id="DTaZjApUbAjDGpqFDTiYVE">更新日志</summary>
           <ul class="settings-log" data-page-node-id="lV1seutVizr6L3baCdKIGt">
+            <li><b>v1.5</b> 错题试卷：数学错题 + 英语错词汇总成一张卷子，在线作答自动判分，也能打印出来用笔写</li>
+            <li><b>v1.4</b> 左侧导航三端响应式布局、学习进度仪表盘、数学解题挑战、AI 讲题老师</li>
             <li data-page-node-id="XNVfTYUHhkKkrHtQuYAiKb"><b data-page-node-id="hhD7K82gUGLgHFAabnuvdq">v1.3</b> 四种登录方式（手机验证码 / 邮箱 / 微信 / WorkBuddy）、设置页、数据导出导入</li>
             <li data-page-node-id="WYvdzPEmKBCEexLNkIdCuK"><b data-page-node-id="MmJujc1bBgvdLO2jmg9TGh">v1.2</b> 按年级 + 教材隔离、数学错题本、知识抽题复习</li>
             <li data-page-node-id="VLH7HF8tinAGLq2aQcx2Wa"><b data-page-node-id="rOR8HQKCx3obTi04L265Zd">v1.1</b> 词库外置、PWA 离线、音效与语音分开开关</li>
@@ -3890,6 +4006,124 @@
       </section>
 
       <p class="settings-foot" data-page-node-id="6vOVQvO4JidPMUmsYhlcyk">学习通 · 给小朋友的英语单词与数学错题本 🦉</p>
+    </div>
+  </section>
+
+  <!-- ================= 错题试卷 ================= -->
+  <section class="view" id="view-paper">
+    <a class="back-btn" href="#/home/math" style="margin-bottom:16px;display:inline-flex;">← 回到错题本</a>
+
+    <!-- 组卷设置 -->
+    <div class="form-card" id="paperSetup">
+      <div class="form-head">
+        <h1>📝 错题组卷</h1>
+        <p>把数学错题本和英语错词本里的题汇总成一张卷子。可以在屏幕上直接作答、交卷自动判分，也可以打印出来用笔写。</p>
+      </div>
+
+      <div class="form-field">
+        <label for="paperTitle">试卷名称 <small>可选</small></label>
+        <input id="paperTitle" type="text" maxlength="24" placeholder="留空会自动起名，例如：错题过关卷（10-31）">
+      </div>
+
+      <div class="paper-block" id="paperMathBlock">
+        <label class="paper-switch" for="paperUseMath">
+          <input type="checkbox" id="paperUseMath" checked> ➗ 数学错题
+        </label>
+        <div class="paper-opts">
+          <div class="form-field">
+            <label for="paperMathScope">取题范围</label>
+            <select id="paperMathScope">
+              <option value="todo">待攻克</option>
+              <option value="all">全部错题</option>
+              <option value="done">已掌握</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="paperMathKp">知识点</label>
+            <select id="paperMathKp"></select>
+          </div>
+          <div class="form-field">
+            <label for="paperMathCount">题量</label>
+            <select id="paperMathCount">
+              <option value="5">5 道</option>
+              <option value="10">10 道</option>
+              <option value="15">15 道</option>
+              <option value="20">20 道</option>
+              <option value="0">全部</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="paper-block" id="paperEnBlock">
+        <label class="paper-switch" for="paperUseEn">
+          <input type="checkbox" id="paperUseEn" checked> 🔤 英语错词
+        </label>
+        <div class="paper-opts">
+          <div class="form-field">
+            <label for="paperEnMode">题型</label>
+            <select id="paperEnMode">
+              <option value="zh2en">中译英（给中文写单词）</option>
+              <option value="en2zh">英译中（给单词写意思）</option>
+              <option value="mix">两种混合</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="paperEnCount">题量</label>
+            <select id="paperEnCount">
+              <option value="5">5 道</option>
+              <option value="10">10 道</option>
+              <option value="15">15 道</option>
+              <option value="20">20 道</option>
+              <option value="0">全部</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="paper-switch" for="paperWithAnswer" style="font-size:14px;">
+          <input type="checkbox" id="paperWithAnswer"> 🖨️ 打印时附上正确答案（家长/老师批改用）
+        </label>
+      </div>
+
+      <p class="paper-note" id="paperNote"></p>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="button" id="paperBuildBtn">生成试卷</button>
+      </div>
+    </div>
+
+    <!-- 试卷本体 -->
+    <div class="paper-sheet" id="paperSheet" hidden>
+      <div class="paper-head-row no-print">
+        <div>
+          <h1 class="paper-name" id="paperName">错题过关卷</h1>
+          <p class="paper-sub" id="paperMeta"></p>
+        </div>
+        <div class="paper-actions">
+          <button class="btn btn-primary" type="button" id="paperSubmitBtn">✅ 交卷判分</button>
+          <button class="btn btn-soft" type="button" id="paperPrintBtn">🖨️ 打印 / 存 PDF</button>
+          <button class="btn btn-soft" type="button" id="paperRedoBtn">重新组卷</button>
+        </div>
+      </div>
+
+      <div class="paper-head-row print-only" id="paperPrintHead">
+        <div>
+          <h1 class="paper-name" id="paperNamePrint">错题过关卷</h1>
+          <p class="paper-sub" id="paperMetaPrint"></p>
+        </div>
+      </div>
+
+      <div class="paper-info-line">
+        <span>姓名 <b>&nbsp;</b></span>
+        <span>用时 <b>&nbsp;</b></span>
+        <span>得分 <b>&nbsp;</b></span>
+      </div>
+
+      <div class="paper-score" id="paperScore" hidden></div>
+      <div class="paper-rule"></div>
+      <div id="paperBody"></div>
+      <p class="paper-note" style="margin-top:18px;">学习通 · 错题试卷　答错的题会留在错题本里继续练，答对的会自动往「已掌握」挪。</p>
     </div>
   </section>
 
@@ -4020,7 +4254,7 @@
   let TOTAL_WORDS = 0;
   let GOAL = 10;
   // 应用版本：显示在设置页「关于」，改动较大时手动加一
-  const APP_VERSION = "1.4.2";
+  const APP_VERSION = "1.5.0";
   let dataReady = false;
   let wordDataFailed = false;
 
@@ -7770,6 +8004,427 @@
     if (rating >= 2) setTimeout(() => confetti(60), 200);
   }
 
+  /* ---------- 错题试卷
+     ---------------------------------------------------------
+     把数学错题本 + 英语错词本汇总成一张卷子：
+     屏幕上作答 → 交卷自动判分 → 结果回写错题本；也可以直接打印出来用笔写。
+     --------------------------------------------------------- */
+  let paperSession = null;
+
+  const PAPER_CN_NUM = ["一", "二"];
+
+  function paperDefaultTitle() {
+    const now = new Date();
+    return "错题过关卷（" + (now.getMonth() + 1) + "-" + now.getDate() + "）";
+  }
+
+  // 数学错题池：先按范围 + 知识点过滤，未掌握的优先，同一档里错得多的靠前
+  function paperMathPool(scope, kp) {
+    return mathState.items.filter((item) => {
+      if (scope === "todo" && item.done) return false;
+      if (scope === "done" && !item.done) return false;
+      if (kp && (item.kp || "未分类") !== kp) return false;
+      return true;
+    }).slice().sort((a, b) => {
+      if (Boolean(a.done) !== Boolean(b.done)) return a.done ? 1 : -1;
+      const diff = (b.wrongCount || 1) - (a.wrongCount || 1);
+      if (diff !== 0) return diff;
+      return (b.updatedAt || 0) - (a.updatedAt || 0);
+    });
+  }
+
+  // 英语错词池：错得次数多的排前面
+  function paperEnPool() {
+    return state.wrong
+      .map((id) => WORD_MAP.get(id))
+      .filter(Boolean)
+      .slice()
+      .sort((a, b) => {
+        const left = state.learned[a.id] || {};
+        const right = state.learned[b.id] || {};
+        return (right.wrong || 0) - (left.wrong || 0);
+      });
+  }
+
+  // count 为 0 表示「全部」
+  function paperTake(list, count) {
+    const limit = Number(count) || 0;
+    if (!limit || limit >= list.length) return list.slice();
+    return list.slice(0, limit);
+  }
+
+  function paperFlatItems() {
+    if (!paperSession) return [];
+    return paperSession.sections.reduce((list, section) => list.concat(section.items), []);
+  }
+
+  function paperItemAt(index) {
+    return paperFlatItems()[index - 1] || null;
+  }
+
+  /* ---------- 答案比对 ---------- */
+  const PAPER_ANSWER_SPLIT = /[；;，,、\/|]+/;
+
+  // 全角转半角 + 去空白 + 去中英文标点 + 统一小写
+  function paperNorm(value) {
+    return String(value == null ? "" : value)
+      .replace(/[\uFF01-\uFF5E]/g, (char) => String.fromCharCode(char.charCodeAt(0) - 0xFEE0))
+      .replace(/\s+/g, "")
+      .replace(/[。，、！？；：""''（）()]/g, "")
+      .toLowerCase();
+  }
+
+  // 中文释义：标准答案可能写了好几种说法，命中任意一种就算对
+  function paperZhMatch(input, answer) {
+    const got = paperNorm(input);
+    if (!got) return false;
+    return String(answer || "").split(PAPER_ANSWER_SPLIT).some((one) => {
+      const std = paperNorm(one);
+      if (!std) return false;
+      return std === got || std.indexOf(got) >= 0 || got.indexOf(std) >= 0;
+    });
+  }
+
+  // 数学答案：优先用题库自带的宽松判定（分数、小数、带单位都算对）
+  function paperMathMatch(input, answer) {
+    const value = String(input || "").trim();
+    if (!value || !answer) return false;
+    const bank = solveBank();
+    if (bank && typeof bank.checkAnswer === "function") {
+      try {
+        return bank.checkAnswer(value, { a: answer });
+      } catch (error) { /* 题库不可用就退回本地判定 */ }
+    }
+    const got = paperNorm(value);
+    const std = paperNorm(answer);
+    if (!got || !std) return false;
+    if (got === std) return true;
+    const numGot = Number(got);
+    const numStd = Number(std);
+    return !isNaN(numGot) && !isNaN(numStd) && Math.abs(numGot - numStd) < 1e-6;
+  }
+
+  function paperJudge(item, input) {
+    if (item.kind === "math") return paperMathMatch(input, item.answer);
+    return item.mode === "zh2en"
+      ? paperNorm(input) === paperNorm(item.answer)
+      : paperZhMatch(input, item.answer);
+  }
+
+  /* ---------- 组卷页 ---------- */
+  function setupPaper(query) {
+    const from = (query && query.from) || "";
+    const kp = (query && query.kp) || "";
+
+    const kps = Array.from(new Set(mathState.items.map((item) => item.kp || "未分类")));
+    $("#paperMathKp").innerHTML = '<option value="">全部知识点</option>'
+      + kps.map((name) => `<option value="${esc(name)}">${esc(name)}</option>`).join("");
+    if (kp && kps.indexOf(kp) >= 0) $("#paperMathKp").value = kp;
+
+    if (from === "math") $("#paperUseEn").checked = false;
+    if (from === "en") $("#paperUseMath").checked = false;
+    if (!$("#paperTitle").value) $("#paperTitle").value = paperDefaultTitle();
+
+    paperSession = null;
+    $("#paperSheet").hidden = true;
+    $("#paperSetup").hidden = false;
+    $("#paperBody").innerHTML = "";
+    $("#paperScore").hidden = true;
+    syncPaperBlocks();
+    renderPaperNote();
+  }
+
+  function syncPaperBlocks() {
+    $("#paperMathBlock").classList.toggle("is-off", !$("#paperUseMath").checked);
+    $("#paperEnBlock").classList.toggle("is-off", !$("#paperUseEn").checked);
+  }
+
+  function renderPaperNote() {
+    const mathCount = paperMathPool($("#paperMathScope").value, $("#paperMathKp").value).length;
+    const enCount = paperEnPool().length;
+    let note = "数学错题本里可以出 " + mathCount + " 道，英语错词本里可以出 " + enCount + " 道。";
+    if (!mathCount && !enCount) {
+      note += "两边都还是空的，先去记几道错题或学几个新单词吧。";
+    } else {
+      note += "题量选「全部」就是把符合条件的题一次放进来。";
+    }
+    $("#paperNote").textContent = note;
+  }
+
+  function buildPaper() {
+    const useMath = $("#paperUseMath").checked;
+    const useEn = $("#paperUseEn").checked;
+    const sections = [];
+
+    if (useMath) {
+      const pool = paperMathPool($("#paperMathScope").value, $("#paperMathKp").value);
+      const picked = paperTake(pool, $("#paperMathCount").value);
+      if (picked.length) {
+        sections.push({
+          title: "数学错题重现",
+          note: "把当时做错的题再做一遍，写清过程和答案。",
+          items: picked.map((item) => ({
+            kind: "math",
+            refId: item.id,
+            stem: item.question,
+            tag: [item.kp || "未分类", item.type].filter(Boolean).join(" · "),
+            tip: "",
+            images: (item.images || []).slice(0, 3),
+            answer: item.answer || "",
+            gradable: Boolean(item.answer),
+            userAnswer: "",
+            ok: null
+          }))
+        });
+      }
+    }
+
+    if (useEn) {
+      const mode = $("#paperEnMode").value;
+      const pool = paperEnPool();
+      const picked = paperTake(pool, $("#paperEnCount").value);
+      if (picked.length) {
+        sections.push({
+          title: "英语错词过关",
+          note: mode === "mix" ? "一半看中文写单词，一半看单词写意思。" : "看提示写出来，写完可以交卷自动判分。",
+          items: picked.map((word, index) => {
+            // 混合模式下交替出题，保证两种题型各占一半
+            const kind = mode === "mix" ? (index % 2 === 0 ? "zh2en" : "en2zh") : mode;
+            return {
+              kind: "en",
+              mode: kind,
+              refId: word.id,
+              stem: kind === "zh2en" ? word.zh : word.w,
+              tag: (kind === "zh2en" ? "中译英" : "英译中") + (word.ipa ? " · " + word.ipa : ""),
+              tip: word.ipa || "",
+              images: [],
+              answer: kind === "zh2en" ? word.w : word.zh,
+              gradable: true,
+              userAnswer: "",
+              ok: null
+            };
+          })
+        });
+      }
+    }
+
+    if (!sections.length) {
+      toast("没有可出的题，先去记几道错题或学几个单词吧");
+      return;
+    }
+
+    const total = sections.reduce((sum, section) => sum + section.items.length, 0);
+    paperSession = {
+      title: ($("#paperTitle").value || "").trim() || paperDefaultTitle(),
+      sections: sections.map((section, index) => ({
+        ...section,
+        title: (PAPER_CN_NUM[index] || (index + 1)) + "、" + section.title
+      })),
+      total: total,
+      withAnswer: $("#paperWithAnswer").checked,
+      graded: false,
+      judged: 0,
+      right: 0,
+      wrong: 0,
+      createdAt: Date.now()
+    };
+    playClick();
+    renderPaperSheet();
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- 试卷渲染 ---------- */
+  // 重渲染前把输入框里已经写的东西收回数据里，别让用户输入丢了
+  function paperCollectInputs() {
+    if (!paperSession) return;
+    $$("#paperBody [data-paper-input]").forEach((input) => {
+      const item = paperItemAt(Number(input.getAttribute("data-paper-input")));
+      if (item) item.userAnswer = input.value;
+    });
+  }
+
+  function paperQuestionHtml(item, index, showAnswer) {
+    const cls = item.ok === true ? " ok" : item.ok === false ? " no" : "";
+    const mark = item.ok === true ? '<span class="paper-q-mark">✅</span>'
+      : item.ok === false ? '<span class="paper-q-mark">❌</span>' : "";
+    const disabled = paperSession && paperSession.graded ? " disabled" : "";
+    const images = (item.images || []).length
+      ? `<div class="paper-q-imgs">${item.images.map((src, i) => `<img src="${src}" alt="题目图片 ${i + 1}">`).join("")}</div>`
+      : "";
+    const tip = item.tip ? `<p class="paper-q-tag" style="margin-top:4px;">${esc(item.tip)}</p>` : "";
+    let std = "";
+    if (showAnswer) {
+      std = item.answer
+        ? `<p class="paper-q-std">正确答案：<b>${esc(item.answer)}</b></p>`
+        : '<p class="paper-q-std">（这道题当时还没记正确答案，可以在错题本里补上）</p>';
+    }
+    return `
+      <div class="paper-q${cls}">
+        <div class="paper-q-top">
+          <span class="paper-q-num">${index}</span>
+          <span class="paper-q-tag">${esc(item.tag || "")}</span>
+        </div>
+        <p class="paper-q-stem">${esc(item.stem)}</p>
+        ${tip}
+        ${images}
+        <div class="paper-q-answer">
+          <span class="paper-q-label">答：</span>
+          <input class="paper-input" type="text" data-paper-input="${index}" value="${esc(item.userAnswer || "")}" placeholder="在这里写答案" autocomplete="off"${disabled}>
+          ${mark}
+        </div>
+        ${std}
+      </div>`;
+  }
+
+  function renderPaperSheet() {
+    const paper = paperSession;
+    if (!paper) return;
+    const meta = gradeLabel(currentGrade)
+      + " · 数学 " + mathBookMeta(currentMathBook).short
+      + " · 英语 " + ((enBookMeta(currentEnBook) || {}).short || "通用")
+      + " · " + new Date(paper.createdAt).toLocaleDateString("zh-CN")
+      + " · 共 " + paper.total + " 题";
+    $("#paperName").textContent = paper.title;
+    $("#paperNamePrint").textContent = paper.title;
+    $("#paperMeta").textContent = meta;
+    $("#paperMetaPrint").textContent = meta;
+
+    const showAnswer = paper.graded || paper.withAnswer;
+    let cursor = 0;
+    $("#paperBody").innerHTML = paper.sections.map((section) => {
+      const questions = section.items.map((item) => {
+        cursor += 1;
+        return paperQuestionHtml(item, cursor, showAnswer);
+      }).join("");
+      return `
+        <section class="paper-sec">
+          <h2 class="paper-sec-title">${esc(section.title)}</h2>
+          <p class="paper-sec-note">${esc(section.note)}</p>
+          ${questions}
+        </section>`;
+    }).join("");
+
+    $("#paperSetup").hidden = true;
+    $("#paperSheet").hidden = false;
+    $("#paperSubmitBtn").textContent = paper.graded ? "🔄 再来一份" : "✅ 交卷判分";
+    renderPaperScore();
+    setTitle(paper.title);
+  }
+
+  function renderPaperScore() {
+    const box = $("#paperScore");
+    if (!paperSession || !paperSession.graded) {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    const paper = paperSession;
+    const rate = paper.judged ? Math.round((paper.right / paper.judged) * 100) : 0;
+    box.hidden = false;
+    box.innerHTML = `
+      <div class="paper-score-card"><strong>${paper.judged}</strong><span>可判题目</span></div>
+      <div class="paper-score-card"><strong style="color:var(--green);">${paper.right}</strong><span>答对</span></div>
+      <div class="paper-score-card"><strong style="color:var(--red);">${paper.wrong}</strong><span>答错</span></div>
+      <div class="paper-score-card"><strong>${rate}%</strong><span>正确率</span></div>`;
+  }
+
+  /* ---------- 交卷 ---------- */
+  function submitPaper() {
+    const paper = paperSession;
+    if (!paper) return;
+    if (paper.graded) { resetPaper(); return; }
+
+    paperCollectInputs();
+    const items = paperFlatItems();
+    if (!items.some((item) => String(item.userAnswer || "").trim())) {
+      toast("还没有写答案，先做几道再交卷～");
+      return;
+    }
+
+    let right = 0;
+    let wrong = 0;
+    let judged = 0;
+    let blank = 0;
+    items.forEach((item) => {
+      item.userAnswer = String(item.userAnswer || "").trim();
+      if (!item.gradable) { item.ok = null; return; }
+      if (!item.userAnswer) {
+        item.ok = false;
+        blank += 1;
+        wrong += 1;
+        judged += 1;
+        return;
+      }
+      item.ok = paperJudge(item, item.userAnswer);
+      judged += 1;
+      if (item.ok) right += 1; else wrong += 1;
+    });
+
+    paper.graded = true;
+    paper.judged = judged;
+    paper.right = right;
+    paper.wrong = wrong;
+    paperApplyResult(right);
+    renderPaperSheet();
+
+    const rate = judged ? Math.round((right / judged) * 100) : 0;
+    playCorrect();
+    if (rate >= 60) confetti(60);
+    let text = "交卷啦！做对 " + right + " / " + judged + " 道，正确率 " + rate + "%";
+    if (blank) text += "，其中 " + blank + " 道没写答案";
+    toast(text + "。答错的题已留在错题本里。");
+    window.scrollTo(0, 0);
+  }
+
+  // 把成绩回写进错题本：数学答对标记掌握、答错累加错因；英语走 markWord
+  function paperApplyResult(right) {
+    const now = Date.now();
+    let mathTouched = false;
+    paperFlatItems().forEach((item) => {
+      if (item.ok === null) return;
+      if (item.kind === "math") {
+        const target = mathItemById(item.refId);
+        if (!target) return;
+        if (item.ok) {
+          target.done = true;
+        } else {
+          target.wrongCount = (target.wrongCount || 1) + 1;
+          target.done = false;
+        }
+        target.updatedAt = now;
+        mathTouched = true;
+      } else {
+        markWord(item.refId, Boolean(item.ok));
+      }
+    });
+    if (mathTouched) saveMathState();
+    if (right > 0) addStars(right);
+  }
+
+  let paperPrintCount = 0;
+
+  function printPaper() {
+    if (!paperSession) return;
+    paperCollectInputs();
+    renderPaperSheet();
+    paperPrintCount += 1;
+    if (typeof window.print === "function") window.print();
+  }
+
+  function resetPaper() {
+    const keepTitle = paperSession ? paperSession.title : "";
+    paperSession = null;
+    $("#paperSheet").hidden = true;
+    $("#paperSetup").hidden = false;
+    $("#paperBody").innerHTML = "";
+    $("#paperScore").hidden = true;
+    $("#paperTitle").value = keepTitle || paperDefaultTitle();
+    syncPaperBlocks();
+    renderPaperNote();
+    setTitle("错题组卷");
+    window.scrollTo(0, 0);
+  }
+
   /* ---------- 结果页
      ========================================================= */
   let lastResult = null;
@@ -7884,7 +8539,7 @@
 
     // 英语相关页面依赖 words.json；数学模块不依赖，词库挂了也能用
     // 学习仪表盘现在就是默认首页，所以它也要等词库
-    const englishViews = ["unit", "learn", "quiz", "spell", "match", "wrong", "result"];
+    const englishViews = ["unit", "learn", "quiz", "spell", "match", "wrong", "result", "paper"];
     const mathViews = ["math"];
     const needsWords = englishViews.includes(view)
       || view === "dashboard"
@@ -7897,7 +8552,8 @@
       return; // 词库还在加载中，加载完会重新 route
     }
     if (!mathViews.includes(view) && view !== "home" && !englishViews.includes(view)
-      && view !== "settings" && view !== "dashboard" && view !== "tutor" && view !== "account") {
+      && view !== "settings" && view !== "dashboard" && view !== "tutor" && view !== "account"
+      && view !== "paper") {
       goHome();
       return;
     }
@@ -7975,6 +8631,15 @@
       if (!lastResult) { goEnglishHome(); return; }
       showView("result");
       renderResult();
+    } else if (view === "paper") {
+      showView("paper");
+      if (paperSession) {
+        renderPaperSheet();
+      } else {
+        const query = new URLSearchParams(raw.split("?")[1] || "");
+        setupPaper({ from: query.get("from") || "", kp: query.get("kp") || "" });
+        setTitle("错题组卷");
+      }
     } else if (view === "math") {
       if (argument === "add") {
         showView("math-add");
@@ -8375,6 +9040,7 @@
     dashboard: ["dashboard"],
     en: ["home-en", "unit", "learn", "quiz", "spell", "match", "wrong", "result"],
     math: ["home-math", "math-add", "math-solve", "math-review"],
+    paper: ["paper"],
     account: ["account"],
     settings: ["settings"]
   };
@@ -8441,6 +9107,7 @@
       dashboard: "#/dashboard",
       en: "#/home/en",
       math: "#/home/math",
+      paper: "#/paper",
       account: "#/account",
       settings: "#/settings"
     };
@@ -8726,6 +9393,29 @@
 
     const again = $("#solveAgainBtn");
     if (again) again.addEventListener("click", () => { startSolve(); });
+
+    /* ---------- 错题试卷 ---------- */
+    const paperBuildBtn = $("#paperBuildBtn");
+    if (paperBuildBtn) paperBuildBtn.addEventListener("click", buildPaper);
+
+    const paperSubmit = $("#paperSubmitBtn");
+    if (paperSubmit) paperSubmit.addEventListener("click", () => { playClick(); submitPaper(); });
+
+    const paperPrint = $("#paperPrintBtn");
+    if (paperPrint) paperPrint.addEventListener("click", () => { playClick(); printPaper(); });
+
+    const paperRedo = $("#paperRedoBtn");
+    if (paperRedo) paperRedo.addEventListener("click", () => { playClick(); resetPaper(); });
+
+    // 勾选框决定哪一块生效；下拉框一变就刷新「能出几道」的提示
+    ["#paperUseMath", "#paperUseEn"].forEach((selector) => {
+      const box = $(selector);
+      if (box) box.addEventListener("change", syncPaperBlocks);
+    });
+    ["#paperMathScope", "#paperMathKp"].forEach((selector) => {
+      const box = $(selector);
+      if (box) box.addEventListener("change", renderPaperNote);
+    });
 
     // 回车：没判过时提交答案，判过了就进下一题
     const input = $("#solveInput");
@@ -9747,6 +10437,34 @@
         const bank = solveBank();
         return bank ? bank.checkAnswer(input, problem) : false;
       },
+      // ---- 错题试卷 ----
+      setupPaper,
+      buildPaper,
+      submitPaper,
+      resetPaper,
+      printPaper,
+      paperMathPool,
+      paperEnPool,
+      paperJudge,
+      paperSetAnswer: (index, value) => {
+        const item = paperItemAt(index);
+        if (item) item.userAnswer = value;
+        return Boolean(item);
+      },
+      paperPrintCount: () => paperPrintCount,
+      getPaper: () => (paperSession ? {
+        title: paperSession.title,
+        total: paperSession.total,
+        graded: paperSession.graded,
+        judged: paperSession.judged,
+        right: paperSession.right,
+        wrong: paperSession.wrong,
+        withAnswer: paperSession.withAnswer,
+        sections: paperSession.sections.map((section) => ({
+          title: section.title,
+          items: section.items.map((item) => ({ ...item, images: undefined }))
+        }))
+      } : null),
       // ---- AI 讲题老师 ----
       getTutor: () => ({
         mode: tutorState.mode,

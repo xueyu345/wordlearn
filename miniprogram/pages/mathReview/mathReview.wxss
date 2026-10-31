@@ -1,0 +1,72 @@
+/* 抽题复习 */
+.mode-top { display: flex; align-items: center; gap: 16rpx; }
+
+.back-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 99rpx;
+  background: #F3ECE2;
+  color: var(--ink);
+  font-size: 30rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mode-title { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mode-name { font-size: 30rpx; font-weight: 800; }
+.mode-count { font-size: 24rpx; font-weight: 700; color: var(--purple); flex-shrink: 0; }
+
+.bar-slim { height: 12rpx; margin-bottom: 24rpx; }
+
+.review-card { padding: 26rpx; }
+
+.review-head { display: flex; flex-wrap: wrap; gap: 10rpx; margin-bottom: 18rpx; }
+.review-question { font-size: 36rpx; font-weight: 800; line-height: 1.6; }
+.review-images { margin-top: 18rpx; }
+
+.review-block { margin-top: 20rpx; }
+.review-label {
+  display: block;
+  font-size: 22rpx;
+  font-weight: 800;
+  color: var(--muted);
+  margin-bottom: 6rpx;
+}
+.review-text { font-size: 28rpx; line-height: 1.6; color: var(--ink); }
+.strong { color: var(--green); font-weight: 800; }
+
+.review-answer-box {
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid var(--line);
+}
+
+.step-row { display: flex; margin-bottom: 10rpx; }
+.step-no {
+  width: 36rpx;
+  height: 36rpx;
+  flex-shrink: 0;
+  margin-right: 12rpx;
+  border-radius: 99rpx;
+  background: var(--purple-soft);
+  color: var(--purple);
+  font-size: 20rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-text { flex: 1; font-size: 26rpx; line-height: 1.6; color: var(--ink); }
+
+.review-judge { margin-top: 20rpx; }
+.judge-tip { text-align: center; font-size: 26rpx; font-weight: 700; color: var(--muted); margin-bottom: 14rpx; }
+.judge-actions { display: flex; gap: 20rpx; }
+.judge-actions .btn { flex: 1; }
+
+.review-result { padding: 40rpx 10rpx 10rpx; text-align: center; }
+.result-emoji { font-size: 100rpx; line-height: 1.1; display: block; margin-bottom: 16rpx; }
+.review-result .h2 { margin-top: 12rpx; }
+.review-result .muted { display: block; margin-top: 10rpx; line-height: 1.7; }
+.review-result .form-actions { margin-top: 32rpx; }

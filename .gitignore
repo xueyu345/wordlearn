@@ -30,3 +30,12 @@ wechatcode/
 
 # 临时预览/截图目录
 .shots/
+
+# 桌面版（Electron）产物：网页副本、图标、安装包
+desktop/app/
+desktop/build/
+desktop/dist/
+desktop/self-test.json
+
+# 安装包本身（desktop/dist/ 里有正式产物，根目录这一份是旧副本）
+*.exe

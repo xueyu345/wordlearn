@@ -1,0 +1,115 @@
+<view class="page">
+
+  <!-- ============ 出题设置 ============ -->
+  <view class="card form-card" wx:if="{{pane === 'setup'}}">
+    <view class="form-head">
+      <view class="h1">🧩 解题挑战</view>
+      <text class="muted">先做题、看解析，做错的再收进错题本。题目严格按你当前的年级来出，不会超纲。</text>
+    </view>
+
+    <view class="field">
+      <text class="field-label">练哪个知识点</text>
+      <picker mode="selector" range="{{kpOptions}}" value="{{kpIndex}}" bindchange="onKpChange">
+        <view class="picker-view">
+          <text>{{kpLabel}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="field-label">做几道</text>
+      <picker mode="selector" range="{{countOptions}}" value="{{countIndex}}" bindchange="onCountChange">
+        <view class="picker-view">
+          <text>{{countLabel}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="stage-note">{{stageNote}}</view>
+
+    <view class="btn btn-primary btn-block" bindtap="onStart">开始挑战</view>
+  </view>
+
+  <!-- ============ 答题中 ============ -->
+  <view class="card solve-card" wx:if="{{pane === 'play'}}">
+    <view class="mode-top">
+      <view class="back-btn" bindtap="onQuit">←</view>
+      <view class="mode-title">
+        <text class="mode-name">{{solveTitle}}</text>
+        <text class="muted">{{solveSub}}</text>
+      </view>
+      <view class="mode-count">{{progressText}}</view>
+    </view>
+
+    <view class="bar">
+      <view class="bar-inner" style="width:{{barWidth}}%"></view>
+    </view>
+
+    <view class="solve-tags">
+      <text class="pill pill-purple">{{cur.kp}}</text>
+      <text class="pill pill-blue">{{cur.stage}}</text>
+    </view>
+
+    <view class="solve-q">{{cur.q}}</view>
+
+    <view class="solve-answer-row">
+      <input class="input solve-input" type="text" placeholder="写出你的答案（分数写 1/2 这样）" placeholder-class="ph" value="{{input}}" disabled="{{inputDisabled}}" bindinput="onInput" bindconfirm="onNext" confirm-type="done" />
+      <view class="btn btn-primary btn-mini" wx:if="{{showCheck}}" bindtap="onCheck">检查</view>
+    </view>
+
+    <view class="solve-help">
+      <view class="btn btn-ghost btn-mini" wx:if="{{showHint}}" bindtap="onHint">💡 给点提示</view>
+      <view class="btn btn-ghost btn-mini" wx:if="{{showSkip}}" bindtap="onSkip">跳过这题</view>
+    </view>
+
+    <view class="solve-tip" wx:if="{{showTip}}">{{tipText}}</view>
+
+    <view class="solve-result" wx:if="{{showResult}}">
+      <view class="solve-verdict {{verdictClass}}">{{verdictText}}</view>
+      <view class="solve-analysis">
+        <view class="analysis-title">解题思路（{{cur.stage}}）</view>
+        <view class="step-row" wx:for="{{steps}}" wx:key="key">
+          <text class="step-no">{{index + 1}}</text>
+          <text class="step-text">{{item.text}}</text>
+        </view>
+        <view class="solve-answer-line">正确答案：<text class="strong">{{answerText}}</text></view>
+        <view class="solve-answer-line" wx:if="{{showMine}}">你写的是：<text class="strike">{{mineText}}</text></view>
+      </view>
+      <view class="btn btn-primary btn-block" bindtap="onNext">{{nextText}}</view>
+    </view>
+  </view>
+
+  <!-- ============ 一轮结束 ============ -->
+  <view class="card form-card" wx:if="{{pane === 'summary'}}">
+    <view class="form-head">
+      <view class="h1">{{summaryTitle}}</view>
+      <text class="muted">{{summarySub}}</text>
+    </view>
+
+    <view class="solve-score">
+      <view class="score-cell" wx:for="{{score}}" wx:key="label">
+        <text class="{{item.cls}}">{{item.value}}</text>
+        <text class="score-label">{{item.label}}</text>
+      </view>
+    </view>
+
+    <view class="solve-pick">
+      <view class="pick-empty" wx:if="{{!hasFailed}}">🎉 全部做对，没有要收进错题本的题。</view>
+      <view class="pick-row {{item.cls}}" wx:for="{{pickList}}" wx:key="index" data-index="{{item.index}}" bindtap="onTogglePick">
+        <view class="pick-box">{{item.checked ? '✓' : ''}}</view>
+        <view class="pick-body">
+          <text class="pick-q">{{item.q}}</text>
+          <text class="pick-ans">{{item.ansLine}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-actions">
+      <view class="btn btn-primary" wx:if="{{hasFailed}}" bindtap="onAddToWrongBook">{{addText}}</view>
+      <view class="btn btn-soft" bindtap="onAgain">再来一组</view>
+    </view>
+    <view class="btn btn-ghost btn-block btn-back" bindtap="onQuit">← 回到错题本</view>
+  </view>
+</view>

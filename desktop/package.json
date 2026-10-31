@@ -1,0 +1,53 @@
+{
+  "name": "study-hub-desktop",
+  "version": "1.5.0",
+  "description": "学习通 · 小学生英语单词与数学错题本（Windows 桌面版）",
+  "main": "main.js",
+  "author": "Sherwin",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "sync": "node tools/copy-web.js",
+    "start": "npm run sync && electron .",
+    "icon": "node tools/make-ico.js",
+    "dist": "npm run sync && npm run icon && electron-builder --win --x64",
+    "dist:portable": "npm run sync && npm run icon && electron-builder --win --x64 --target portable"
+  },
+  "devDependencies": {
+    "electron": "^33.3.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.sherwin.studyhub",
+    "productName": "学习通",
+    "copyright": "Copyright © 2026 Sherwin",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "serve.js",
+      "package.json",
+      "app/**/*",
+      "build/icon.ico"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "学习通"
+    },
+    "portable": {
+      "artifactName": "学习通-便携版-${version}.${ext}"
+    }
+  }
+}

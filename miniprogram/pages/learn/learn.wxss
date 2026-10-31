@@ -1,0 +1,101 @@
+/* 学一学：3D 翻转单词卡 */
+
+/* ---------- 顶部 ---------- */
+.mode-top { display: flex; align-items: center; margin-bottom: 18rpx; }
+.back-btn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 99rpx;
+  background: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(103, 76, 40, .1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #7057F5;
+  flex-shrink: 0;
+}
+.mode-title { flex: 1; min-width: 0; margin: 0 20rpx; }
+.mode-name { font-size: 32rpx; }
+.mode-sub { font-size: 22rpx; color: #8B7F9B; }
+.mode-count { font-size: 26rpx; font-weight: 800; color: #8B7F9B; }
+.bar-slim { height: 12rpx; margin-bottom: 36rpx; }
+
+/* ---------- 卡片 ---------- */
+.flashcard {
+  perspective: 1400rpx;
+  height: 620rpx;
+  margin-bottom: 40rpx;
+}
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.4, .2, .2, 1);
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+.face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 36rpx;
+  padding: 40rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 16rpx 40rpx rgba(103, 76, 40, .16);
+}
+.face.front { background: linear-gradient(165deg, #FFFAF2, #FFFFFF); border: 4rpx solid #FFE2B8; }
+.face.back {
+  background: linear-gradient(165deg, #F3F0FF, #FFFFFF);
+  border: 4rpx solid #DCD4FF;
+  transform: rotateY(180deg);
+}
+.flashcard.card-good .flashcard-inner { box-shadow: 0 0 0 8rpx rgba(47, 174, 114, .35); border-radius: 36rpx; }
+.flashcard.card-bad .flashcard-inner { box-shadow: 0 0 0 8rpx rgba(239, 91, 101, .35); border-radius: 36rpx; }
+
+.card-tag {
+  position: absolute;
+  top: 28rpx;
+  font-size: 22rpx;
+  font-weight: 800;
+  color: #8B7F9B;
+  background: rgba(255, 255, 255, .8);
+  border-radius: 99rpx;
+  padding: 6rpx 20rpx;
+}
+.word-emoji { font-size: 110rpx; line-height: 1.2; }
+.word-main { font-size: 64rpx; font-weight: 900; letter-spacing: 2rpx; margin-top: 12rpx; }
+.ipa { font-size: 30rpx; color: #8B7F9B; margin-top: 10rpx; }
+.meaning { font-size: 52rpx; font-weight: 900; color: #7057F5; margin-top: 12rpx; }
+.example-box {
+  margin-top: 26rpx;
+  background: rgba(255, 255, 255, .75);
+  border-radius: 20rpx;
+  padding: 22rpx 26rpx;
+}
+.example-en { display: block; font-size: 28rpx; font-weight: 700; line-height: 1.6; }
+.example-cn { display: block; font-size: 24rpx; color: #8B7F9B; margin-top: 6rpx; }
+.speak-tip { font-size: 22rpx; color: #B3A8C4; margin-top: 28rpx; }
+
+/* ---------- 评分按钮 ---------- */
+.learn-actions { display: flex; gap: 20rpx; }
+.learn-actions .btn { flex: 1; }
+.btn-disabled { opacity: .55; }
+.kbd-tip {
+  display: block;
+  text-align: center;
+  font-size: 22rpx;
+  color: #B3A8C4;
+  margin-top: 24rpx;
+}

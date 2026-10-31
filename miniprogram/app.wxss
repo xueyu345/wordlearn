@@ -1,0 +1,216 @@
+/* 学习通 · 全局样式（沿用网页版配色） */
+page {
+  --bg: #FFF7EC;
+  --surface: #FFFFFF;
+  --ink: #342B45;
+  --muted: #8B7F9B;
+  --line: #F0E6D8;
+  --orange: #FF8A3D;
+  --orange-deep: #F0701C;
+  --yellow: #FFC93C;
+  --purple: #7057F5;
+  --purple-soft: #F0ECFF;
+  --mint: #27B8A8;
+  --pink: #F45D9E;
+  --blue: #3B82F6;
+  --red: #EF5B65;
+  --green: #2FAE72;
+  --radius: 26rpx;
+
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx 60rpx;
+  box-sizing: border-box;
+}
+
+/* ---------- 文本 ---------- */
+.h1 { font-size: 44rpx; font-weight: 800; letter-spacing: 1rpx; }
+.h2 { font-size: 34rpx; font-weight: 800; }
+.h3 { font-size: 30rpx; font-weight: 700; }
+.muted { color: var(--muted); font-size: 24rpx; }
+.tiny { font-size: 22rpx; }
+.center { text-align: center; }
+.bold { font-weight: 800; }
+
+/* ---------- 卡片 ---------- */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28rpx;
+  box-shadow: 0 8rpx 24rpx rgba(103, 76, 40, .08);
+  margin-bottom: 24rpx;
+}
+.card-flat {
+  background: rgba(255, 255, 255, .8);
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8rpx 0 20rpx;
+}
+.section-title .t { font-size: 32rpx; font-weight: 800; }
+
+/* ---------- 行 / 栅格 ---------- */
+.row { display: flex; align-items: center; }
+.row-between { display: flex; align-items: center; justify-content: space-between; }
+.row-wrap { display: flex; flex-wrap: wrap; }
+.gap-8 { gap: 16rpx; }
+.gap-12 { gap: 24rpx; }
+.col { display: flex; flex-direction: column; }
+.flex-1 { flex: 1; min-width: 0; }
+
+/* ---------- 药丸 / 标签 ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  height: 56rpx;
+  padding: 0 20rpx;
+  border-radius: 99rpx;
+  background: rgba(255, 255, 255, .9);
+  font-size: 24rpx;
+  font-weight: 700;
+  box-shadow: 0 4rpx 12rpx rgba(103, 76, 40, .08);
+}
+.pill-purple { background: var(--purple-soft); color: var(--purple); }
+.pill-orange { background: #FFEEDC; color: var(--orange-deep); }
+.pill-mint { background: #E3F8F5; color: #12897C; }
+.pill-blue { background: #E6EFFE; color: var(--blue); }
+.pill-red { background: #FDEAEC; color: var(--red); }
+.pill-green { background: #E4F6EC; color: var(--green); }
+
+/* ---------- 按钮 ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  padding: 0 32rpx;
+  border-radius: 99rpx;
+  font-size: 30rpx;
+  font-weight: 800;
+  background: #F3ECE2;
+  color: var(--ink);
+  box-shadow: 0 6rpx 0 rgba(0, 0, 0, .04);
+  transition: transform .12s ease;
+}
+.btn-primary { background: linear-gradient(135deg, #8A72FF, var(--purple)); color: #fff; box-shadow: 0 8rpx 0 #4E38C7; }
+.btn-orange { background: linear-gradient(135deg, #FFC93C, var(--orange)); color: #5A3410; box-shadow: 0 8rpx 0 #E9883A; }
+.btn-mint { background: linear-gradient(135deg, #5FD8C8, var(--mint)); color: #fff; box-shadow: 0 8rpx 0 #159B8D; }
+.btn-soft { background: var(--purple-soft); color: var(--purple); box-shadow: none; }
+.btn-ghost { background: transparent; color: var(--purple); box-shadow: none; }
+.btn-danger { background: #FDEAEC; color: var(--red); box-shadow: none; }
+.btn-mini { height: 64rpx; padding: 0 24rpx; font-size: 24rpx; }
+.btn-block { width: 100%; }
+.btn[disabled] { opacity: .5; }
+.btn-hover { transform: translateY(2rpx); }
+
+/* ---------- 进度条 ---------- */
+.bar {
+  height: 16rpx;
+  border-radius: 99rpx;
+  background: #F1E9DE;
+  overflow: hidden;
+}
+.bar-inner {
+  height: 100%;
+  border-radius: 99rpx;
+  background: linear-gradient(90deg, #8A72FF, var(--purple));
+  transition: width .4s ease;
+}
+.bar-inner-mint { background: linear-gradient(90deg, #5FD8C8, var(--mint)); }
+.bar-inner-orange { background: linear-gradient(90deg, #FFC93C, var(--orange)); }
+
+/* ---------- 空态 ---------- */
+.empty {
+  padding: 80rpx 40rpx;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-icon { font-size: 90rpx; display: block; margin-bottom: 20rpx; }
+
+/* ---------- 输入 ---------- */
+.field { display: block; margin-bottom: 24rpx; }
+.field-label { display: block; font-size: 26rpx; font-weight: 700; margin-bottom: 12rpx; }
+.input, .textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border: 2rpx solid var(--line);
+  border-radius: 18rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  min-height: 80rpx;
+}
+.textarea { min-height: 160rpx; }
+.picker-view {
+  background: #fff;
+  border: 2rpx solid var(--line);
+  border-radius: 18rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.picker-arrow { color: var(--muted); font-size: 22rpx; }
+
+/* ---------- 图片 ---------- */
+.thumb {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 16rpx;
+  background: #F3ECE2;
+}
+.thumbs { display: flex; flex-wrap: wrap; gap: 12rpx; }
+.thumbs-item { position: relative; }
+.thumbs-del {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 99rpx;
+  background: rgba(0, 0, 0, .6);
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- 顶栏状态条 ---------- */
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-bottom: 20rpx;
+}
+.statusbar .spacer { flex: 1; }
+
+/* ---------- 徽章 ---------- */
+.badge {
+  width: 160rpx;
+  padding: 20rpx 8rpx;
+  border-radius: 20rpx;
+  background: #F6F1E9;
+  text-align: center;
+  opacity: .45;
+}
+.badge-got { opacity: 1; background: linear-gradient(160deg, #FFF3D6, #FFE2B8); }
+.badge-icon { font-size: 46rpx; display: block; }
+.badge-name { font-size: 22rpx; font-weight: 700; margin-top: 6rpx; }
+.badge-prog { font-size: 20rpx; color: var(--muted); margin-top: 2rpx; }
+
+/* ---------- 分隔 ---------- */
+.divider { height: 2rpx; background: var(--line); margin: 24rpx 0; }

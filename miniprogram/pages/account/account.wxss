@@ -1,0 +1,63 @@
+/* ---------- 账号块 ---------- */
+.acct-head { display: flex; align-items: center; gap: 20rpx; }
+.acct-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  flex: none;
+  border-radius: 50%;
+  background: var(--purple-soft);
+  font-size: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.acct-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.acct-name { font-size: 30rpx; font-weight: 800; }
+.acct-actions { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 20rpx; }
+
+/* ---------- 第三方登录 ---------- */
+.oauth-btn { margin-bottom: 10rpx; }
+.oauth-note { display: block; margin-bottom: 20rpx; line-height: 1.5; }
+
+/* ---------- 分段切换 ---------- */
+.seg {
+  display: flex;
+  background: #F3ECE2;
+  border-radius: 99rpx;
+  padding: 6rpx;
+  margin-bottom: 24rpx;
+}
+.seg-item {
+  flex: 1;
+  height: 68rpx;
+  border-radius: 99rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--muted);
+}
+.seg-item.on {
+  background: #fff;
+  color: var(--purple);
+  box-shadow: 0 4rpx 12rpx rgba(103, 76, 40, .1);
+}
+
+/* ---------- 表单 ---------- */
+.err { display: block; color: var(--red); font-size: 22rpx; margin-top: 10rpx; }
+.code-btn { flex: none; }
+.submit-btn { margin-top: 8rpx; }
+
+.msg {
+  margin-top: 20rpx;
+  padding: 18rpx 22rpx;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+.msg-ok { background: #E4F6EC; color: var(--green); }
+.msg-error { background: #FDEAEC; color: var(--red); }
+
+.privacy { display: block; text-align: center; line-height: 1.6; margin-bottom: 20rpx; }
+.back-btn { margin-bottom: 20rpx; }

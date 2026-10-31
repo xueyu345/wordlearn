@@ -1,0 +1,90 @@
+/* 数学错题本主页 */
+.math-hero { padding-bottom: 24rpx; }
+
+.eyebrow {
+  display: block;
+  color: var(--muted);
+  font-size: 20rpx;
+  font-weight: 800;
+  letter-spacing: 2rpx;
+}
+
+.hero-sub {
+  display: block;
+  color: var(--muted);
+  font-size: 24rpx;
+  line-height: 1.6;
+  margin: 12rpx 0 20rpx;
+}
+
+.hero-actions { display: flex; align-items: center; gap: 16rpx; flex-wrap: wrap; }
+.review-picker { display: inline-block; }
+
+.stat-row {
+  display: flex;
+  margin-top: 26rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid var(--line);
+}
+.stat { flex: 1; text-align: center; }
+.stat-num { display: block; font-size: 40rpx; font-weight: 800; line-height: 1.2; }
+.stat-num.is-todo { color: var(--orange-deep); }
+.stat-num.is-done { color: var(--green); }
+.stat-num.is-rate { color: var(--purple); }
+.stat-label { display: block; font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+
+.kp-grid { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.kp-card {
+  width: calc(50% - 8rpx);
+  box-sizing: border-box;
+  background: #FFFDF8;
+  border: 2rpx solid var(--line);
+  border-radius: 20rpx;
+  padding: 20rpx;
+}
+.kp-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 26rpx;
+  font-weight: 800;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.kp-bar { margin: 14rpx 0 10rpx; }
+
+.search-card { padding: 20rpx; }
+.chips { margin-top: 16rpx; }
+
+.math-item { padding: 24rpx; }
+.math-item.is-done { opacity: .72; }
+.math-tags { display: flex; flex-wrap: wrap; gap: 10rpx; margin-bottom: 14rpx; }
+.math-q { font-size: 30rpx; font-weight: 700; line-height: 1.55; }
+.math-line { font-size: 26rpx; color: var(--muted); margin-top: 8rpx; line-height: 1.6; }
+.math-mine { color: #B99C86; }
+.math-thumbs { margin-top: 16rpx; }
+
+.item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12rpx;
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx solid var(--line);
+}
+.act {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60rpx;
+  padding: 0 20rpx;
+  border-radius: 99rpx;
+  background: var(--purple-soft);
+  color: var(--purple);
+  font-size: 24rpx;
+  font-weight: 700;
+}
+.act-danger { background: #FDEAEC; color: var(--red); }
+.act-hover { opacity: .7; }
+
+.ph { color: #B7ABBE; }

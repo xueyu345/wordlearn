@@ -1,0 +1,146 @@
+<view class="page">
+
+  <!-- 档案摘要 -->
+  <view class="hero">
+    <view class="hero-eyebrow">
+      <text class="hero-dot"></text>
+      <text>{{gradeLabel}} · {{bookName}} · 每天 10 分钟</text>
+    </view>
+    <view class="hero-title">每天一点点<text class="hero-title-block">单词记得牢！</text></view>
+    <view class="hero-desc">听一听、读一读、拼一拼，跟着学习通把英语单词装进口袋。今天也来认识 {{goal}} 个新朋友吧！</view>
+    <view class="hero-actions">
+      <view class="btn btn-white" bindtap="startDaily">🚀 开始今日学习</view>
+      <view class="btn btn-ghost-light" bindtap="goMixed">🎲 随机挑战</view>
+    </view>
+    <text class="hero-mascot">🦉</text>
+  </view>
+
+  <!-- 三块统计 -->
+  <view class="stats">
+    <view class="panel panel-goal">
+      <view class="goal-ring">
+        <text class="goal-num">{{goalNum}}</text>
+        <text class="goal-den">/ {{goal}}</text>
+      </view>
+      <view class="panel-copy">
+        <text class="panel-kicker">今日目标</text>
+        <view class="panel-h3">{{goalTitle}}</view>
+        <view class="panel-p">{{goalSub}}</view>
+        <view class="bar bar-slim">
+          <view class="bar-inner bar-inner-orange" style="width:{{goalPercent}}%"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="panel">
+      <text class="panel-icon">🔥</text>
+      <view class="panel-copy">
+        <text class="panel-kicker">连续打卡</text>
+        <view class="panel-h3">{{streak}} 天</view>
+        <view class="week-dots">
+          <view class="day-dot {{item.done ? 'done' : ''}} {{item.today ? 'today' : ''}}" wx:for="{{weekDots}}" wx:key="label">
+            <text class="dot-face">{{item.done ? '✓' : ''}}</text>
+            <text class="dot-label">{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="panel">
+      <text class="panel-icon">📚</text>
+      <view class="panel-copy">
+        <text class="panel-kicker">单词宝库</text>
+        <view class="panel-h3">{{learnedTotal}} / {{allTotal}}</view>
+        <view class="panel-p">已经认识的单词 · 掌握 {{mastery}}%</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日推荐主题 -->
+  <view class="section-title">
+    <text class="t">今日推荐主题</text>
+    <text class="muted">学得最少的那个，先拿下它</text>
+  </view>
+  <view class="card daily-card" wx:if="{{dailyUnit}}" style="{{dailyUnit.cardStyle}}" bindtap="startDaily">
+    <view class="daily-left">
+      <text class="daily-emoji">{{dailyUnit.emoji}}</text>
+      <view class="daily-copy">
+        <view class="h3">{{dailyUnit.name}}</view>
+        <view class="muted">{{dailyUnit.en}} · {{dailyUnit.count}} 个单词</view>
+        <view class="muted">已学 {{dailyUnit.learned}} / {{dailyUnit.count}}</view>
+      </view>
+    </view>
+    <text class="daily-go">开始 →</text>
+  </view>
+
+  <!-- 四种玩法 -->
+  <view class="section-title">
+    <text class="t">选一种玩法</text>
+    <text class="muted" wx:if="{{dailyUnit}}">用「{{dailyUnit.name}}」开始</text>
+  </view>
+  <view class="mode-wrap">
+    <view class="mode-card" wx:for="{{modes}}" wx:key="key" data-key="{{item.key}}" data-path="{{item.path}}" bindtap="openMode" style="background:{{item.soft}}">
+      <text class="mode-icon">{{item.emoji}}</text>
+      <view class="mode-info">
+        <view class="mode-name" style="color:{{item.color}}">{{item.name}}</view>
+        <view class="mode-desc">{{item.desc}}</view>
+      </view>
+      <text class="mode-arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 全部主题 -->
+  <view class="section-title">
+    <text class="t">选一个主题开始</text>
+    <text class="muted">由易到难 · 慢慢来</text>
+  </view>
+  <view class="muted unit-hint">{{unitHint}}</view>
+  <view class="unit-grid">
+    <view class="unit-card" wx:for="{{units}}" wx:key="id" data-id="{{item.id}}" bindtap="openUnit" style="{{item.cardStyle}}">
+      <view class="unit-top">
+        <text class="unit-emoji">{{item.emoji}}</text>
+        <text class="unit-count">{{item.count}} 词</text>
+      </view>
+      <view class="unit-name">{{item.name}}</view>
+      <view class="unit-en">{{item.en}}</view>
+      <view class="unit-progress">
+        <view class="bar"><view class="bar-inner" style="{{item.barStyle}}"></view></view>
+        <view class="unit-meta">
+          <text>已学 {{item.learned}}/{{item.count}}</text>
+          <text>{{item.tipText}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 混合大挑战 -->
+  <view class="mixed-banner" bindtap="goMixed">
+    <text class="mixed-emoji">🎲</text>
+    <view class="mixed-copy">
+      <view class="bold">混合大挑战</view>
+      <view class="mixed-small">{{mixedHint}}</view>
+    </view>
+    <text class="mixed-go">开始 →</text>
+  </view>
+
+  <!-- 错词 -->
+  <view class="card wrong-card">
+    <view class="row-between">
+      <view>
+        <view class="h3">我的错词本</view>
+        <view class="muted">还有 {{wrongCount}} 个单词需要多见几面</view>
+      </view>
+      <text class="wrong-emoji">🌱</text>
+    </view>
+    <view class="wrong-actions">
+      <view class="btn btn-mini btn-soft" bindtap="goWrongQuiz">🎯 错词挑战</view>
+      <view class="btn btn-mini btn-primary" bindtap="goWrongBook">📒 打开错词本</view>
+    </view>
+  </view>
+
+  <view class="tip-card">
+    <text class="tip-icon">💡</text>
+    <text class="tip-text"><text class="bold">学习秘诀：</text>先听发音，再大声跟读；做错的单词会住进「错词本」，常回去看看它们，很快就会变成好朋友啦。</text>
+  </view>
+
+</view>

@@ -1,0 +1,41 @@
+<view class="page quiz-page">
+  <view class="statusbar">
+    <view class="pill pill-purple" bindtap="onBack">← 返回</view>
+    <view class="spacer"></view>
+    <view class="pill pill-orange">{{title}}</view>
+  </view>
+
+  <view class="row-between meta-row">
+    <text class="muted bold">{{stepText}}</text>
+    <view class="row hearts">
+      <text class="heart {{item.lost ? 'lost' : ''}}" wx:for="{{hearts}}" wx:key="key">{{item.icon}}</text>
+    </view>
+    <text class="pill pill-mint mini-pill">{{streakText}}</text>
+  </view>
+
+  <view class="bar">
+    <view class="bar-inner" style="width: {{barPercent}}%;"></view>
+  </view>
+
+  <view class="card q-card">
+    <view class="q-top">
+      <text class="q-label">{{q.label}}</text>
+      <text class="q-number">Q{{q.number}}</text>
+    </view>
+    <text class="q-emoji-big" wx:if="{{q.emoji}}">{{q.emoji}}</text>
+    <text class="q-word-big" wx:if="{{q.word}}">{{q.word}}</text>
+    <text class="q-ipa" wx:if="{{q.ipa}}">{{q.ipa}}</text>
+    <text class="q-zh-big" wx:if="{{q.zh}}">{{q.zh}}</text>
+    <text class="q-hint" wx:if="{{q.hint}}">{{q.hint}}</text>
+  </view>
+
+  <view class="options">
+    <view class="option-btn {{item.cls}}" wx:for="{{options}}" wx:key="key" data-index="{{index}}" bindtap="onSelect" hover-class="option-hover">
+      <text class="option-key">{{item.keyText}}</text>
+      <text class="option-text">{{item.label}}</text>
+      <text class="mark" wx:if="{{item.mark}}">{{item.mark}}</text>
+    </view>
+  </view>
+
+  <view class="feedback-line {{feedback.cls}}" wx:if="{{feedback.text}}">{{feedback.text}}</view>
+</view>

@@ -1,0 +1,76 @@
+<view class="page">
+  <view class="card form-card">
+    <view class="form-head">
+      <view class="h1">{{title}}</view>
+      <text class="muted">题目可以直接打字，也可以拍照或截图贴上来。图片只存在你自己的设备上。</text>
+    </view>
+
+    <!-- 题目（必填） -->
+    <view class="field">
+      <text class="field-label">题目 <text class="req">必填</text></text>
+      <textarea class="textarea {{qCls}}" placeholder="例如：小明有 24 颗糖，平均分给 6 个小朋友，每人分到几颗？" placeholder-class="ph" maxlength="300" value="{{q}}" bindinput="onField" data-key="q" auto-height></textarea>
+    </view>
+
+    <!-- 题目图片（可选，最多 3 张） -->
+    <view class="field">
+      <text class="field-label">题目图片 <text class="opt">可选，最多 3 张（{{images.length}}/3）</text></text>
+      <view class="image-drop" bindtap="onChooseImage">
+        <text class="image-drop-hint">📷 点击拍照或从相册选图</text>
+      </view>
+      <view class="thumbs image-preview" wx:if="{{hasImages}}">
+        <view class="thumbs-item" wx:for="{{images}}" wx:for-item="img" wx:key="*this">
+          <image class="thumb" src="{{img}}" mode="aspectFill" data-index="{{index}}" bindtap="onPreviewImage"></image>
+          <view class="thumbs-del" data-index="{{index}}" catchtap="onRemoveImage">✕</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">我的答案 <text class="opt">可选</text></text>
+      <input class="input" type="text" placeholder="当时写的答案" placeholder-class="ph" value="{{myAnswer}}" bindinput="onField" data-key="myAnswer" />
+    </view>
+
+    <view class="field">
+      <text class="field-label">正确答案 <text class="opt">可选，不填也能先记下来</text></text>
+      <input class="input" type="text" placeholder="还没对答案？可以先空着，以后再补" placeholder-class="ph" value="{{a}}" bindinput="onField" data-key="a" />
+    </view>
+
+    <!-- 知识点（必填，预设 + 自定义） -->
+    <view class="field">
+      <text class="field-label">知识点 <text class="req">必填</text></text>
+      <picker mode="selector" range="{{kpOptions}}" value="{{kpIndex}}" bindchange="onKpChange">
+        <view class="picker-view">
+          <text>{{kpLabel}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="field" wx:if="{{showNewKp}}">
+      <text class="field-label">新的知识点名称</text>
+      <input class="input {{newKpCls}}" type="text" placeholder="例如：两位数乘法、分数加减" placeholder-class="ph" maxlength="20" value="{{newKp}}" bindinput="onField" data-key="newKp" />
+    </view>
+
+    <!-- 题型（可选） -->
+    <view class="field">
+      <text class="field-label">题型 <text class="opt">可选</text></text>
+      <picker mode="selector" range="{{typeOptions}}" value="{{typeIndex}}" bindchange="onTypeChange">
+        <view class="picker-view">
+          <text>{{typeLabel}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 错在哪（可选） -->
+    <view class="field">
+      <text class="field-label">错在哪 <text class="opt">可选，写下来更容易记住</text></text>
+      <textarea class="textarea" placeholder="例如：忘记进位 / 看错单位 / 计算粗心" placeholder-class="ph" maxlength="120" value="{{why}}" bindinput="onField" data-key="why" auto-height></textarea>
+    </view>
+
+    <view class="form-actions">
+      <view class="btn btn-soft" bindtap="onCancel">取消</view>
+      <view class="btn btn-primary" bindtap="onSubmit">{{saveText}}</view>
+    </view>
+  </view>
+</view>

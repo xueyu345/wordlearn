@@ -1,0 +1,57 @@
+.result-page { padding-top: 24rpx; }
+
+.result-card { text-align: center; padding: 44rpx 28rpx; }
+.result-badge { display: block; font-size: 110rpx; }
+.result-kicker {
+  display: block;
+  font-size: 22rpx;
+  font-weight: 800;
+  letter-spacing: 4rpx;
+  color: var(--muted);
+  margin-top: 8rpx;
+}
+.result-title { display: block; font-size: 44rpx; font-weight: 800; margin-top: 10rpx; }
+.result-desc {
+  display: block;
+  font-size: 27rpx;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 16rpx;
+}
+
+.result-stars { display: flex; justify-content: center; gap: 14rpx; margin: 24rpx 0 8rpx; }
+.star { font-size: 56rpx; color: #E4DCCF; }
+.star.on { color: var(--yellow); }
+
+.result-stats {
+  display: flex;
+  margin-top: 24rpx;
+  background: #FBF6EE;
+  border-radius: 20rpx;
+  padding: 20rpx 0;
+}
+.result-stat { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.stat-value { font-size: 34rpx; font-weight: 800; }
+.stat-label { font-size: 22rpx; color: var(--muted); margin-top: 6rpx; }
+
+.result-words { margin-top: 32rpx; text-align: left; }
+.word-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 4rpx;
+  border-bottom: 2rpx solid var(--line);
+}
+.word-mark { width: 44rpx; font-size: 28rpx; font-weight: 800; }
+.word-mark.ok { color: var(--green); }
+.word-mark.no { color: var(--red); }
+.word-w { font-size: 28rpx; font-weight: 700; width: 240rpx; }
+.word-zh { font-size: 26rpx; color: var(--muted); flex: 1; }
+
+.result-actions { margin-top: 32rpx; display: flex; flex-direction: column; gap: 18rpx; }
+.result-home {
+  margin-top: 24rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--purple);
+  font-weight: 700;
+}

@@ -1,0 +1,45 @@
+<view class="page">
+
+  <view class="wrong-head">
+    <view>
+      <view class="h1">我的错词本</view>
+      <view class="wrong-sub">{{subText}}</view>
+    </view>
+    <text class="wrong-head-emoji">📒</text>
+  </view>
+
+  <view class="wrong-bar">
+    <text class="wrong-count">共 {{count}} 个错词</text>
+    <view class="wrong-bar-actions">
+      <view class="btn btn-mini btn-soft" bindtap="goPaper">📝 错词组卷</view>
+      <view class="btn btn-mini btn-primary {{count ? '' : 'btn-disabled'}}" bindtap="goChallenge">🎯 错词挑战</view>
+    </view>
+  </view>
+
+  <view class="wrong-list" wx:if="{{hasWords}}">
+    <view class="wrong-item" wx:for="{{words}}" wx:key="id">
+      <text class="wrong-emoji">{{item.emoji}}</text>
+      <view class="wrong-main">
+        <view class="wrong-word">
+          <text class="bold">{{item.w}}</text>
+          <text class="wrong-ipa">{{item.ipa}}</text>
+        </view>
+        <view class="wrong-zh">{{item.zh}}</view>
+        <view class="wrong-example">
+          <text class="wrong-en">{{item.en}}</text>
+          <text class="wrong-cn">{{item.cn}}</text>
+        </view>
+        <text class="wrong-times">错 {{item.wrongCount}} 次</text>
+      </view>
+      <view class="btn btn-mini btn-keep" data-id="{{item.id}}" bindtap="removeWrong">✅ 记住了</view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!hasWords}}">
+    <text class="empty-icon">🌱</text>
+    <view class="h2">错词本是空的</view>
+    <view class="empty-p">说明你记得很牢！去学几个新单词，或者挑战一下混合大挑战吧。</view>
+    <view class="btn btn-primary empty-btn" bindtap="goStudy">去学新单词</view>
+  </view>
+
+</view>

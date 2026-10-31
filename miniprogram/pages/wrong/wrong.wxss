@@ -1,0 +1,68 @@
+/* 英语错词本 */
+
+.wrong-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+}
+.wrong-head .h1 { margin-bottom: 8rpx; }
+.wrong-sub { font-size: 24rpx; color: #8B7F9B; line-height: 1.6; }
+.wrong-head-emoji { font-size: 84rpx; margin-left: 20rpx; }
+
+.wrong-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFEEDC;
+  border-radius: 20rpx;
+  padding: 18rpx 24rpx;
+  margin-bottom: 28rpx;
+}
+.wrong-count { font-size: 26rpx; font-weight: 800; color: #F0701C; }
+.wrong-bar-actions { display: flex; gap: 12rpx; flex-shrink: 0; }
+.btn-disabled { opacity: .5; }
+
+.wrong-list { display: flex; flex-direction: column; gap: 20rpx; }
+.wrong-item {
+  background: #fff;
+  border-radius: 26rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8rpx 22rpx rgba(103, 76, 40, .08);
+  border-left: 8rpx solid #FDEAEC;
+}
+.wrong-emoji { font-size: 60rpx; margin-right: 20rpx; }
+.wrong-main { flex: 1; min-width: 0; }
+.wrong-word { display: flex; align-items: baseline; }
+.wrong-word .bold { font-size: 32rpx; margin-right: 14rpx; }
+.wrong-ipa { font-size: 22rpx; color: #8B7F9B; }
+.wrong-zh { font-size: 26rpx; color: #6B5F7C; margin-top: 2rpx; }
+.wrong-example {
+  margin-top: 12rpx;
+  background: #FFF9F1;
+  border-radius: 16rpx;
+  padding: 14rpx 18rpx;
+}
+.wrong-en { display: block; font-size: 24rpx; line-height: 1.5; }
+.wrong-cn { display: block; font-size: 22rpx; color: #8B7F9B; margin-top: 2rpx; }
+.wrong-times {
+  display: inline-block;
+  margin-top: 12rpx;
+  font-size: 20rpx;
+  font-weight: 800;
+  color: #EF5B65;
+  background: #FDEAEC;
+  border-radius: 99rpx;
+  padding: 4rpx 16rpx;
+}
+.btn-keep {
+  margin-left: 18rpx;
+  background: #E4F6EC;
+  color: #2FAE72;
+  flex-shrink: 0;
+}
+
+.empty-p { font-size: 25rpx; line-height: 1.7; margin-top: 12rpx; }
+.empty-btn { margin-top: 36rpx; }

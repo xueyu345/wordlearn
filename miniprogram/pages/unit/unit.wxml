@@ -1,0 +1,72 @@
+<view class="page" wx:if="{{hasUnit}}">
+
+  <!-- 主题头部 -->
+  <view class="unit-banner" style="{{bannerStyle}}">
+    <text class="unit-banner-emoji">{{emoji}}</text>
+    <view class="unit-banner-copy">
+      <text class="unit-kicker">主题课程 · {{enUpper}}</text>
+      <view class="h1 unit-banner-name">{{name}}</view>
+      <view class="unit-banner-desc">{{desc}}。先认、再读、后拼，把单词记得牢牢的。</view>
+      <view class="banner-progress">
+        <view class="bar"><view class="bar-inner" style="{{barStyle}}"></view></view>
+        <text class="banner-small">已学 {{learned}} / {{count}}</text>
+      </view>
+    </view>
+    <view class="unit-banner-badge" style="{{badgeStyle}}">
+      <text class="badge-num">{{count}}</text>
+      <text class="badge-unit">个单词</text>
+    </view>
+  </view>
+
+  <!-- 四种玩法 -->
+  <view class="section-title">
+    <text class="t">选一种玩法</text>
+    <text class="muted">先学一学，再闯关，记得更牢</text>
+  </view>
+  <view class="mode-wrap">
+    <view class="mode-card" wx:for="{{modes}}" wx:key="key" data-path="{{item.path}}" bindtap="openMode" style="background:{{item.soft}}">
+      <text class="mode-icon">{{item.emoji}}</text>
+      <view class="mode-info">
+        <view class="mode-name" style="color:{{item.color}}">{{item.name}}</view>
+        <view class="mode-desc">{{item.desc}}</view>
+      </view>
+      <text class="mode-arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 单词列表 -->
+  <view class="section-title">
+    <text class="t">本主题单词</text>
+    <text class="muted">{{count}} 个单词</text>
+  </view>
+  <view class="muted word-hint">点一点单词卡，看看例句怎么用</view>
+  <view class="word-grid">
+    <view class="word-chip {{item.learned ? 'learned' : ''}} {{item.open ? 'open' : ''}}" wx:for="{{words}}" wx:key="id" data-id="{{item.id}}" bindtap="toggleWord">
+      <view class="chip-row">
+        <text class="chip-emoji">{{item.emoji}}</text>
+        <view class="chip-text">
+          <view class="chip-w">
+            <text class="bold">{{item.w}}</text>
+            <text class="chip-ipa">{{item.ipa}}</text>
+          </view>
+          <text class="chip-zh">{{item.zh}}</text>
+        </view>
+        <text class="chip-mark">{{item.learned ? '✓' : '·'}}</text>
+      </view>
+      <view class="chip-example" wx:if="{{item.open}}">
+        <text class="chip-en">{{item.en}}</text>
+        <text class="chip-cn">{{item.cn}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view class="page" wx:if="{{!hasUnit}}">
+  <view class="empty">
+    <text class="empty-icon">🔍</text>
+    <view class="h3">没有找到这个主题</view>
+    <view class="muted">可能教材或年级切换了，回英语主页重新选一个吧。</view>
+    <view class="btn btn-primary back-home" bindtap="goBack">回到英语主页</view>
+  </view>
+</view>

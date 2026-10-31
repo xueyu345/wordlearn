@@ -1,0 +1,91 @@
+<view class="page">
+
+  <!-- 当前登录状态 -->
+  <view class="card" wx:if="{{logged}}">
+    <view class="section-title"><text class="t">当前账号</text></view>
+    <view class="acct-head">
+      <view class="acct-avatar">🙂</view>
+      <view class="acct-main">
+        <text class="acct-name">{{accountName}}</text>
+        <text class="muted tiny">{{accountDesc}}</text>
+      </view>
+      <text class="pill pill-mint">已登录</text>
+    </view>
+    <view class="acct-actions">
+      <view class="btn btn-danger btn-mini" bindtap="onSignOut">退出登录</view>
+    </view>
+  </view>
+
+  <!-- 第三方登录 -->
+  <view class="card">
+    <view class="section-title"><text class="t">一键登录</text></view>
+
+    <view class="btn btn-mint btn-block oauth-btn" hover-class="btn-hover" bindtap="onWechatLogin">
+      <text>微信一键登录</text>
+    </view>
+    <text class="muted tiny oauth-note">用当前微信身份直接登录，不用填手机号。</text>
+
+    <view class="btn btn-primary btn-block oauth-btn" hover-class="btn-hover" bindtap="onWorkBuddyLogin">
+      <text>WorkBuddy 账号登录</text>
+    </view>
+    <text class="muted tiny oauth-note">会跳转到 WorkBuddy 小程序授权，完成后自动回到这里。</text>
+  </view>
+
+  <!-- 验证码登录 -->
+  <view class="card">
+    <view class="section-title"><text class="t">验证码登录 / 注册</text></view>
+
+    <view class="seg">
+      <view class="seg-item {{isPhone ? 'on' : ''}}" data-channel="phone" bindtap="onChannelSwitch">
+        <text>手机号</text>
+      </view>
+      <view class="seg-item {{isPhone ? '' : 'on'}}" data-channel="email" bindtap="onChannelSwitch">
+        <text>邮箱</text>
+      </view>
+    </view>
+
+    <view class="field" wx:if="{{isPhone}}">
+      <text class="field-label">手机号</text>
+      <input class="input" type="number" maxlength="11" placeholder="11 位手机号"
+        value="{{phone}}" bindinput="onPhoneInput" />
+      <text class="err" wx:if="{{phoneError}}">{{phoneError}}</text>
+    </view>
+
+    <view class="field" wx:else>
+      <text class="field-label">邮箱</text>
+      <input class="input" type="text" placeholder="you@example.com"
+        value="{{email}}" bindinput="onEmailInput" />
+      <text class="err" wx:if="{{emailError}}">{{emailError}}</text>
+    </view>
+
+    <view class="field">
+      <view class="row-between">
+        <text class="field-label">验证码</text>
+        <view class="btn btn-soft btn-mini code-btn" hover-class="btn-hover" bindtap="onSendCode">
+          <text wx:if="{{countdown > 0}}">{{countdown}} 秒后可重发</text>
+          <text wx:elif="{{sending}}">发送中…</text>
+          <text wx:elif="{{sent}}">重新发送</text>
+          <text wx:else>获取验证码</text>
+        </view>
+      </view>
+      <input class="input" type="number" maxlength="8" placeholder="收到的验证码"
+        value="{{code}}" bindinput="onCodeInput" />
+      <text class="err" wx:if="{{codeError}}">{{codeError}}</text>
+    </view>
+
+    <view class="btn btn-orange btn-block submit-btn" hover-class="btn-hover" bindtap="onSubmit">
+      <text>{{busy ? '登录中…' : '登录 / 注册'}}</text>
+    </view>
+
+    <view class="msg msg-{{msgType}}" wx:if="{{msgText}}">
+      <text>{{msgText}}</text>
+    </view>
+  </view>
+
+  <text class="muted tiny privacy">登录只是为了把进度同步到你自己的账号；不登录也能正常学习，记录只保存在本机。</text>
+
+  <view class="btn btn-ghost btn-block back-btn" hover-class="btn-hover" bindtap="goBack">
+    <text>先不登录，回去学习</text>
+  </view>
+
+</view>

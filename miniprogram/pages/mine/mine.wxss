@@ -1,0 +1,34 @@
+/* ---------- 账号块 ---------- */
+.acct-head { display: flex; align-items: center; gap: 20rpx; }
+.acct-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  flex: none;
+  border-radius: 50%;
+  background: var(--purple-soft);
+  color: var(--purple);
+  font-size: 36rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.acct-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.acct-name { font-size: 30rpx; font-weight: 800; }
+
+.acct-actions { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 20rpx; }
+.data-actions { margin-top: 16rpx; }
+
+.note-line { display: block; margin-top: 16rpx; line-height: 1.5; }
+
+/* ---------- 设置行 ---------- */
+.set-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 20rpx 0;
+  border-top: 2rpx solid var(--line);
+}
+.set-label { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.set-row .muted { text-align: right; }
