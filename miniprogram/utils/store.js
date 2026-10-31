@@ -879,7 +879,7 @@ module.exports = {
   ROUND_CHOICES: ROUND_CHOICES,
   PREF_DEFAULTS: PREF_DEFAULTS,
   MATH_BOOKS: MATH_BOOKS,
-  APP_VERSION: '1.5.0',
+  APP_VERSION: '1.6.0',
   // 生命周期
   init: init,
   onChange: onChange,

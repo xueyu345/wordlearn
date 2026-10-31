@@ -9,7 +9,7 @@
 
 // 离线缓存号：每次发版（index.html 的 APP_VERSION）都要手动加一，
 // 否则老缓存不会失效，用户拿不到新页面。
-const VERSION = "v12";
+const VERSION = "v13";
 const SHELL_CACHE = "wordhero-shell-" + VERSION;
 const WORD_CACHE = "wordhero-words-" + VERSION;
 
