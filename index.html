@@ -2957,6 +2957,24 @@
   .paper-score-card strong { display: block; font-size: 22px; }
   .paper-score-card span { font-size: 12px; color: var(--muted); }
 
+  /* 单独一张答案纸 */
+  .paper-answer-sheet { margin-top: 26px; padding-top: 18px; border-top: 2px dashed var(--line); }
+  .paper-ans-title { font-size: 17px; font-weight: 800; margin: 0 0 4px; }
+  .paper-ans-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; line-height: 1.7; }
+  .paper-ans-sec { margin-top: 14px; }
+  .paper-ans-sec-title { font-size: 13.5px; font-weight: 800; margin: 0 0 6px; }
+  .paper-ans-row { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px dotted var(--line); font-size: 14px; line-height: 1.7; }
+  .paper-ans-num {
+    width: 24px; height: 24px; flex: 0 0 auto;
+    display: grid; place-items: center;
+    border-radius: 8px; font-size: 12.5px; font-weight: 800;
+    background: var(--purple-soft); color: var(--purple);
+  }
+  .paper-ans-val { font-weight: 800; }
+  .paper-ans-val.is-empty { font-weight: 400; color: var(--muted); }
+  .paper-ans-why { font-size: 12px; color: var(--muted); }
+  .paper-ans-print { margin-top: 16px; }
+
   @media (max-width: 680px) {
     .paper-sheet { padding: 20px 17px 24px; border-radius: 22px; }
     .paper-name { font-size: 21px; }
@@ -2982,6 +3000,21 @@
     .paper-q { break-inside: avoid; page-break-inside: avoid; border-bottom-color: #DDD; }
     .paper-sec { page-break-inside: auto; }
     .paper-score { break-inside: avoid; page-break-inside: avoid; }
+    /* 答案纸另起一页；题目卷上不出现答案 */
+    .paper-answer-sheet {
+      break-before: page; page-break-before: always;
+      border-top: 0; padding-top: 0; margin-top: 0;
+    }
+    .paper-ans-row { break-inside: avoid; page-break-inside: avoid; }
+    .paper-sheet.pa-none .paper-q-std,
+    .paper-sheet.pa-separate .paper-q-std { display: none !important; }
+    .paper-sheet.pa-none .paper-answer-sheet,
+    .paper-sheet.pa-inline .paper-answer-sheet { display: none !important; }
+    /* 只打印答案纸：题目部分全部隐掉 */
+    body.print-answer-only .paper-info-line,
+    body.print-answer-only .paper-score,
+    body.print-answer-only .paper-rule,
+    body.print-answer-only #paperBody { display: none !important; }
   }
 </style>
 <style id="__dm_no_drag_style__" data-page-node-id="DjddPwycsJIsDW85cPAEVz">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__" data-page-node-id="tR3N1vklkz7VWMSkL0P5Yi">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style><!-- 云服务 SDK（CDN 形式，暴露全局 WorkBuddyCloud）；主脚本在其后执行，初始化时机由 boot 保证 -->
@@ -4082,9 +4115,13 @@
       </div>
 
       <div class="form-field">
-        <label class="paper-switch" for="paperWithAnswer" style="font-size:14px;">
-          <input type="checkbox" id="paperWithAnswer"> 🖨️ 打印时附上正确答案（家长/老师批改用）
-        </label>
+        <label for="paperAnswerMode">打印时的答案</label>
+        <select id="paperAnswerMode">
+          <option value="none">不附答案（干净的学生卷）</option>
+          <option value="inline">答案附在每题后面</option>
+          <option value="separate">答案单独一张纸（推荐）</option>
+        </select>
+        <p class="paper-note">选「单独一张纸」时，题目卷上不出现答案，答案印在最后一页，也可以只打印答案纸。</p>
       </div>
 
       <p class="paper-note" id="paperNote"></p>
@@ -4124,6 +4161,7 @@
       <div class="paper-rule"></div>
       <div id="paperBody"></div>
       <p class="paper-note" style="margin-top:18px;">学习通 · 错题试卷　答错的题会留在错题本里继续练，答对的会自动往「已掌握」挪。</p>
+      <div class="paper-answer-sheet" id="paperAnswerSheet" hidden></div>
     </div>
   </section>
 
@@ -8221,7 +8259,8 @@
         title: (PAPER_CN_NUM[index] || (index + 1)) + "、" + section.title
       })),
       total: total,
-      withAnswer: $("#paperWithAnswer").checked,
+      answerMode: $("#paperAnswerMode").value || "none",
+      withAnswer: ($("#paperAnswerMode").value || "none") === "inline",
       graded: false,
       judged: 0,
       right: 0,
@@ -8307,6 +8346,8 @@
     $("#paperSetup").hidden = true;
     $("#paperSheet").hidden = false;
     $("#paperSubmitBtn").textContent = paper.graded ? "🔄 再来一份" : "✅ 交卷判分";
+    applyPaperPrintMode();
+    renderPaperAnswerSheet();
     renderPaperScore();
     setTitle(paper.title);
   }
@@ -8326,6 +8367,62 @@
       <div class="paper-score-card"><strong style="color:var(--green);">${paper.right}</strong><span>答对</span></div>
       <div class="paper-score-card"><strong style="color:var(--red);">${paper.wrong}</strong><span>答错</span></div>
       <div class="paper-score-card"><strong>${rate}%</strong><span>正确率</span></div>`;
+  }
+
+  /* ---------- 单独一张答案纸 ---------- */
+  // 给卷子打上 pa-none / pa-inline / pa-separate，打印时由 CSS 决定哪几块上纸
+  function applyPaperPrintMode() {
+    if (!paperSession) return;
+    const sheet = $("#paperSheet");
+    if (!sheet) return;
+    ["pa-none", "pa-inline", "pa-separate"].forEach((name) => sheet.classList.remove(name));
+    sheet.classList.add("pa-" + (paperSession.answerMode || "none"));
+  }
+
+  function renderPaperAnswerSheet() {
+    const paper = paperSession;
+    const box = $("#paperAnswerSheet");
+    if (!box) return;
+    if (!paper || paper.answerMode !== "separate") {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    let cursor = 0;
+    const sections = paper.sections.map((section) => {
+      const rows = section.items.map((item) => {
+        cursor += 1;
+        const value = item.answer
+          ? `<span class="paper-ans-val">${esc(item.answer)}</span>`
+          : '<span class="paper-ans-val is-empty">（当时没记答案）</span>';
+        return `<div class="paper-ans-row"><span class="paper-ans-num">${cursor}</span>${value}</div>`;
+      }).join("");
+      return `<div class="paper-ans-sec"><h3 class="paper-ans-sec-title">${esc(section.title)}</h3>${rows}</div>`;
+    }).join("");
+    box.hidden = false;
+    box.innerHTML = `
+      <h2 class="paper-ans-title">参考答案</h2>
+      <p class="paper-ans-sub">${esc(paper.title)} · 共 ${paper.total} 题 · ${new Date(paper.createdAt).toLocaleDateString("zh-CN")}</p>
+      ${sections}
+      <div class="paper-ans-print no-print">
+        <button class="btn btn-soft" type="button" id="paperPrintAnsBtn">🖨️ 只打印答案纸</button>
+      </div>`;
+    const btn = $("#paperPrintAnsBtn");
+    if (btn) btn.addEventListener("click", printAnswerSheet);
+  }
+
+  function printAnswerSheet() {
+    if (!paperSession) return;
+    if (paperSession.answerMode !== "separate") {
+      paperSession.answerMode = "separate";
+      applyPaperPrintMode();
+      renderPaperAnswerSheet();
+    }
+    const cleanup = () => document.body.classList.remove("print-answer-only");
+    document.body.classList.add("print-answer-only");
+    window.addEventListener("afterprint", cleanup, { once: true });
+    window.setTimeout(cleanup, 2000);
+    if (typeof window.print === "function") window.print();
   }
 
   /* ---------- 交卷 ---------- */
@@ -10452,9 +10549,23 @@
         return Boolean(item);
       },
       paperPrintCount: () => paperPrintCount,
+      printAnswerSheet,
+      // 答案纸：单独一张纸模式下的独立区块
+      getAnswerSheet: () => {
+        const box = $("#paperAnswerSheet");
+        return box ? { hidden: Boolean(box.hidden), html: box.innerHTML || "" } : null;
+      },
+      getPaperPrintMode: () => {
+        const sheet = $("#paperSheet");
+        if (!sheet) return "";
+        if (sheet.classList.contains("pa-separate")) return "separate";
+        if (sheet.classList.contains("pa-inline")) return "inline";
+        return "none";
+      },
       getPaper: () => (paperSession ? {
         title: paperSession.title,
         total: paperSession.total,
+        answerMode: paperSession.answerMode,
         graded: paperSession.graded,
         judged: paperSession.judged,
         right: paperSession.right,

@@ -365,14 +365,51 @@ async function settle(n = 6) { for (let i = 0; i < n; i += 1) await tick(); }
     beforePrint + " → " + api.paperPrintCount());
   check("真的调用了 window.print", printCalls === 1, String(printCalls));
 
-  section("[10] 附上正确答案");
+  section("[10] 答案附在题后");
   api.resetPaper();
   $("paperUseMath").checked = true;
   $("paperUseEn").checked = false;
   $("paperMathCount").value = "0";
-  $("paperWithAnswer").checked = true;
+  $("paperAnswerMode").value = "inline";
   api.buildPaper();
-  check("勾选后卷面直接带答案", $("paperBody").innerHTML.includes("正确答案"), $("paperBody").innerHTML.slice(0, 160));
+  check("选 inline 后卷面直接带答案", $("paperBody").innerHTML.includes("正确答案"), $("paperBody").innerHTML.slice(0, 160));
+  check("inline 模式不另出答案纸", api.getAnswerSheet().hidden === true);
+  check("卷子标记成 pa-inline", api.getPaperPrintMode() === "inline", api.getPaperPrintMode());
+
+  section("[10.5] 答案单独一张纸");
+  api.resetPaper();
+  $("paperUseMath").checked = true;
+  $("paperUseEn").checked = false;
+  $("paperMathCount").value = "0";
+  $("paperAnswerMode").value = "separate";
+  api.buildPaper();
+  const ansSheet = api.getAnswerSheet();
+  const sepItems = api.getPaper().sections[0].items;
+  const sepNums = (ansSheet.html.match(/paper-ans-num/g) || []).length;
+  check("卷子标记成 pa-separate", api.getPaperPrintMode() === "separate", api.getPaperPrintMode());
+  check("答案纸显示出来了", ansSheet.hidden === false);
+  check("答案纸有标题", ansSheet.html.includes("参考答案"));
+  check("题目卷上不带答案", !$("paperBody").innerHTML.includes("正确答案"));
+  check("答案纸题数与卷面一致", sepNums === sepItems.length, sepNums + " vs " + sepItems.length);
+  const sepFirst = sepItems.find((it) => it.answer);
+  check("答案纸里写着正确答案", !sepFirst || ansSheet.html.includes(sepFirst.answer),
+    sepFirst ? sepFirst.answer : "(没有记答案的题)");
+  const sepMissing = sepItems.filter((it) => !it.answer).length;
+  check("没记答案的题单独标注", sepMissing === 0
+    || (ansSheet.html.match(/当时没记答案/g) || []).length === sepMissing,
+    "缺答案 " + sepMissing + " 题 / 标注 " + ((ansSheet.html.match(/当时没记答案/g) || []).length));
+  check("题号连续从 1 开始", ansSheet.html.includes('paper-ans-num">1<'), ansSheet.html.slice(0, 200));
+
+  section("[10.6] 只打印答案纸");
+  const realSetTimeout = windowObj.setTimeout;
+  windowObj.setTimeout = () => 1; // 挡掉自动清理，好观察打印瞬间的状态
+  printCalls = 0;
+  api.printAnswerSheet();
+  check("调用了打印", printCalls === 1, String(printCalls));
+  check("打印时只留答案纸", document.body.classList.contains("print-answer-only"));
+  windowObj.setTimeout = realSetTimeout;
+  document.body.classList.remove("print-answer-only");
+  check("打印完答案纸还在", api.getPaperPrintMode() === "separate");
 
   section("[11] 错题本为空时不生成");
   api.resetPaper();
