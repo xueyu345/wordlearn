@@ -293,6 +293,38 @@
   .auth-hint { margin-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.6; }
   .oauth-note { margin-top: 8px; font-size: 10.5px; }
 
+  /* ---------- 人机验证（Cap） ---------- */
+  .auth-cap { margin-top: 12px; padding: 11px 12px; border: 1px dashed rgba(103, 76, 40, .34); border-radius: 14px; background: #FBF7F0; }
+  .auth-cap.is-required { border-color: var(--red); background: #FFF6F4; }
+  .auth-cap-head { display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 800; color: var(--ink); }
+  .auth-cap-head span[aria-hidden] { font-size: 13px; }
+  .auth-cap-slot { margin-top: 9px; min-height: 44px; display: flex; align-items: center; }
+  .auth-cap-note { margin-top: 8px; font-size: 10.5px; line-height: 1.6; color: var(--muted); }
+  .auth-cap-note.error { color: var(--red); }
+  .auth-cap-off { font-size: 10.5px; color: var(--muted); }
+  cap-widget {
+    --cap-background: #fff;
+    --cap-border-color: rgba(103, 76, 40, .28);
+    --cap-border-radius: 12px;
+    --cap-widget-height: 42px;
+    --cap-widget-width: 100%;
+    --cap-widget-padding: 12px;
+    --cap-gap: 12px;
+    --cap-color: var(--ink);
+    --cap-checkbox-size: 24px;
+    --cap-checkbox-border: 1px solid rgba(103, 76, 40, .38);
+    --cap-checkbox-border-radius: 7px;
+    --cap-checkbox-background: #FDFAF5;
+    --cap-checkbox-margin: 2px;
+    --cap-font: inherit;
+    --cap-spinner-color: var(--purple);
+    --cap-spinner-background-color: #EFE7DC;
+    --cap-spinner-thickness: 4px;
+    width: 100%;
+  }
+  .set-cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+  @media (max-width: 860px) { .set-cap-grid { grid-template-columns: 1fr; } }
+
   .channel-switch { display: flex; gap: 6px; margin-top: 10px; }
   .channel-btn {
     flex: 1 1 0;
@@ -3175,6 +3207,12 @@
               <button class="auth-tab" id="authForgot" type="button" style="height:auto;padding:0;flex:0 0 auto;text-decoration:underline;color:var(--purple)" data-page-node-id="T9cV6UWaiwHV7d95vy5Svx">忘记密码？</button>
             </p>
 
+            <div class="auth-cap" id="authCapWrap" hidden>
+              <div class="auth-cap-head"><span aria-hidden="true">🛡️</span> 人机验证</div>
+              <div class="auth-cap-slot" id="authCapSlot"></div>
+              <p class="auth-cap-note" id="authCapNote"></p>
+            </div>
+
             <div class="auth-divider" data-page-node-id="RmSPr8Fzn8CsOzOWCMdwZ5"><span data-page-node-id="uoSXNpDy64wcP9xxemHSDs">或</span></div>
             <div class="oauth-row" data-page-node-id="WDudQOZog7GEqdOvW59KiQ">
               <button class="oauth-btn oauth-wechat" id="authWechat" type="button" data-page-node-id="yOfwe0YfEtFVTBC4VDRkI0">
@@ -3984,6 +4022,51 @@
         </div>
       </section>
 
+      <!-- 人机验证（Cap） -->
+      <section class="settings-card" aria-labelledby="setCapTitle">
+        <h3 class="settings-title" id="setCapTitle">🛡️ 人机验证（Cap）</h3>
+        <p class="settings-desc">
+          登录、注册、获取验证码时先过一道 Cap 隐形验证（工作量证明 + 浏览器环境检测），
+          防止脚本刷短信和撞库。默认关闭，填好自建实例后才会启用。
+        </p>
+
+        <label class="paper-switch" for="setCapEnabled" style="font-size:14px;margin-top:10px;">
+          <input type="checkbox" id="setCapEnabled"> 启用人机验证
+        </label>
+
+        <div class="set-cap-grid">
+          <label class="field">
+            <span>实例地址（含 site key，结尾带 /）</span>
+            <input id="setCapEndpoint" type="url" inputmode="url" placeholder="https://cap.example.com/a1b2c3d4e5/" autocomplete="off" spellcheck="false">
+            <em class="field-error" id="setCapEndpointError"></em>
+          </label>
+          <label class="field">
+            <span>Secret key（sk- 开头）</span>
+            <input id="setCapSecret" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false">
+            <em class="field-error" id="setCapSecretError"></em>
+          </label>
+        </div>
+
+        <div class="settings-actions" style="margin-top:12px;">
+          <button class="btn btn-soft" id="setCapSave" type="button">💾 保存配置</button>
+          <button class="btn btn-mini" id="setCapTest" type="button">🔌 测试连通</button>
+        </div>
+        <p class="settings-note" id="setCapNote">
+          还没部署 Cap？它是 Apache 2.0 开源、可自托管的 reCAPTCHA 替代（Docker 一个容器 + Valkey），
+          官网 <a href="https://trycap.dev/zh/" target="_blank" rel="noopener">trycap.dev</a>。
+        </p>
+        <div class="settings-danger">
+          <div class="settings-label">
+            <strong>关于 secret key 的安全提示</strong>
+            <small>
+              当前是纯静态站点、没有自建后端，secret 只能随前端请求发出去，严格来说会被看到。
+              上线前请务必让验证走你自己的服务端（把 <code>/siteverify</code> 调用挪到后端），
+              并给这个站点单独建一个 site key，不要和其他项目复用。
+            </small>
+          </div>
+        </div>
+      </section>
+
       <!-- 数据与备份 -->
       <section class="settings-card" aria-labelledby="setDataTitle" data-page-node-id="OwSVwQ6RyDe20u6adaFPnm">
         <h3 class="settings-title" id="setDataTitle" data-page-node-id="galxaQ0bLnmwwUpiRWqtkS">💾 数据与备份</h3>
@@ -4024,6 +4107,7 @@
           <summary data-page-node-id="DTaZjApUbAjDGpqFDTiYVE">更新日志</summary>
           <ul class="settings-log" data-page-node-id="lV1seutVizr6L3baCdKIGt">
             <li><b>v1.5</b> 错题试卷：数学错题 + 英语错词汇总成一张卷子，在线作答自动判分，也能打印出来用笔写</li>
+            <li><b>v1.5</b> 登录可接入人机验证（Cap）：设置页填好自建实例后，获取验证码和提交登录都要先过一道验证</li>
             <li><b>v1.4</b> 左侧导航三端响应式布局、学习进度仪表盘、数学解题挑战、AI 讲题老师</li>
             <li data-page-node-id="XNVfTYUHhkKkrHtQuYAiKb"><b data-page-node-id="hhD7K82gUGLgHFAabnuvdq">v1.3</b> 四种登录方式（手机验证码 / 邮箱 / 微信 / WorkBuddy）、设置页、数据导出导入</li>
             <li data-page-node-id="WYvdzPEmKBCEexLNkIdCuK"><b data-page-node-id="MmJujc1bBgvdLO2jmg9TGh">v1.2</b> 按年级 + 教材隔离、数学错题本、知识抽题复习</li>
@@ -4784,8 +4868,87 @@
     if (strict) strict.checked = p.strictCase;
 
     renderSettingsAccount();
+    renderSettingsCap();
     renderSettingsData();
     renderSettingsAbout();
+  }
+
+  /* ---------- 人机验证（Cap）配置块 ---------- */
+  function renderSettingsCap() {
+    const cfg = capConfig();
+    const enabled = $("#setCapEnabled");
+    if (enabled) enabled.checked = cfg.enabled === true;
+    const endpoint = $("#setCapEndpoint");
+    if (endpoint) endpoint.value = cfg.endpoint || "";
+    const secret = $("#setCapSecret");
+    if (secret) secret.value = cfg.secret || "";
+    const note = $("#setCapNote");
+    if (note) {
+      note.textContent = capEnabled()
+        ? "已启用：登录、注册、获取验证码前都要先过一次验证。"
+        : "还没启用：填好实例地址和 secret key，勾上开关并保存后才会生效。";
+    }
+  }
+
+  function capValidateInput() {
+    const endpointEl = $("#setCapEndpoint");
+    const secretEl = $("#setCapSecret");
+    const endpoint = String((endpointEl && endpointEl.value) || "").trim();
+    const secret = String((secretEl && secretEl.value) || "").trim();
+    const setErr = (el, text) => { if (el) el.textContent = text || ""; };
+    let ok = true;
+    setErr($("#setCapEndpointError"), "");
+    setErr($("#setCapSecretError"), "");
+    if (endpoint && !/^https?:\/\/.+/i.test(endpoint)) {
+      setErr($("#setCapEndpointError"), "要以 http(s):// 开头");
+      ok = false;
+    }
+    if (secret && !secret.startsWith("sk-")) {
+      setErr($("#setCapSecretError"), "secret key 一般以 sk- 开头");
+      ok = false;
+    }
+    return { ok, endpoint, secret };
+  }
+
+  function saveCapSettings() {
+    const check = capValidateInput();
+    if (!check.ok) return null;
+    const enabledEl = $("#setCapEnabled");
+    capSaveConfig({
+      enabled: enabledEl ? enabledEl.checked === true : false,
+      endpoint: check.endpoint,
+      secret: check.secret
+    });
+    renderSettingsCap();
+    return capConfig();
+  }
+
+  // 探一下实例通不通：故意不带有效 token，服务端会回 success:false，
+  // 但只要能拿到 JSON，就说明地址、网络、site key 都是对的
+  async function testCapConnection() {
+    const note = $("#setCapNote");
+    const check = capValidateInput();
+    if (!check.ok || !check.endpoint) {
+      if (note) note.textContent = "先填好实例地址再测试";
+      return false;
+    }
+    if (note) note.textContent = "正在连接…";
+    const base = check.endpoint.endsWith("/") ? check.endpoint : check.endpoint + "/";
+    try {
+      const response = await fetch(base + "siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ secret: check.secret, response: "connectivity-test" })
+      });
+      const data = await response.json();
+      if (note) {
+        note.textContent = "连上了（HTTP " + response.status + "，返回 " + JSON.stringify(data).slice(0, 80) + "）";
+      }
+      return true;
+    } catch (error) {
+      if (note) note.textContent = "连不上：" + errorText(error, "请求失败");
+      return false;
+    }
   }
 
   // 同一个账户块会被渲染两次：设置页一份、账户页一份，所以按传入的容器渲染
@@ -9450,6 +9613,17 @@
       });
     }
 
+    const capSave = $("#setCapSave");
+    if (capSave) {
+      capSave.addEventListener("click", () => {
+        playClick();
+        const saved = saveCapSettings();
+        if (saved) toast("人机验证配置已保存");
+      });
+    }
+    const capTest = $("#setCapTest");
+    if (capTest) capTest.addEventListener("click", () => { playClick(); testCapConnection(); });
+
     const wipe = $("#setWipe");
     if (wipe) wipe.addEventListener("click", () => { playClick(); wipeLocalData(); });
 
@@ -9944,6 +10118,186 @@
     return message;
   }
 
+  /* =========================================================
+     人机验证（Cap）
+     ---------------------------------------------------------
+     Cap 是开源、可自托管的 reCAPTCHA 替代：一层工作量证明（WASM 里解 SHA-256 /
+     时间锁），一层服务端动态生成的浏览器环境检测。官网 https://trycap.dev/zh/
+
+     配置存在 localStorage，默认关闭 —— 没填自建实例时整段逻辑等于不存在，
+     不会给登录流程添任何负担。
+
+     ⚠️ 安全须知：这是纯静态站点、没有自建后端，所以 /siteverify 只能从浏览器
+     直接发，secret key 也就随请求出去了。上线前请把这一步挪到你自己的服务端，
+     并给本站点单独建一个 site key。见设置页里的提示。
+     ========================================================= */
+  const CAP_STORE_KEY = "studyHubCap.v1";
+  const CAP_WIDGET_VERSION = "0.1.58";   // widget 版本要 pin，不 pin 是常见故障源
+  const CAP_DEFAULTS = { enabled: false, endpoint: "", secret: "" };
+
+  const capState = { config: null, token: null, scriptPromise: null, widget: null, busy: false };
+
+  function capConfig() {
+    if (capState.config) return capState.config;
+    let saved = {};
+    try { saved = JSON.parse(readStored(CAP_STORE_KEY) || "{}") || {}; } catch (error) { saved = {}; }
+    capState.config = {
+      enabled: saved.enabled === true,
+      endpoint: typeof saved.endpoint === "string" ? saved.endpoint.trim() : "",
+      secret: typeof saved.secret === "string" ? saved.secret.trim() : ""
+    };
+    return capState.config;
+  }
+
+  function capSaveConfig(next) {
+    capState.config = { ...CAP_DEFAULTS, ...(next || {}) };
+    try { localStorage.setItem(CAP_STORE_KEY, JSON.stringify(capState.config)); } catch (error) { /* 配额满则忽略 */ }
+    capResetWidget();
+    return capState.config;
+  }
+
+  function capEnabled() {
+    const cfg = capConfig();
+    return cfg.enabled === true && Boolean(cfg.endpoint) && Boolean(cfg.secret);
+  }
+
+  // 端点必须以 / 结尾，siteverify 直接拼在后面
+  function capEndpoint() {
+    const raw = (capConfig().endpoint || "").trim();
+    if (!raw) return "";
+    return raw.endsWith("/") ? raw : raw + "/";
+  }
+
+  function capSiteverifyUrl() {
+    const base = capEndpoint();
+    return base ? base + "siteverify" : "";
+  }
+
+  function capScriptUrl() {
+    return "https://cdn.jsdelivr.net/npm/cap-widget@" + CAP_WIDGET_VERSION;
+  }
+
+  function capSetNote(text, isError) {
+    const note = $("#authCapNote");
+    if (!note) return;
+    note.textContent = text || "";
+    note.classList.toggle("error", Boolean(isError));
+  }
+
+  function capLoadScript() {
+    if (typeof customElements !== "undefined" && customElements.get && customElements.get("cap-widget")) {
+      return Promise.resolve(true);
+    }
+    if (capState.scriptPromise) return capState.scriptPromise;
+    capState.scriptPromise = new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.type = "module";
+      script.src = capScriptUrl();
+      script.onload = () => resolve(true);
+      script.onerror = () => { capState.scriptPromise = null; resolve(false); };
+      document.head.appendChild(script);
+    });
+    return capState.scriptPromise;
+  }
+
+  // token 单次使用：服务端验证时会把它删掉，本地也必须立刻清掉并换一个新的
+  function capResetWidget() {
+    capState.token = null;
+    if (capState.widget) {
+      try { capState.widget.remove(); } catch (error) { /* 已不在文档里 */ }
+    }
+    capState.widget = null;
+    const slot = $("#authCapSlot");
+    if (slot) slot.innerHTML = "";
+  }
+
+  async function capMount() {
+    const wrap = $("#authCapWrap");
+    const slot = $("#authCapSlot");
+    if (!wrap || !slot) return false;
+    if (!capEnabled()) {
+      wrap.hidden = true;
+      return false;
+    }
+    wrap.hidden = false;
+    if (capState.widget) return true;
+
+    const loaded = await capLoadScript();
+    if (!loaded) {
+      capSetNote("验证组件没加载出来，检查下网络或换个 CDN", true);
+      return false;
+    }
+    const widget = document.createElement("cap-widget");
+    widget.setAttribute("data-cap-api-endpoint", capEndpoint());
+    widget.setAttribute("data-cap-i18n-initial-state", "点一下，证明你不是机器人");
+    widget.setAttribute("data-cap-i18n-verifying-label", "正在验证…");
+    widget.setAttribute("data-cap-i18n-solved-label", "验证通过，可以提交了");
+    widget.setAttribute("data-cap-i18n-error-label", "验证失败，点一下重试");
+    widget.setAttribute("data-cap-i18n-verified-aria-label", "已完成人机验证");
+    widget.addEventListener("solve", (event) => {
+      capState.token = (event.detail || {}).token || null;
+      capSetNote(capState.token ? "验证通过，可以提交了" : "", false);
+    });
+    widget.addEventListener("error", (event) => {
+      capState.token = null;
+      capSetNote(((event.detail || {}).message) || "验证失败，点一下重试", true);
+    });
+    widget.addEventListener("reset", () => { capState.token = null; });
+    slot.appendChild(widget);
+    capState.widget = widget;
+    return true;
+  }
+
+  /**
+   * 用掉一次人机验证：拿本地 token 去服务端换结果。
+   * 返回 { ok, skipped?, needSolve?, error? }。
+   * 不启用时直接 { ok:true, skipped:true }，对调用方完全透明。
+   */
+  async function capConsume(actionLabel) {
+    if (!capEnabled()) return { ok: true, skipped: true };
+    if (capState.busy) return { ok: false, error: "正在验证，稍等一下" };
+
+    if (!capState.token) {
+      const wrap = $("#authCapWrap");
+      if (wrap) wrap.classList.add("is-required");
+      capSetNote("先点一下上面的人机验证，再" + (actionLabel || "继续"), true);
+      return { ok: false, needSolve: true };
+    }
+
+    const token = capState.token;
+    capState.busy = true;
+    capSetNote("正在验证…", false);
+    try {
+      const response = await fetch(capSiteverifyUrl(), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ secret: capConfig().secret, response: token })
+      });
+      const data = await response.json();
+      // 失败即关闭：拿不到明确的 success 一律拒绝，绝不放行
+      if (!response.ok || !data || data.success !== true) {
+        capResetWidget();
+        capSetNote("人机验证没通过，请重新点一次", true);
+        await capMount();
+        return { ok: false, error: "人机验证未通过" };
+      }
+    } catch (error) {
+      capResetWidget();
+      capSetNote("连不上验证服务，请稍后再试", true);
+      await capMount();
+      return { ok: false, error: "验证服务不可用" };
+    } finally {
+      capState.busy = false;
+    }
+
+    capResetWidget();
+    capSetNote("", false);
+    const wrap = $("#authCapWrap");
+    if (wrap) wrap.classList.remove("is-required");
+    await capMount();       // 换新组件，下一次操作要重新解
+    return { ok: true };
+  }
+
   async function sendLoginCode() {
     if (!authAvailable()) {
       setAuthMessage("error", "云服务暂时不可用，本机学习不受影响");
@@ -9951,6 +10305,14 @@
     }
     const id = currentIdentifier();
     if (!validateIdentifier(id)) return;
+
+    // 先过人机验证，再发短信/邮件 —— 这是 Cap 最典型的用法：挡住刷验证码
+    await capMount();
+    const cap = await capConsume("获取验证码");
+    if (!cap.ok) {
+      setAuthMessage("error", cap.error || "请先完成上面的人机验证");
+      return;
+    }
 
     const button = $("#authSendCode");
     button.disabled = true;
@@ -9988,6 +10350,14 @@
     if (password.length < 6) {
       $("#authPasswordError").textContent = "密码至少 6 位";
       $("#authPassword").classList.add("invalid");
+      return;
+    }
+
+    // 提交登录 / 注册前再过一次人机验证（token 单次使用，每次都要重新解）
+    await capMount();
+    const cap = await capConsume(authState.mode === "signup" ? "提交注册" : "提交登录");
+    if (!cap.ok) {
+      setAuthMessage("error", cap.error || "请先完成上面的人机验证");
       return;
     }
 
@@ -10235,6 +10605,11 @@
     panel.hidden = !authState.panelOpen;
     $("#accountSignedOut").hidden = signedIn;
     $("#accountSignedIn").hidden = !signedIn;
+
+    // 人机验证只在未登录、面板打开时出现；没配置就整个藏起来
+    const capWrap = $("#authCapWrap");
+    if (capWrap) capWrap.hidden = signedIn || !capEnabled();
+    if (!signedIn && authState.panelOpen) capMount();
 
     const title = $("#accountPanelTitle");
     if (title) title.textContent = signedIn ? "学习进度已同步" : "登录学习通";
@@ -10550,6 +10925,22 @@
       },
       paperPrintCount: () => paperPrintCount,
       printAnswerSheet,
+      // 人机验证（Cap）
+      capConfig,
+      capSaveConfig,
+      capEnabled,
+      capEndpoint,
+      capSiteverifyUrl,
+      capScriptUrl,
+      capConsume,
+      capMount,
+      capResetWidget,
+      capValidateInput,
+      saveCapSettings,
+      setCapToken: (token) => { capState.token = token || null; return capState.token; },
+      getCapToken: () => capState.token,
+      getCapWidget: () => capState.widget,
+      renderSettingsCap,
       // 答案纸：单独一张纸模式下的独立区块
       getAnswerSheet: () => {
         const box = $("#paperAnswerSheet");

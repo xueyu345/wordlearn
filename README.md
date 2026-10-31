@@ -276,7 +276,8 @@ tools/
   test-settings.js      # 设置页：偏好、备份、清空数据
   test-dashboard.js     # 学习进度仪表盘：快照、渲染、转义
   test-solve.js         # 数学解题挑战：出题、判定、收错题
-  test-paper.js         # 错题试卷：组卷、作答、判分、回写错题本、打印，59 项断言
+  test-paper.js         # 错题试卷：组卷、作答、判分、回写错题本、打印，72 项断言
+  test-cap.js           # 人机验证（Cap）：配置、端点规范化、token 校验与失败即关闭，59 项断言
   test-tutor.js         # AI 讲题老师：提示词、流式渲染、错题跳转、限流、看门狗与降级
 ```
 
@@ -353,7 +354,8 @@ node tools/test-auth.js    # 登录 + 云同步（mock 云服务 SDK，不联网
 node tools/test-settings.js # 设置页：偏好、备份、清空数据，59 项断言
 node tools/test-dashboard.js # 学习进度仪表盘：快照、渲染、转义，81 项断言
 node tools/test-solve.js    # 数学解题挑战：出题、判定、收错题，69 项断言
-node tools/test-paper.js    # 错题试卷：组卷、作答、判分、回写错题本、打印，59 项断言
+node tools/test-paper.js    # 错题试卷：组卷、作答、判分、回写错题本、打印，72 项断言
+node tools/test-cap.js      # 人机验证（Cap）：配置、端点规范化、token 校验与失败即关闭，59 项断言
 node tools/test-tutor.js    # AI 讲题老师：提示词、流式渲染、错题跳转、限流、看门狗与降级，78 项断言
 ```
 
