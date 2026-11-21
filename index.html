@@ -3116,6 +3116,7 @@
 <script src="daily-workbench.js"></script>
 <script src="pet-badges.js"></script>
 <script src="parent-center.js"></script>
+<script src="study-groups.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js" crossorigin="anonymous" data-page-node-id="FhjwsCuxarLXIolYRDxHPT"></script></head>
 <body data-page-node-id="Xj856siIFq6D4JdIUrU7Hv" style="position: relative;">
 <div class="app-shell">
@@ -4436,6 +4437,12 @@
   }
 
   const cloud = createCloudClient();
+  // 供独立功能模块复用已登录的云客户端，避免重复初始化认证会话
+  window.WordlearnStudyGroups = {
+    cloud,
+    getGrade: () => currentGrade,
+    getUser: () => (typeof authState === "undefined" ? null : authState.user)
+  };
 
   /* =========================================================
      年级与教材版本：内容与学习档案都按「年级 + 教材」隔离
