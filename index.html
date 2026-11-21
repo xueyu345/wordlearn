@@ -9115,10 +9115,11 @@
   // 切换档案后当前页面数据已不同，回到该学科的首页最稳妥
   function goSubjectHome(inMath) {
     const hash = location.hash || "#/home";
+    const inChinesePage = hash.indexOf("#/chinese") === 0;
     const inMathPage = inMath !== undefined
       ? inMath
       : (hash.indexOf("#/math") === 0 || hash.indexOf("#/home/math") === 0);
-    location.hash = inMathPage ? "#/home/math" : "#/home/en";
+    location.hash = inChinesePage ? "#/chinese" : (inMathPage ? "#/home/math" : "#/home/en");
     route();
   }
 
