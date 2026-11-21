@@ -141,10 +141,12 @@
   const search = document.addEventListener("input", (event) => {
     if (event.target && event.target.id === "cnSearch") renderCharacters();
   });
-  const gradeSelect = $("#gradeSelect");
-  if (gradeSelect) gradeSelect.addEventListener("change", () => {
-    if (location.hash.startsWith("#/chinese")) renderChineseZone();
-  });
+  document.addEventListener("DOMContentLoaded", () => {
+    const gradeSelect = $("#gradeSelect");
+    if (gradeSelect) gradeSelect.addEventListener("change", () => {
+      if (location.hash.startsWith("#/chinese")) renderChineseZone();
+    });
+  }, { once: true });
   window.renderChineseZone = renderChineseZone;
   if (location.hash.startsWith("#/chinese")) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", renderChineseZone, { once: true });
