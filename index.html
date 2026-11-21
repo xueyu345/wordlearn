@@ -2314,6 +2314,67 @@
   .review-analysis ol { margin: 6px 0 0; padding-left: 20px; }
   .review-analysis li { font-size: 13.5px; line-height: 1.9; }
 
+
+  /* ---------- 人教版语文专区：沿用学习通暖色卡片风格 ---------- */
+  .chinese-stamp { padding: 8px 13px; border-radius: 99px; background: #FFF0D8; color: #A66B2D; font-size: 11px; font-weight: 800; white-space: nowrap; }
+  .chinese-intro { display: flex; align-items: center; gap: 15px; margin: 12px 0 16px; padding: 20px; border: 1px solid #F3E4D0; border-radius: 22px; background: linear-gradient(120deg,#FFF2D9,#FFFDF8 65%,#F2EEFF); box-shadow: var(--shadow-sm); }
+  .chinese-intro-icon { width: 54px; height: 54px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 17px; background: #fff; font-size: 27px; box-shadow: 0 5px 0 #F1DDBF; }
+  .chinese-intro h2 { font-size: 17px; line-height: 1.5; }
+  .chinese-intro p { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+  .chinese-tabs { display: flex; gap: 8px; padding: 5px; margin-bottom: 13px; border-radius: 17px; background: rgba(255,255,255,.72); border: 1px solid var(--line); }
+  .chinese-tab { flex: 1; min-height: 42px; padding: 7px 10px; border-radius: 13px; color: var(--muted); font-size: 13px; font-weight: 800; }
+  .chinese-tab.active { color: #fff; background: linear-gradient(135deg,var(--orange),#FF6F61); box-shadow: 0 4px 0 #D95732; }
+  .chinese-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0; }
+  .chinese-search { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 440px; height: 43px; padding: 0 13px; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; color: var(--muted); }
+  .chinese-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 13px; }
+  .chinese-count { color: var(--muted); font-size: 11px; font-weight: 800; white-space: nowrap; }
+  .chinese-tip { margin: 8px 0 13px; padding: 11px 14px; border-radius: 13px; background: #F5F1FF; color: #6A568B; font-size: 11.5px; line-height: 1.6; }
+  .chinese-card-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(145px,1fr)); gap: 12px; }
+  .cn-char-card { position: relative; min-height: 176px; padding: 13px; border: 1px solid var(--line); border-radius: 19px; background: #fff; box-shadow: var(--shadow-sm); text-align: center; transition: transform .18s ease,box-shadow .18s ease; }
+  .cn-char-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .cn-char-card.mastered { border-color: #BDE9D3; background: linear-gradient(160deg,#fff,#F0FFF6); }
+  .cn-char-main { font-size: 48px; line-height: 1.2; font-weight: 900; color: #5D4AC8; }
+  .cn-char-pinyin { margin-top: 4px; color: #D97735; font-size: 13px; font-weight: 800; }
+  .cn-char-meta { margin-top: 7px; color: var(--muted); font-size: 10.5px; }
+  .cn-char-words { margin-top: 8px; color: var(--ink); font-size: 12px; font-weight: 800; }
+  .cn-char-example { margin-top: 5px; color: #8B7F9B; font-size: 10.5px; line-height: 1.5; }
+  .cn-char-actions { display: flex; justify-content: center; gap: 7px; margin-top: 10px; }
+  .cn-mini-btn { min-height: 29px; padding: 0 9px; border-radius: 9px; background: #F5F1FF; color: #6A568B; font-size: 10.5px; font-weight: 800; }
+  .cn-mini-btn.done { background: #E6F8EE; color: #258A59; }
+  .chinese-sentence-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 12px; }
+  .cn-sentence-card { padding: 17px; border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: var(--shadow-sm); }
+  .cn-sentence-card p { font-size: 15px; line-height: 1.9; font-weight: 700; }
+  .cn-sentence-card small { display: block; margin-top: 8px; color: var(--muted); font-size: 10.5px; }
+  .cn-sentence-card button { margin-top: 11px; padding: 7px 11px; border-radius: 10px; background: #FFF2DF; color: #A66B2D; font-size: 11px; font-weight: 800; }
+  .chinese-practice-card,.chinese-history-card { padding: 20px; border: 1px solid var(--line); border-radius: 21px; background: #fff; box-shadow: var(--shadow-sm); }
+  .chinese-kicker { color: #C27A35; font-size: 10px; font-weight: 900; letter-spacing: .1em; }
+  .chinese-practice-card h2 { margin-top: 7px; font-size: 19px; }
+  .chinese-practice-card > p { margin-top: 7px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .chinese-word-prompt { display: inline-flex; margin: 15px 0; padding: 10px 18px; border-radius: 14px; background: #F0ECFF; color: #6753D3; font-size: 23px; font-weight: 900; }
+  .chinese-answer-label { display: block; margin-bottom: 7px; font-size: 12px; font-weight: 800; }
+  .chinese-practice-card textarea { width: 100%; min-height: 90px; padding: 12px; border: 1.5px solid var(--line); border-radius: 14px; background: #FFFCF6; resize: vertical; font: inherit; font-size: 13px; line-height: 1.7; }
+  .chinese-practice-actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 12px; }
+  .chinese-practice-actions .btn { min-height: 42px; font-size: 13px; }
+  .chinese-save-note { min-height: 18px; }
+  .chinese-history-card { margin-top: 14px; }
+  .chinese-history-card h3 { font-size: 15px; }
+  .cn-history-item { margin-top: 10px; padding: 11px 13px; border-radius: 12px; background: #FFF8EE; font-size: 12px; line-height: 1.7; }
+  .cn-history-item small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+  .chinese-empty { margin-top: 10px; color: var(--muted); font-size: 12px; }
+  .chinese-disclaimer { margin-top: 18px; color: #9B8E7F; font-size: 10.5px; line-height: 1.7; }
+  @media (max-width: 600px) {
+    .chinese-intro { padding: 15px; gap: 11px; }
+    .chinese-intro-icon { width: 44px; height: 44px; font-size: 22px; }
+    .chinese-intro h2 { font-size: 14px; }
+    .chinese-tabs { gap: 4px; }
+    .chinese-tab { padding: 7px 4px; font-size: 11px; }
+    .chinese-card-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+    .cn-char-card { min-height: 166px; padding: 10px 7px; }
+    .cn-char-main { font-size: 42px; }
+    .chinese-toolbar { align-items: flex-start; flex-direction: column; }
+    .chinese-search { width: 100%; max-width: none; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: .01ms !important;
@@ -3051,6 +3112,7 @@
 </style>
 <style id="__dm_no_drag_style__" data-page-node-id="DjddPwycsJIsDW85cPAEVz">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__" data-page-node-id="tR3N1vklkz7VWMSkL0P5Yi">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style><!-- 云服务 SDK（CDN 形式，暴露全局 WorkBuddyCloud）；主脚本在其后执行，初始化时机由 boot 保证 -->
 <script src="math-problems.js" data-page-node-id="mpbank"></script>
+<script src="chinese-zone.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js" crossorigin="anonymous" data-page-node-id="FhjwsCuxarLXIolYRDxHPT"></script></head>
 <body data-page-node-id="Xj856siIFq6D4JdIUrU7Hv" style="position: relative;">
 <div class="app-shell">
@@ -3078,6 +3140,11 @@
         <span class="side-ico" aria-hidden="true">➗</span>
         <span class="side-label">数学</span>
         <span class="side-sub" id="sideMathHint">错题本</span>
+      </button>
+      <button class="side-item" type="button" data-nav="chinese" aria-label="语文" title="语文">
+        <span class="side-ico" aria-hidden="true">📚</span>
+        <span class="side-label">语文</span>
+        <span class="side-sub">生字 · 语句</span>
       </button>
       <button class="side-item" type="button" data-nav="paper" aria-label="错题试卷" title="错题试卷">
         <span class="side-ico" aria-hidden="true">📝</span>
@@ -3792,6 +3859,56 @@
         </div>
       </div>
     </div>
+  </section>
+
+
+  <!-- ================= 人教版语文专区 ================= -->
+  <section class="view" id="view-chinese">
+    <div class="mode-top settings-top">
+      <div class="mode-title">
+        <strong>📚 语文学习园地</strong>
+        <small id="chineseGradeNote">人教版 · 同步练习</small>
+      </div>
+      <span class="chinese-stamp">识字 · 积累 · 表达</span>
+    </div>
+    <div class="chinese-intro">
+      <div class="chinese-intro-icon">✏️</div>
+      <div><h2>每天认识几个字，写出自己的好句子</h2><p>跟随左侧年级切换内容，练习进度保存在当前设备。</p></div>
+    </div>
+    <div class="chinese-tabs" role="tablist" aria-label="语文学习内容">
+      <button class="chinese-tab active" type="button" data-cn-tab="characters" role="tab" aria-selected="true">🧩 生字学习</button>
+      <button class="chinese-tab" type="button" data-cn-tab="sentences" role="tab" aria-selected="false">📝 词语与语句</button>
+      <button class="chinese-tab" type="button" data-cn-tab="practice" role="tab" aria-selected="false">🌱 仿写练习</button>
+    </div>
+    <div class="chinese-toolbar">
+      <label class="chinese-search"><span aria-hidden="true">🔎</span><input id="cnSearch" type="search" placeholder="搜索汉字、拼音或词语…" autocomplete="off"></label>
+      <span class="chinese-count" id="cnCount">正在准备内容…</span>
+    </div>
+    <div id="cnCharacters" class="chinese-panel">
+      <div class="chinese-tip">点汉字卡片查看拼音、部首和组词，也可以点击 🔊 听读音。</div>
+      <div class="chinese-card-grid" id="cnCharacterGrid"></div>
+    </div>
+    <div id="cnSentences" class="chinese-panel" hidden>
+      <div class="chinese-tip">这些是配合识字与表达训练编写的原创例句，不是课文原文。</div>
+      <div class="chinese-sentence-list" id="cnSentenceList"></div>
+    </div>
+    <div id="cnPractice" class="chinese-panel" hidden>
+      <div class="chinese-practice-card">
+        <span class="chinese-kicker">今日表达练习</span>
+        <h2 id="cnPromptTitle">试着用一个词语写句子</h2>
+        <p id="cnPromptText">选择下面的提示，写出自己的句子吧。</p>
+        <div class="chinese-word-prompt" id="cnPromptWord">认真</div>
+        <label class="chinese-answer-label" for="cnAnswer">我的句子</label>
+        <textarea id="cnAnswer" rows="3" maxlength="160" placeholder="例如：我认真地完成了今天的阅读任务。"></textarea>
+        <div class="chinese-practice-actions">
+          <button class="btn btn-soft" type="button" id="cnNewPrompt">换一个提示</button>
+          <button class="btn btn-primary" type="button" id="cnSaveAnswer">保存练习</button>
+        </div>
+        <p class="chinese-save-note" id="cnPracticeNote" aria-live="polite">写完后可以保存，练习记录只保存在本机。</p>
+      </div>
+      <div class="chinese-history-card"><h3>📒 我的表达记录</h3><div id="cnHistory"><p class="chinese-empty">还没有保存的句子，写下第一句吧！</p></div></div>
+    </div>
+    <p class="chinese-disclaimer">内容说明：本专区首版提供人教版年级学习方向的基础练习示例，并非人民教育出版社完整官方生字表或课文汇编。例句为原创练习内容。</p>
   </section>
 
   <!-- ================= 学习进度仪表盘 ================= -->
@@ -8891,6 +9008,10 @@
       if (!lastResult) { goEnglishHome(); return; }
       showView("result");
       renderResult();
+    } else if (view === "chinese") {
+      showView("chinese");
+      if (window.renderChineseZone) window.renderChineseZone();
+      setTitle("语文专区");
     } else if (view === "paper") {
       showView("paper");
       if (paperSession) {
@@ -8994,10 +9115,11 @@
   // 切换档案后当前页面数据已不同，回到该学科的首页最稳妥
   function goSubjectHome(inMath) {
     const hash = location.hash || "#/home";
+    const inChinesePage = hash.indexOf("#/chinese") === 0;
     const inMathPage = inMath !== undefined
       ? inMath
       : (hash.indexOf("#/math") === 0 || hash.indexOf("#/home/math") === 0);
-    location.hash = inMathPage ? "#/home/math" : "#/home/en";
+    location.hash = inChinesePage ? "#/chinese" : (inMathPage ? "#/home/math" : "#/home/en");
     route();
   }
 
@@ -9301,6 +9423,7 @@
     en: ["home-en", "unit", "learn", "quiz", "spell", "match", "wrong", "result"],
     math: ["home-math", "math-add", "math-solve", "math-review"],
     paper: ["paper"],
+    chinese: ["chinese"],
     account: ["account"],
     settings: ["settings"]
   };
@@ -9368,6 +9491,7 @@
       en: "#/home/en",
       math: "#/home/math",
       paper: "#/paper",
+      chinese: "#/chinese",
       account: "#/account",
       settings: "#/settings"
     };
