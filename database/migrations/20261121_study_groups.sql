@@ -51,7 +51,7 @@ begin
   end if;
 
   loop
-    v_code := upper(substr(encode(gen_random_bytes(8), 'hex'), 1, 8));
+    v_code := upper(substr(md5(random()::text || clock_timestamp()::text), 1, 8));
     exit when not exists (select 1 from public.study_groups g where g.invite_code = v_code);
   end loop;
 
