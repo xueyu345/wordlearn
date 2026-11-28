@@ -3134,6 +3134,7 @@
 <script src="pet-badges.js"></script>
 <script src="parent-center.js"></script>
 <script src="study-groups.js"></script>
+<script src="classroom.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js" crossorigin="anonymous" data-page-node-id="FhjwsCuxarLXIolYRDxHPT"></script>
 <style id="wordlearn-subject-pages-refresh">
   /* 学科页面统一视觉：统一卡片节奏，保留原有 DOM、路由与交互 */
@@ -3261,6 +3262,11 @@
         <span class="side-ico" aria-hidden="true">📝</span>
         <span class="side-label">错题试卷</span>
         <span class="side-sub">错题汇总成卷</span>
+      </button>
+      <button class="side-item" type="button" data-nav="classroom" aria-label="班级与作业" title="班级与作业">
+        <span class="side-ico" aria-hidden="true">🏫</span>
+        <span class="side-label">班级作业</span>
+        <span class="side-sub">老师发布 · 学生完成</span>
       </button>
     </nav>
 
@@ -4479,6 +4485,17 @@
       </section>
     </div>
   </section>
+
+  <section class="view" id="view-classroom">
+    <div class="mode-top settings-top">
+      <a class="back-btn" href="#/home" aria-label="返回学习仪表盘">←</a>
+      <div class="mode-title">
+        <strong>班级作业</strong>
+        <small>老师建班发布作业，学生凭班级码加入</small>
+      </div>
+    </div>
+    <div class="settings-body" id="classroomRoot" aria-live="polite"></div>
+  </section>
 </main>
   </div>
 </div>
@@ -4523,7 +4540,14 @@
   window.WordlearnStudyGroups = {
     cloud,
     getGrade: () => currentGrade,
-    getUser: () => (typeof authState === "undefined" ? null : authState.user)
+    getUser: () => (typeof authState === "undefined" ? null : authState.user),
+    openLogin: () => {
+      authState.panelOpen = true;
+      authState.mode = "login";
+      renderAccountPanel();
+      const field = $("#authEmail");
+      if (field) field.focus();
+    }
   };
 
   /* =========================================================
@@ -9023,12 +9047,16 @@
     }
     if (!mathViews.includes(view) && view !== "home" && !englishViews.includes(view)
       && view !== "settings" && view !== "dashboard" && view !== "tutor" && view !== "account"
-      && view !== "paper" && view !== "chinese") {
+      && view !== "paper" && view !== "chinese" && view !== "classroom") {
       goHome();
       return;
     }
 
-    if (view === "tutor") {
+    if (view === "classroom") {
+      showView("classroom");
+      if (window.WordlearnClassroom) window.WordlearnClassroom.render();
+      setTitle("班级作业");
+    } else if (view === "tutor") {
       showView("tutor");
       renderTutor();
       setTitle("AI 讲题老师");
@@ -9517,6 +9545,7 @@
     math: ["home-math", "math-add", "math-solve", "math-review"],
     paper: ["paper"],
     chinese: ["chinese"],
+    classroom: ["classroom"],
     account: ["account"],
     settings: ["settings"]
   };
@@ -9585,6 +9614,7 @@
       math: "#/home/math",
       paper: "#/paper",
       chinese: "#/chinese",
+      classroom: "#/classroom",
       account: "#/account",
       settings: "#/settings"
     };
@@ -10740,7 +10770,13 @@
   }
 
   /* ---------- 账号面板渲染 ---------- */
+  let lastBroadcastUserKey;
   function renderAccountPanel() {
+    const userKey = authState.user ? identifierOf(authState.user) || "signed-in" : "";
+    if (userKey !== lastBroadcastUserKey && typeof CustomEvent === "function" && window.dispatchEvent) {
+      lastBroadcastUserKey = userKey;
+      window.dispatchEvent(new CustomEvent("wordlearn:auth-change", { detail: { signedIn: Boolean(userKey) } }));
+    }
     const button = $("#accountBtn");
     const panel = $("#accountPanel");
     if (!button || !panel) return;
