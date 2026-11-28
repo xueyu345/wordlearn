@@ -10501,12 +10501,16 @@
     }
 
     const button = $("#authSendCode");
-    button.disabled = true;
-    button.textContent = "发送中…";
+    if (button) {
+      button.disabled = true;
+      button.textContent = "发送中…";
+    }
     // sendOtp 的 email / phone 互斥，只能二选一传
     const sent = await cloud.auth.sendOtp(id.kind === "phone" ? { phone: id.value } : { email: id.value });
-    button.disabled = false;
-    button.textContent = "重新发送";
+    if (button) {
+      button.disabled = false;
+      button.textContent = "重新发送";
+    }
     if (sent.error) {
       setAuthMessage("error", errorText(sent.error, "验证码没发出去，稍后再试"));
       return;
@@ -10519,7 +10523,8 @@
     setAuthMessage("ok", id.kind === "phone"
       ? "验证码已发送，注意查收短信"
       : "验证码已发送，请查收邮箱（含垃圾箱）");
-    $("#authCode").focus();
+    const codeInput = $("#authCode");
+    if (codeInput) codeInput.focus();
   }
 
   async function submitAuth() {
@@ -10710,11 +10715,18 @@
     toast("已退出登录");
   }
 
+  function clearAuthFieldErrors(ids) {
+    ids.forEach((id) => {
+      const el = $("#" + id);
+      if (el) el.textContent = "";
+    });
+  }
+
   function switchAuthMode(mode) {
     authState.mode = mode;
     authState.message = null;
     authState.pendingOtp = null;
-    $("#authCodeError").textContent = "";
+    clearAuthFieldErrors(["authCodeError", "authEmailError", "authPasswordError"]);
     renderAccountPanel();
   }
 
@@ -10723,9 +10735,7 @@
     authState.channel = channel;
     authState.message = null;
     authState.pendingOtp = null;
-    $("#authCodeError").textContent = "";
-    $("#authEmailError").textContent = "";
-    $("#authPhoneError").textContent = "";
+    clearAuthFieldErrors(["authCodeError", "authEmailError", "authPhoneError", "authPasswordError"]);
     renderAccountPanel();
   }
 
